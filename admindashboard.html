@@ -1152,13 +1152,155 @@
             };
             
             localStorage.setItem('rajveerWebsiteSettings', JSON.stringify(settings));
-            alert('✅ Website settings saved successfully!');
+            
+            // Apply settings to the website immediately
+            applyWebsiteSettings(settings);
+            
+            alert('✅ Website settings saved successfully! Changes are now live on your website.');
+        }
+
+        // Apply Website Settings to the actual website
+        function applyWebsiteSettings(settings) {
+            // Apply to main website
+            const mainWebsiteSettings = {
+                websiteName: settings.websiteName,
+                websiteTagline: settings.websiteTagline,
+                contactEmail: settings.contactEmail,
+                contactPhone: settings.contactPhone,
+                websiteDescription: settings.websiteDescription,
+                primaryColor: settings.primaryColor,
+                secondaryColor: settings.secondaryColor,
+                theme: settings.theme,
+                enableRegistration: settings.enableRegistration,
+                enableReviews: settings.enableReviews,
+                enableWishlist: settings.enableWishlist,
+                enableNewsletter: settings.enableNewsletter,
+                enableCoupons: settings.enableCoupons,
+                maintenanceMode: settings.maintenanceMode,
+                metaTitle: settings.metaTitle,
+                metaDescription: settings.metaDescription,
+                metaKeywords: settings.metaKeywords,
+                facebookUrl: settings.facebookUrl,
+                instagramUrl: settings.instagramUrl,
+                twitterUrl: settings.twitterUrl,
+                youtubeUrl: settings.youtubeUrl,
+                customCSS: settings.customCSS,
+                customJS: settings.customJS,
+                googleAnalyticsId: settings.googleAnalyticsId
+            };
+            
+            // Save to main website settings
+            localStorage.setItem('rajveerMainWebsiteSettings', JSON.stringify(mainWebsiteSettings));
+            
+            // Apply CSS variables for colors
+            document.documentElement.style.setProperty('--primary-color', settings.primaryColor);
+            document.documentElement.style.setProperty('--secondary-color', settings.secondaryColor);
+            
+            // Apply theme
+            applyTheme(settings.theme);
+            
+            // Apply custom CSS
+            applyCustomCSS(settings.customCSS);
+            
+            // Apply custom JS
+            applyCustomJS(settings.customJS);
+            
+            // Update page title and meta tags
+            updatePageMetadata(settings);
+        }
+
+        // Apply Theme
+        function applyTheme(theme) {
+            // Remove existing theme classes
+            document.body.classList.remove('theme-light', 'theme-dark', 'theme-blue', 'theme-green');
+            
+            // Add selected theme class
+            document.body.classList.add(`theme-${theme}`);
+            
+            // Update CSS variables based on theme
+            if (theme === 'dark') {
+                document.documentElement.style.setProperty('--primary-color', '#4e73df');
+                document.documentElement.style.setProperty('--secondary-color', '#1cc88a');
+                document.body.style.backgroundColor = '#343a40';
+                document.body.style.color = '#ffffff';
+            } else if (theme === 'blue') {
+                document.documentElement.style.setProperty('--primary-color', '#2c5aa0');
+                document.documentElement.style.setProperty('--secondary-color', '#36b9cc');
+            } else if (theme === 'green') {
+                document.documentElement.style.setProperty('--primary-color', '#1cc88a');
+                document.documentElement.style.setProperty('--secondary-color', '#4e73df');
+            } else {
+                // Light theme (default)
+                document.documentElement.style.setProperty('--primary-color', '#4e73df');
+                document.documentElement.style.setProperty('--secondary-color', '#1cc88a');
+                document.body.style.backgroundColor = '#f8f9fc';
+                document.body.style.color = '#000000';
+            }
+        }
+
+        // Apply Custom CSS
+        function applyCustomCSS(css) {
+            // Remove existing custom CSS
+            const existingStyle = document.getElementById('custom-website-css');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            
+            // Add new custom CSS
+            if (css && css.trim() !== '') {
+                const style = document.createElement('style');
+                style.id = 'custom-website-css';
+                style.textContent = css;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Apply Custom JavaScript
+        function applyCustomJS(js) {
+            // Remove existing custom JS
+            const existingScript = document.getElementById('custom-website-js');
+            if (existingScript) {
+                existingScript.remove();
+            }
+            
+            // Add new custom JS
+            if (js && js.trim() !== '') {
+                const script = document.createElement('script');
+                script.id = 'custom-website-js';
+                script.textContent = js;
+                document.body.appendChild(script);
+            }
+        }
+
+        // Update Page Metadata
+        function updatePageMetadata(settings) {
+            // Update page title
+            document.title = settings.metaTitle || 'Rajveer Shop - Premium Digital Products';
+            
+            // Update meta description
+            let metaDescription = document.querySelector('meta[name="description"]');
+            if (!metaDescription) {
+                metaDescription = document.createElement('meta');
+                metaDescription.name = 'description';
+                document.head.appendChild(metaDescription);
+            }
+            metaDescription.content = settings.metaDescription || 'Buy premium digital products including OTT accounts, games, software, and more at affordable prices.';
+            
+            // Update meta keywords
+            let metaKeywords = document.querySelector('meta[name="keywords"]');
+            if (!metaKeywords) {
+                metaKeywords = document.createElement('meta');
+                metaKeywords.name = 'keywords';
+                document.head.appendChild(metaKeywords);
+            }
+            metaKeywords.content = settings.metaKeywords || 'digital products, ott accounts, games, software, windows';
         }
 
         // Reset Website Settings
         function resetWebsiteSettings() {
             if (confirm('⚠ Are you sure you want to reset all website settings to default?')) {
                 localStorage.removeItem('rajveerWebsiteSettings');
+                localStorage.removeItem('rajveerMainWebsiteSettings');
                 loadWebsiteSettings();
                 alert('✅ Website settings reset to default!');
             }
@@ -1188,8 +1330,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (checkAdminAuth()) {
                 loadAdminDashboard();
+                
+                // Apply existing website settings on page load
+                const settings = JSON.parse(localStorage.getItem('rajveerWebsiteSettings') || '{}');
+                if (Object.keys(settings).length > 0) {
+                    applyWebsiteSettings(settings);
+                }
             }
         });
     </script>
 </body>
-</html>                   
+</html>
