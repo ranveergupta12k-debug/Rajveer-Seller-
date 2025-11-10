@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Rajveer Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #1cc88a;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --info-color: #36b9cc;
+            --dark-color: #2e59d9;
+        }
+        
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .admin-sidebar {
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            color: white;
+            min-height: 100vh;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+        
+        .admin-sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 1rem 1.5rem;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+            margin: 2px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        
+        .admin-sidebar .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid white;
+            transform: translateX(5px);
+        }
+        
+        .admin-sidebar .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .admin-main-content {
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .admin-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0.35rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
+        }
+        
+        .stats-card-primary { border-left: 5px solid var(--primary-color); }
+        .stats-card-success { border-left: 5px solid var(--secondary-color); }
+        .stats-card-warning { border-left: 5px solid var(--warning-color); }
+        .stats-card-danger { border-left: 5px solid var(--danger-color); }
+        
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .admin-avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .stats-icon {
+            font-size: 2.5rem;
+            opacity: 0.7;
+        }
+        
+        .btn-admin {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 115, 223, 0.4);
+        }
+        
+        .table-admin {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .table-admin th {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active { background: #d4edda; color: #155724; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-inactive { background: #f8d7da; color: #721c24; }
+        .status-completed { background: #d4edda; color: #155724; }
+        
+        .product-image {
+            width: 50px;
+            height: 50px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+        
+        .settings-section {
+            border-bottom: 1px solid #e3e6f0;
+            padding: 20px 0;
+        }
+        
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+        
+        .settings-section h5 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .form-check-label {
+            font-weight: 500;
+        }
+        
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .theme-option {
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+        
+        .theme-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .theme-option.active {
+            border-color: var(--primary-color);
+            background-color: rgba(78, 115, 223, 0.05);
+        }
+        
+        .theme-preview {
+            width: 100%;
+            height: 80px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .theme-light { background: linear-gradient(135deg, #ffffff, #f8f9fc); }
+        .theme-dark { background: linear-gradient(135deg, #343a40, #212529); }
+        .theme-blue { background: linear-gradient(135deg, #4e73df, #2e59d9); }
+        .theme-green { background: linear-gradient(135deg, #1cc88a, #17a673); }
+        
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Admin Sidebar -->
+            <div class="col-md-3 col-lg-2 admin-sidebar p-0">
+                <div class="p-4 text-center border-bottom border-white border-opacity-25">
+                    <div class="admin-avatar mx-auto mb-3">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h5 class="fw-bold">Admin Panel</h5>
+                    <p class="text-white-50 small mb-2">Rajveer Shop Control Center</p>
+                    <span class="badge bg-warning">Super Admin</span>
+                </div>
+
+                <nav class="nav flex-column py-3">
+                    <a class="nav-link" href="#" onclick="showSection('dashboard')">
+                        <i class="fas fa-tachometer-alt me-3"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('products')">
+                        <i class="fas fa-box me-3"></i>Products Management
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('orders')">
+                        <i class="fas fa-shopping-bag me-3"></i>Orders Management
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('users')">
+                        <i class="fas fa-users me-3"></i>Users Management
+                    </a>
+                    <a class="nav-link active" href="#" onclick="showSection('website')">
+                        <i class="fas fa-globe me-3"></i>Website Settings
+                    </a>
+                
+                    <div class="mt-4 pt-3 border-top border-white border-opacity-25">
+                        <a class="nav-link text-warning" href="#" id="adminLogoutBtn">
+                            <i class="fas fa-sign-out-alt me-3"></i>Logout Admin
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Admin Main Content -->
+            <div class="col-md-9 col-lg-10 admin-main-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard-section">
+                    <!-- Admin Header -->
+                    <div class="admin-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="fw-bold mb-2">Admin Dashboard</h2>
+                                <p class="mb-0 opacity-75">Complete control over Rajveer Shop</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn btn-light" onclick="refreshData()">
+                                        <i class="fas fa-sync-alt me-2"></i>Refresh
+                                    </button>
+                                    <button class="btn btn-warning" onclick="showQuickActions()">
+                                        <i class="fas fa-bolt me-2"></i>Quick Actions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card admin-card stats-card-primary h-100">
+                                <div class="card-body p-4">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <div class="text-primary text-uppercase fw-bold small mb-2">
+                                                Total Products
+                                            </div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalProducts">0</div>
+                                            <div class="small text-muted">Active in store</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-box stats-icon text-primary"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card admin-card stats-card-success h-100">
+                                <div class="card-body p-4">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <div class="text-success text-uppercase fw-bold small mb-2">
+                                                Total Orders
+                                            </div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalOrders">0</div>
+                                            <div class="small text-success">
+                                                <i class="fas fa-arrow-up me-1"></i>
+                                                <span id="orderGrowth">0%</span> growth
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-shopping-bag stats-icon text-success"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card admin-card stats-card-warning h-100">
+                                <div class="card-body p-4">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <div class="text-warning text-uppercase fw-bold small mb-2">
+                                                Total Users
+                                            </div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalUsers">0</div>
+                                            <div class="small text-muted">Registered customers</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users stats-icon text-warning"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card admin-card stats-card-danger h-100">
+                                <div class="card-body p-4">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <div class="text-danger text-uppercase fw-bold small mb-2">
+                                                Total Revenue
+                                            </div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalRevenue">₹0</div>
+                                            <div class="small text-muted">Lifetime earnings</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-rupee-sign stats-icon text-danger"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Management -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card admin-card">
+                                <div class="card-header bg-white py-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="m-0 fw-bold text-primary">
+                                            <i class="fas fa-box me-2"></i>Products Management
+                                        </h5>
+                                        <button class="btn btn-admin" onclick="showAddProductModal()">
+                                            <i class="fas fa-plus me-2"></i>Add New Product
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-admin table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Product</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="productsTableBody">
+                                                <!-- Products will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders & Users -->
+                    <div class="row">
+                        <!-- Recent Orders -->
+                        <div class="col-lg-8 mb-4">
+                            <div class="card admin-card">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="m-0 fw-bold text-primary">
+                                        <i class="fas fa-shopping-bag me-2"></i>Recent Orders
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-admin table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <th>Customer</th>
+                                                    <th>Product</th>
+                                                    <th>Amount</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ordersTableBody">
+                                                <!-- Orders will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Users -->
+                        <div class="col-lg-4 mb-4">
+                            <div class="card admin-card">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="m-0 fw-bold text-primary">
+                                        <i class="fas fa-users me-2"></i>Recent Users
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="usersList">
+                                        <!-- Users will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Website Settings Section -->
+                <div id="website-section" style="display: none;">
+                    <div class="admin-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="fw-bold mb-2">Website Settings</h2>
+                                <p class="mb-0 opacity-75">Customize your website appearance and functionality</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn btn-light" onclick="resetWebsiteSettings()">
+                                        <i class="fas fa-undo me-2"></i>Reset to Default
+                                    </button>
+                                    <button class="btn btn-admin" onclick="saveWebsiteSettings()">
+                                        <i class="fas fa-save me-2"></i>Save All Settings
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card admin-card">
+                        <div class="card-body">
+                            <!-- General Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-cog me-2"></i>General Settings</h5>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Website Name</label>
+                                        <input type="text" class="form-control" id="websiteName" placeholder="Enter website name">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Website Tagline</label>
+                                        <input type="text" class="form-control" id="websiteTagline" placeholder="Enter website tagline">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Contact Email</label>
+                                        <input type="email" class="form-control" id="contactEmail" placeholder="Enter contact email">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Contact Phone</label>
+                                        <input type="text" class="form-control" id="contactPhone" placeholder="Enter contact phone">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Website Description</label>
+                                    <textarea class="form-control" id="websiteDescription" rows="3" placeholder="Enter website description"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Appearance Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-palette me-2"></i>Appearance Settings</h5>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Primary Color</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text color-preview" id="primaryColorPreview" style="background-color: #4e73df;"></span>
+                                            <input type="color" class="form-control form-control-color" id="primaryColor" value="#4e73df" title="Choose primary color">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Secondary Color</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text color-preview" id="secondaryColorPreview" style="background-color: #1cc88a;"></span>
+                                            <input type="color" class="form-control form-control-color" id="secondaryColor" value="#1cc88a" title="Choose secondary color">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Website Theme</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="theme-option active" onclick="selectTheme('light')">
+                                                <div class="theme-preview theme-light"></div>
+                                                <div class="text-center">Light Theme</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="theme-option" onclick="selectTheme('dark')">
+                                                <div class="theme-preview theme-dark"></div>
+                                                <div class="text-center">Dark Theme</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="theme-option" onclick="selectTheme('blue')">
+                                                <div class="theme-preview theme-blue"></div>
+                                                <div class="text-center">Blue Theme</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="theme-option" onclick="selectTheme('green')">
+                                                <div class="theme-preview theme-green"></div>
+                                                <div class="text-center">Green Theme</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Functionality Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-sliders-h me-2"></i>Functionality Settings</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableRegistration">
+                                                <label class="form-check-label" for="enableRegistration">Enable User Registration</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableReviews">
+                                                <label class="form-check-label" for="enableReviews">Enable Product Reviews</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableWishlist">
+                                                <label class="form-check-label" for="enableWishlist">Enable Wishlist Feature</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableNewsletter">
+                                                <label class="form-check-label" for="enableNewsletter">Enable Newsletter Subscription</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableCoupons">
+                                                <label class="form-check-label" for="enableCoupons">Enable Coupon Codes</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                                                <label class="form-check-label" for="maintenanceMode">Maintenance Mode</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SEO Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-search me-2"></i>SEO Settings</h5>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Meta Title</label>
+                                    <input type="text" class="form-control" id="metaTitle" placeholder="Enter meta title for SEO">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Meta Description</label>
+                                    <textarea class="form-control" id="metaDescription" rows="3" placeholder="Enter meta description for SEO"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Keywords</label>
+                                    <input type="text" class="form-control" id="metaKeywords" placeholder="Enter keywords separated by commas">
+                                    <div class="form-text">Separate keywords with commas for better SEO</div>
+                                </div>
+                            </div>
+
+                            <!-- Social Media Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-share-alt me-2"></i>Social Media Settings</h5>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Facebook URL</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fab fa-facebook"></i></span>
+                                            <input type="url" class="form-control" id="facebookUrl" placeholder="Enter Facebook page URL">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Instagram URL</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fab fa-instagram"></i></span>
+                                            <input type="url" class="form-control" id="instagramUrl" placeholder="Enter Instagram profile URL">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Twitter URL</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fab fa-twitter"></i></span>
+                                            <input type="url" class="form-control" id="twitterUrl" placeholder="Enter Twitter profile URL">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">YouTube URL</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fab fa-youtube"></i></span>
+                                            <input type="url" class="form-control" id="youtubeUrl" placeholder="Enter YouTube channel URL">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Advanced Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-tools me-2"></i>Advanced Settings</h5>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Custom CSS</label>
+                                    <textarea class="form-control" id="customCSS" rows="4" placeholder="Enter custom CSS code"></textarea>
+                                    <div class="form-text">Add custom CSS to modify the appearance of your website</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Custom JavaScript</label>
+                                    <textarea class="form-control" id="customJS" rows="4" placeholder="Enter custom JavaScript code"></textarea>
+                                    <div class="form-text">Add custom JavaScript for additional functionality</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Google Analytics ID</label>
+                                    <input type="text" class="form-control" id="googleAnalyticsId" placeholder="Enter Google Analytics tracking ID">
+                                </div>
+                            </div>
+
+                            <!-- Save Settings Button -->
+                            <div class="text-center mt-4">
+                                <button class="btn btn-admin btn-lg" onclick="saveWebsiteSettings()">
+                                    <i class="fas fa-save me-2"></i>Save All Website Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Add New Product</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Product Name</label>
+                                <input type="text" class="form-control" name="productName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Category</label>
+                                <select class="form-select" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="ott">OTT Platforms</option>
+                                    <option value="games">Games</option>
+                                    <option value="windows">Windows</option>
+                                    <option value="software">Software</option>
+                                    <option value="social-media-service">Social Media Service</option>
+                                    <option value="design-&-branding">Design & Branding</option>
+                                    <option value="Window installation">windows-installation</option>
+                                    <option value="cloud-storage">Cloud Storage</option>
+                                    <option value="tools">Tools</option>
+                                    <option value="codes-&-digital-payments">Codes & Digital Payments</option>
+                                    <option value="ai-services">AI Services</option>
+                                    <option value="cyber-&-security">Cyber & Security</option>
+                                    <option value="learning-&-skills">Learning & Skills</option>
+                                    <option value="digital-marketing">Digital Marketing</option>
+                                    <option value="recharge-&-bill-payments">Recharge & Bill Payments</option>
+                                    <option value="ready-made-content-packs">Ready-Made Content Packs</option>  
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Price (₹)</label>
+                                <input type="number" class="form-control" name="price" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" name="status" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewProduct()">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Check Admin Authentication
+        function checkAdminAuth() {
+            const isLoggedIn = localStorage.getItem('rajveerAdminLoggedIn');
+            if (isLoggedIn !== 'true') {
+                alert('❌ Access Denied! Please login as admin.');
+                window.location.href = 'adminlogin.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Load Admin Dashboard Data
+        function loadAdminDashboard() {
+            if (!checkAdminAuth()) return;
+
+            // Load products
+            const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+            document.getElementById('totalProducts').textContent = products.length;
+            
+            // Load orders
+            const orders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
+            document.getElementById('totalOrders').textContent = orders.length;
+            
+            // Load users
+            const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
+            document.getElementById('totalUsers').textContent = users.length;
+            
+            // Calculate revenue
+            const totalRevenue = orders.reduce((sum, order) => sum + parseInt(order.price || 0), 0);
+            document.getElementById('totalRevenue').textContent = `₹${totalRevenue}`;
+            document.getElementById('orderGrowth').textContent = orders.length > 0 ? '15.2%' : '0%';
+
+            // Display products table
+            displayProductsTable(products);
+            
+            // Display orders table
+            displayOrdersTable(orders);
+            
+            // Display users list
+            displayUsersList(users);
+        }
+
+        // Display Products Table
+        function displayProductsTable(products) {
+            const tbody = document.getElementById('productsTableBody');
+            
+            if (products.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-4">
+                            <i class="fas fa-box fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No products found</p>
+                            <button class="btn btn-primary" onclick="showAddProductModal()">
+                                <i class="fas fa-plus me-2"></i>Add First Product
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td class="fw-bold">#${product.id}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="product-image me-3">
+                                <i class="fas fa-${getProductIcon(product.category)}"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold">${product.name}</div>
+                                <small class="text-muted">${product.description || 'No description'}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="text-capitalize">${product.category}</span>
+                    </td>
+                    <td class="fw-bold text-success">₹${product.price}</td>
+                    <td>
+                        <span class="status-badge status-${product.status || 'active'}">
+                            ${(product.status || 'active').toUpperCase()}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-primary" onclick="editProduct(${product.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Display Orders Table
+        function displayOrdersTable(orders) {
+            const tbody = document.getElementById('ordersTableBody');
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center py-4">
+                            <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No orders yet</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = orders.slice().reverse().map(order => `
+                <tr>
+                    <td class="fw-bold">#${order.id}</td>
+                    <td>${order.userName || 'Customer'}</td>
+                    <td>${order.product}</td>
+                    <td class="fw-bold">₹${order.price}</td>
+                    <td>
+                        <span class="status-badge status-${(order.status || 'pending').toLowerCase()}">
+                            ${order.status || 'PENDING'}
+                        </span>
+                    </td>
+                    <td class="text-muted">${order.date}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-success" onclick="updateOrderStatus('${order.id}', 'completed')">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" onclick="updateOrderStatus('${order.id}', 'pending')">
+                                <i class="fas fa-clock"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Display Users List
+        function displayUsersList(users) {
+            const container = document.getElementById('usersList');
+            
+            if (users.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No users registered yet</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = users.slice().reverse().map(user => `
+                <div class="d-flex align-items-center mb-3 p-2 border rounded">
+                    <div class="admin-avatar me-3">
+                        ${(user.firstName?.charAt(0) + user.lastName?.charAt(0)).toUpperCase()}
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="fw-bold">${user.firstName} ${user.lastName}</div>
+                        <small class="text-muted">${user.email}</small>
+                        <div class="small text-muted">Joined: ${user.joinedDate}</div>
+                    </div>
+                    <span class="status-badge status-active">Active</span>
+                </div>
+            `).join('');
+        }
+
+        // Get Product Icon
+        function getProductIcon(category) {
+            const icons = {
+                'ott': 'tv',
+                'games': 'gamepad',
+                'windows': 'microsoft',
+                'software': 'code'
+            };
+            return icons[category] || 'box';
+        }
+
+        // Show Add Product Modal
+        function showAddProductModal() {
+            if (!checkAdminAuth()) return;
+            const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
+            modal.show();
+        }
+
+        // Add New Product
+        function addNewProduct() {
+            const form = document.getElementById('addProductForm');
+            const formData = new FormData(form);
+            
+            const newProduct = {
+                id: Date.now(),
+                name: formData.get('productName'),
+                category: formData.get('category'),
+                price: formData.get('price'),
+                status: formData.get('status'),
+                description: formData.get('description'),
+                createdAt: new Date().toLocaleString()
+            };
+
+            // Save to localStorage - YE PRODUCT USER KO WEBSITE PE DIKHEGA
+            const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+            products.push(newProduct);
+            localStorage.setItem('rajveerProducts', JSON.stringify(products));
+
+            // Refresh display
+            loadAdminDashboard();
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+            modal.hide();
+            
+            // Reset form
+            form.reset();
+            
+            alert('✅ Product added successfully! This product will now appear on the website.');
+        }
+
+        // Edit Product
+        function editProduct(productId) {
+            const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+            const product = products.find(p => p.id === productId);
+            
+            if (product) {
+                const newName = prompt('Enter new product name:', product.name);
+                if (newName) {
+                    product.name = newName;
+                    localStorage.setItem('rajveerProducts', JSON.stringify(products));
+                    loadAdminDashboard();
+                    alert('✅ Product updated successfully!');
+                }
+            }
+        }
+
+        // Delete Product
+        function deleteProduct(productId) {
+            if (confirm('🗑 Are you sure you want to delete this product?')) {
+                const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+                const updatedProducts = products.filter(p => p.id !== productId);
+                localStorage.setItem('rajveerProducts', JSON.stringify(updatedProducts));
+                loadAdminDashboard();
+                alert('✅ Product deleted successfully! This product will be removed from the website.');
+            }
+        }
+
+        // Update Order Status
+        function updateOrderStatus(orderId, status) {
+            const orders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
+            const order = orders.find(o => o.id === orderId);
+            
+            if (order) {
+                order.status = status.charAt(0).toUpperCase() + status.slice(1);
+                localStorage.setItem('rajveerOrders', JSON.stringify(orders));
+                loadAdminDashboard();
+                alert(`✅ Order #${orderId} status updated to ${order.status}`);
+            }
+        }
+
+        // Refresh Data
+        function refreshData() {
+            loadAdminDashboard();
+            alert('🔄 Data refreshed successfully!');
+        }
+
+        // Show Quick Actions
+        function showQuickActions() {
+            alert('⚡ Quick Actions:\n\n• Add Multiple Products\n• Export Data\n• Backup Database\n• Clear Cache\n• Send Notifications');
+        }
+
+        // Show Section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.getElementById('dashboard-section').style.display = 'none';
+            document.getElementById('website-section').style.display = 'none';
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').style.display = 'block';
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Load website settings if website section is selected
+            if (sectionName === 'website') {
+                loadWebsiteSettings();
+            }
+        }
+
+        // Load Website Settings
+        function loadWebsiteSettings() {
+            const settings = JSON.parse(localStorage.getItem('rajveerWebsiteSettings') || '{}');
+            
+            // General Settings
+            document.getElementById('websiteName').value = settings.websiteName || 'Rajveer Shop';
+            document.getElementById('websiteTagline').value = settings.websiteTagline || 'Premium Digital Products';
+            document.getElementById('contactEmail').value = settings.contactEmail || 'support@rajveershop.com';
+            document.getElementById('contactPhone').value = settings.contactPhone || '+91 9876543210';
+            document.getElementById('websiteDescription').value = settings.websiteDescription || 'Your one-stop shop for premium digital products including OTT accounts, games, software, and more.';
+            
+            // Appearance Settings
+            document.getElementById('primaryColor').value = settings.primaryColor || '#4e73df';
+            document.getElementById('secondaryColor').value = settings.secondaryColor || '#1cc88a';
+            document.getElementById('primaryColorPreview').style.backgroundColor = settings.primaryColor || '#4e73df';
+            document.getElementById('secondaryColorPreview').style.backgroundColor = settings.secondaryColor || '#1cc88a';
+            
+            // Select theme
+            const theme = settings.theme || 'light';
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`.theme-option:nth-child(${getThemeIndex(theme)})`).classList.add('active');
+            
+            // Functionality Settings
+            document.getElementById('enableRegistration').checked = settings.enableRegistration !== false;
+            document.getElementById('enableReviews').checked = settings.enableReviews !== false;
+            document.getElementById('enableWishlist').checked = settings.enableWishlist || false;
+            document.getElementById('enableNewsletter').checked = settings.enableNewsletter || false;
+            document.getElementById('enableCoupons').checked = settings.enableCoupons || false;
+            document.getElementById('maintenanceMode').checked = settings.maintenanceMode || false;
+            
+            // SEO Settings
+            document.getElementById('metaTitle').value = settings.metaTitle || 'Rajveer Shop - Premium Digital Products';
+            document.getElementById('metaDescription').value = settings.metaDescription || 'Buy premium digital products including OTT accounts, games, software, and more at affordable prices.';
+            document.getElementById('metaKeywords').value = settings.metaKeywords || 'digital products, ott accounts, games, software, windows';
+            
+            // Social Media Settings
+            document.getElementById('facebookUrl').value = settings.facebookUrl || '';
+            document.getElementById('instagramUrl').value = settings.instagramUrl || '';
+            document.getElementById('twitterUrl').value = settings.twitterUrl || '';
+            document.getElementById('youtubeUrl').value = settings.youtubeUrl || '';
+            
+            // Advanced Settings
+            document.getElementById('customCSS').value = settings.customCSS || '';
+            document.getElementById('customJS').value = settings.customJS || '';
+            document.getElementById('googleAnalyticsId').value = settings.googleAnalyticsId || '';
+        }
+
+        // Get Theme Index
+        function getThemeIndex(theme) {
+            const themes = ['light', 'dark', 'blue', 'green'];
+            return themes.indexOf(theme) + 1;
+        }
+
+        // Select Theme
+        function selectTheme(theme) {
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.closest('.theme-option').classList.add('active');
+        }
+
+        // Save Website Settings
+        function saveWebsiteSettings() {
+            const settings = {
+                // General Settings
+                websiteName: document.getElementById('websiteName').value,
+                websiteTagline: document.getElementById('websiteTagline').value,
+                contactEmail: document.getElementById('contactEmail').value,
+                contactPhone: document.getElementById('contactPhone').value,
+                websiteDescription: document.getElementById('websiteDescription').value,
+                
+                // Appearance Settings
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                theme: document.querySelector('.theme-option.active').textContent.trim().toLowerCase().split(' ')[0],
+                
+                // Functionality Settings
+                enableRegistration: document.getElementById('enableRegistration').checked,
+                enableReviews: document.getElementById('enableReviews').checked,
+                enableWishlist: document.getElementById('enableWishlist').checked,
+                enableNewsletter: document.getElementById('enableNewsletter').checked,
+                enableCoupons: document.getElementById('enableCoupons').checked,
+                maintenanceMode: document.getElementById('maintenanceMode').checked,
+                
+                // SEO Settings
+                metaTitle: document.getElementById('metaTitle').value,
+                metaDescription: document.getElementById('metaDescription').value,
+                metaKeywords: document.getElementById('metaKeywords').value,
+                
+                // Social Media Settings
+                facebookUrl: document.getElementById('facebookUrl').value,
+                instagramUrl: document.getElementById('instagramUrl').value,
+                twitterUrl: document.getElementById('twitterUrl').value,
+                youtubeUrl: document.getElementById('youtubeUrl').value,
+                
+                // Advanced Settings
+                customCSS: document.getElementById('customCSS').value,
+                customJS: document.getElementById('customJS').value,
+                googleAnalyticsId: document.getElementById('googleAnalyticsId').value,
+                
+                lastUpdated: new Date().toLocaleString()
+            };
+            
+            localStorage.setItem('rajveerWebsiteSettings', JSON.stringify(settings));
+            alert('✅ Website settings saved successfully!');
+        }
+
+        // Reset Website Settings
+        function resetWebsiteSettings() {
+            if (confirm('⚠ Are you sure you want to reset all website settings to default?')) {
+                localStorage.removeItem('rajveerWebsiteSettings');
+                loadWebsiteSettings();
+                alert('✅ Website settings reset to default!');
+            }
+        }
+
+        // Update Color Preview
+        document.getElementById('primaryColor').addEventListener('input', function() {
+            document.getElementById('primaryColorPreview').style.backgroundColor = this.value;
+        });
+        
+        document.getElementById('secondaryColor').addEventListener('input', function() {
+            document.getElementById('secondaryColorPreview').style.backgroundColor = this.value;
+        });
+
+        // Admin Logout
+        document.getElementById('adminLogoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('🚪 Are you sure you want to logout from admin panel?')) {
+                localStorage.removeItem('rajveerAdminLoggedIn');
+                localStorage.removeItem('rajveerAdminLoginTime');
+                alert('👋 Admin logged out successfully!');
+                window.location.href = 'adminlogin.html';
+            }
+        });
+
+        // Initialize Admin Dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            if (checkAdminAuth()) {
+                loadAdminDashboard();
+            }
+        });
+    </script>
+</body>
+</html>
