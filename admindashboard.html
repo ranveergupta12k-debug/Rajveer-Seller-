@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Website Control - Rajveer Shop</title>
+    <title>Working Admin Panel - Rajveer Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4e73df;
-            --secondary-color: #1cc88a;
-            --warning-color: #f6c23e;
-            --danger-color: #e74a3b;
+            --primary: #4e73df;
+            --success: #1cc88a;
+            --warning: #f6c23e;
+            --danger: #e74a3b;
         }
         
         .admin-sidebar {
-            background: linear-gradient(180deg, var(--primary-color) 0%, #2e59d9 100%);
+            background: linear-gradient(180deg, var(--primary) 0%, #2e59d9 100%);
             color: white;
             min-height: 100vh;
         }
@@ -24,32 +24,22 @@
             border: none;
             border-radius: 15px;
             box-shadow: 0 0.35rem 1.75rem 0 rgba(58, 59, 69, 0.1);
-            transition: all 0.3s;
         }
         
-        .file-control-item {
-            border: 1px solid #e3e6f0;
+        .edit-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 0.35rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .live-preview {
+            border: 2px dashed #e74a3b;
             border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-        
-        .file-control-item:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-        
-        .file-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
+            padding: 20px;
+            background: #f8f9fc;
+            min-height: 200px;
         }
     </style>
 </head>
@@ -59,25 +49,22 @@
             <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 admin-sidebar p-0">
                 <div class="p-4 text-center border-bottom border-white border-opacity-25">
-                    <h5 class="fw-bold">Complete Website Control</h5>
-                    <p class="small">Rajveer Shop - All Files</p>
+                    <h5 class="fw-bold">Working Admin Panel</h5>
+                    <p class="small mb-0">Real Control</p>
                 </div>
 
                 <nav class="nav flex-column py-3">
-                    <a class="nav-link active" href="#" onclick="showSection('files')">
-                        <i class="fas fa-file-code me-3"></i>All Files Control
-                    </a>
-                    <a class="nav-link" href="#" onclick="showSection('content')">
-                        <i class="fas fa-edit me-3"></i>Content Management
+                    <a class="nav-link active" href="#" onclick="showSection('homepage')">
+                        <i class="fas fa-home me-3"></i>Homepage Edit
                     </a>
                     <a class="nav-link" href="#" onclick="showSection('products')">
-                        <i class="fas fa-box me-3"></i>Products Control
+                        <i class="fas fa-box me-3"></i>Products Edit
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('users')">
-                        <i class="fas fa-users me-3"></i>Users Management
+                    <a class="nav-link" href="#" onclick="showSection('content')">
+                        <i class="fas fa-edit me-3"></i>Content Edit
                     </a>
                     <a class="nav-link" href="#" onclick="showSection('settings')">
-                        <i class="fas fa-cog me-3"></i>Website Settings
+                        <i class="fas fa-cog me-3"></i>Settings
                     </a>
                 </nav>
             </div>
@@ -85,365 +72,559 @@
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 p-4">
                 
-                <!-- Files Control Section -->
-                <div id="files-section">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2 class="fw-bold">Complete Files Control</h2>
-                        <button class="btn btn-primary" onclick="backupAllFiles()">
-                            <i class="fas fa-download me-2"></i>Backup All Files
+                <!-- Homepage Editor -->
+                <div id="homepage-section">
+                    <h2 class="fw-bold mb-4">Homepage Content Editor</h2>
+                    
+                    <!-- Hero Section Editor -->
+                    <div class="edit-panel">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-heading me-2"></i>Hero Section
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Main Title</label>
+                                    <input type="text" class="form-control" id="heroTitle" 
+                                           value="Premium Digital Products at Unbeatable Prices">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Subtitle</label>
+                                    <textarea class="form-control" id="heroSubtitle" rows="3">Explore OTT subscriptions, software, games, and more with instant delivery and 24/7 premium support. Join thousands of satisfied customers today.</textarea>
+                                </div>
+                                <button class="btn btn-success" onclick="updateHeroSection()">
+                                    <i class="fas fa-save me-2"></i>Save Hero Section
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="live-preview">
+                                    <h3>Live Preview</h3>
+                                    <h4 id="previewHeroTitle">Premium Digital Products at Unbeatable Prices</h4>
+                                    <p id="previewHeroSubtitle" class="text-muted">Explore OTT subscriptions, software, games, and more with instant delivery and 24/7 premium support.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Section Editor -->
+                    <div class="edit-panel">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-box me-2"></i>Products Section
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Section Title</label>
+                                    <input type="text" class="form-control" id="productsTitle" 
+                                           value="Popular Digital Products">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Section Description</label>
+                                    <textarea class="form-control" id="productsDesc" rows="2">Discover our most sought-after digital products and services.</textarea>
+                                </div>
+                                <button class="btn btn-success" onclick="updateProductsSection()">
+                                    <i class="fas fa-save me-2"></i>Save Products Section
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="live-preview">
+                                    <h3>Live Preview</h3>
+                                    <h5 id="previewProductsTitle">Popular Digital Products</h5>
+                                    <p id="previewProductsDesc" class="text-muted">Discover our most sought-after digital products and services.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features Editor -->
+                    <div class="edit-panel">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-star me-2"></i>Features Section
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Feature 1 Title</label>
+                                <input type="text" class="form-control" id="feature1Title" value="Instant Delivery">
+                                <label class="form-label fw-bold mt-2">Feature 1 Description</label>
+                                <textarea class="form-control" id="feature1Desc" rows="2">Receive your digital products instantly after payment.</textarea>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Feature 2 Title</label>
+                                <input type="text" class="form-control" id="feature2Title" value="100% Secure">
+                                <label class="form-label fw-bold mt-2">Feature 2 Description</label>
+                                <textarea class="form-control" id="feature2Desc" rows="2">Your transactions are protected with security measures.</textarea>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Feature 3 Title</label>
+                                <input type="text" class="form-control" id="feature3Title" value="24/7 Support">
+                                <label class="form-label fw-bold mt-2">Feature 3 Description</label>
+                                <textarea class="form-control" id="feature3Desc" rows="2">Our support team is available round the clock.</textarea>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="updateFeatures()">
+                            <i class="fas fa-save me-2"></i>Save All Features
                         </button>
                     </div>
 
-                    <div class="row">
-                        <!-- File 1: index.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3">
-                                        <i class="fas fa-home"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">index.html</h6>
-                                        <small class="text-muted">Homepage - Main Website</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
+                    <!-- Testimonials Editor -->
+                    <div class="edit-panel">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-comment me-2"></i>Testimonials
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Testimonial 1</label>
+                                <textarea class="form-control" id="testimonial1" rows="3">"I purchased Netflix Premium and received the credentials instantly. Highly recommended!"</textarea>
+                                <input type="text" class="form-control mt-2" id="testimonial1Author" value="Rahul Sharma" placeholder="Author Name">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Testimonial 2</label>
+                                <textarea class="form-control" id="testimonial2" rows="3">"Amazing service! I got my Amazon Prime subscription at a much lower price."</textarea>
+                                <input type="text" class="form-control mt-2" id="testimonial2Author" value="Priya Patel" placeholder="Author Name">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Testimonial 3</label>
+                                <textarea class="form-control" id="testimonial3" rows="3">"Rajveer Shop exceeded my expectations. The bundle offer saved me money."</textarea>
+                                <input type="text" class="form-control mt-2" id="testimonial3Author" value="Amit Kumar" placeholder="Author Name">
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="updateTestimonials()">
+                            <i class="fas fa-save me-2"></i>Save Testimonials
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Management -->
+                <div id="products-section" style="display: none;">
+                    <h2 class="fw-bold mb-4">Products Management</h2>
+                    
+                    <!-- Add New Product -->
+                    <div class="edit-panel">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-plus me-2"></i>Add New Product
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Product Name</label>
+                                    <input type="text" class="form-control" id="newProductName" placeholder="Enter product name">
                                 </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('index')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('index')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('index')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Category</label>
+                                    <select class="form-select" id="newProductCategory">
+                                        <option value="ott">OTT Platforms</option>
+                                        <option value="games">Games</option>
+                                        <option value="software">Software</option>
+                                        <option value="windows">Windows</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Price (₹)</label>
+                                    <input type="number" class="form-control" id="newProductPrice" placeholder="Enter price">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Description</label>
+                                    <textarea class="form-control" id="newProductDesc" rows="3" placeholder="Product description"></textarea>
                                 </div>
                             </div>
                         </div>
+                        <button class="btn btn-success" onclick="addNewProduct()">
+                            <i class="fas fa-plus me-2"></i>Add Product
+                        </button>
+                    </div>
 
-                        <!-- File 2: product.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3" style="background: var(--secondary-color);">
-                                        <i class="fas fa-shopping-bag"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">product.html</h6>
-                                        <small class="text-muted">Products Page</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('product')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('product')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('product')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- File 3: about.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3" style="background: var(--warning-color);">
-                                        <i class="fas fa-info-circle"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">about.html</h6>
-                                        <small class="text-muted">About Us Page</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('about')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('about')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('about')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- File 4: contact.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3" style="background: #6f42c1;">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">contact.html</h6>
-                                        <small class="text-muted">Contact Page</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('contact')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('contact')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('contact')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- File 5: login.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3" style="background: #20c997;">
-                                        <i class="fas fa-sign-in-alt"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">login.html</h6>
-                                        <small class="text-muted">Login Page</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('login')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('login')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('login')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- File 6: register.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3" style="background: #fd7e14;">
-                                        <i class="fas fa-user-plus"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">register.html</h6>
-                                        <small class="text-muted">Register Page</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('register')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('register')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('register')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- File 7: userdashboard.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3" style="background: #e83e8c;">
-                                        <i class="fas fa-tachometer-alt"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">userdashboard.html</h6>
-                                        <small class="text-muted">User Dashboard</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('userdashboard')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('userdashboard')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('userdashboard')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- File 8: adminlogin.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3" style="background: var(--danger-color);">
-                                        <i class="fas fa-user-shield"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">adminlogin.html</h6>
-                                        <small class="text-muted">Admin Login</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('adminlogin')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('adminlogin')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('adminlogin')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- File 9: admindashboard.html -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="file-control-item">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="file-icon me-3" style="background: #6c757d;">
-                                        <i class="fas fa-cogs"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1 fw-bold">admindashboard.html</h6>
-                                        <small class="text-muted">Admin Dashboard</small>
-                                    </div>
-                                    <span class="badge bg-success">Active</span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editFile('admindashboard')">
-                                        <i class="fas fa-edit me-1"></i>Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="previewFile('admindashboard')">
-                                        <i class="fas fa-eye me-1"></i>Preview
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="manageContent('admindashboard')">
-                                        <i class="fas fa-cog me-1"></i>Manage
-                                    </button>
-                                </div>
-                            </div>
+                    <!-- Products List -->
+                    <div class="edit-panel">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-list me-2"></i>Current Products
+                        </h4>
+                        <div id="productsList">
+                            <!-- Products will be loaded here -->
                         </div>
                     </div>
                 </div>
 
-                <!-- Other Sections (Content, Products, Users, Settings) -->
+                <!-- Content Management -->
                 <div id="content-section" style="display: none;">
-                    <!-- Content Management Section -->
-                    <h2>Content Management</h2>
-                    <p>Manage all website content from here...</p>
+                    <h2 class="fw-bold mb-4">Website Content Management</h2>
+                    
+                    <div class="edit-panel">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-globe me-2"></i>Website Information
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Website Name</label>
+                                    <input type="text" class="form-control" id="websiteName" value="Rajveer Shop">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Tagline</label>
+                                    <input type="text" class="form-control" id="websiteTagline" value="Premium Digital Products">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Contact Email</label>
+                                    <input type="email" class="form-control" id="contactEmail" value="Ranveergupta2k@gmail.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Contact Phone</label>
+                                    <input type="text" class="form-control" id="contactPhone" value="+91 9506483711">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="updateWebsiteInfo()">
+                            <i class="fas fa-save me-2"></i>Save Website Info
+                        </button>
+                    </div>
                 </div>
 
-                <div id="products-section" style="display: none;">
-                    <!-- Products Management Section -->
-                    <h2>Products Control</h2>
-                    <p>Manage all products from here...</p>
-                </div>
-
-                <div id="users-section" style="display: none;">
-                    <!-- Users Management Section -->
-                    <h2>Users Management</h2>
-                    <p>Manage all users from here...</p>
-                </div>
-
+                <!-- Settings -->
                 <div id="settings-section" style="display: none;">
-                    <!-- Website Settings Section -->
-                    <h2>Website Settings</h2>
-                    <p>Manage all website settings from here...</p>
+                    <h2 class="fw-bold mb-4">Website Settings</h2>
+                    
+                    <div class="edit-panel">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-palette me-2"></i>Appearance
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Primary Color</label>
+                                    <input type="color" class="form-control form-control-color" id="primaryColor" value="#4e73df">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Secondary Color</label>
+                                    <input type="color" class="form-control form-control-color" id="secondaryColor" value="#1cc88a">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="updateColors()">
+                            <i class="fas fa-save me-2"></i>Update Colors
+                        </button>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Check Admin Login
+        function checkAdminAuth() {
+            const isLoggedIn = localStorage.getItem('rajveerAdminLoggedIn');
+            if (isLoggedIn !== 'true') {
+                alert('❌ Please login as admin first!');
+                window.location.href = 'adminlogin.html';
+                return false;
+            }
+            return true;
+        }
+
         // Show/Hide Sections
         function showSection(sectionName) {
-            // Hide all sections
-            document.getElementById('files-section').style.display = 'none';
-            document.getElementById('content-section').style.display = 'none';
+            if (!checkAdminAuth()) return;
+            
+            document.getElementById('homepage-section').style.display = 'none';
             document.getElementById('products-section').style.display = 'none';
-            document.getElementById('users-section').style.display = 'none';
+            document.getElementById('content-section').style.display = 'none';
             document.getElementById('settings-section').style.display = 'none';
             
-            // Show selected section
             document.getElementById(sectionName + '-section').style.display = 'block';
             
-            // Update active nav
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
             event.target.classList.add('active');
+
+            // Load section data
+            if (sectionName === 'products') {
+                loadProducts();
+            }
         }
 
-        // File Control Functions
-        function editFile(fileName) {
-            alert(`Editing ${fileName}.html - This would open file editor`);
-            // In real implementation, this would open a code editor
+        // ✅ REAL WORKING FUNCTIONS
+
+        // Update Hero Section
+        function updateHeroSection() {
+            const heroTitle = document.getElementById('heroTitle').value;
+            const heroSubtitle = document.getElementById('heroSubtitle').value;
+            
+            // Save to localStorage
+            let websiteData = JSON.parse(localStorage.getItem('rajveerWebsiteData') || '{}');
+            websiteData.heroSection = {
+                title: heroTitle,
+                subtitle: heroSubtitle,
+                lastUpdated: new Date().toLocaleString()
+            };
+            localStorage.setItem('rajveerWebsiteData', JSON.stringify(websiteData));
+            
+            // Update preview
+            document.getElementById('previewHeroTitle').textContent = heroTitle;
+            document.getElementById('previewHeroSubtitle').textContent = heroSubtitle;
+            
+            alert('✅ Hero section updated! Changes will reflect on website.');
         }
 
-        function previewFile(fileName) {
-            window.open(`${fileName}.html`, '_blank');
+        // Update Products Section
+        function updateProductsSection() {
+            const productsTitle = document.getElementById('productsTitle').value;
+            const productsDesc = document.getElementById('productsDesc').value;
+            
+            let websiteData = JSON.parse(localStorage.getItem('rajveerWebsiteData') || '{}');
+            websiteData.productsSection = {
+                title: productsTitle,
+                description: productsDesc
+            };
+            localStorage.setItem('rajveerWebsiteData', JSON.stringify(websiteData));
+            
+            document.getElementById('previewProductsTitle').textContent = productsTitle;
+            document.getElementById('previewProductsDesc').textContent = productsDesc;
+            
+            alert('✅ Products section updated!');
         }
 
-        function manageContent(fileName) {
-            alert(`Managing content for ${fileName}.html - This would open content manager`);
-            // This would open a content management interface for that specific file
-        }
-
-        function backupAllFiles() {
-            // Create backup of all website data
-            const websiteData = {
-                pages: JSON.parse(localStorage.getItem('rajveerWebsitePages') || '[]'),
-                products: JSON.parse(localStorage.getItem('rajveerProducts') || '[]'),
-                users: JSON.parse(localStorage.getItem('rajveerUsers') || '[]'),
-                settings: JSON.parse(localStorage.getItem('rajveerWebsiteSettings') || '{}'),
-                backupDate: new Date().toLocaleString()
+        // Update Features
+        function updateFeatures() {
+            const features = {
+                feature1: {
+                    title: document.getElementById('feature1Title').value,
+                    description: document.getElementById('feature1Desc').value
+                },
+                feature2: {
+                    title: document.getElementById('feature2Title').value,
+                    description: document.getElementById('feature2Desc').value
+                },
+                feature3: {
+                    title: document.getElementById('feature3Title').value,
+                    description: document.getElementById('feature3Desc').value
+                }
             };
             
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(websiteData, null, 2));
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", "rajveer-shop-complete-backup.json");
-            document.body.appendChild(downloadAnchorNode);
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
+            let websiteData = JSON.parse(localStorage.getItem('rajveerWebsiteData') || '{}');
+            websiteData.features = features;
+            localStorage.setItem('rajveerWebsiteData', JSON.stringify(websiteData));
             
-            alert('✅ Complete website backup downloaded! All 9 files data saved.');
+            alert('✅ Features updated successfully!');
+        }
+
+        // Update Testimonials
+        function updateTestimonials() {
+            const testimonials = {
+                testimonial1: {
+                    text: document.getElementById('testimonial1').value,
+                    author: document.getElementById('testimonial1Author').value
+                },
+                testimonial2: {
+                    text: document.getElementById('testimonial2').value,
+                    author: document.getElementById('testimonial2Author').value
+                },
+                testimonial3: {
+                    text: document.getElementById('testimonial3').value,
+                    author: document.getElementById('testimonial3Author').value
+                }
+            };
+            
+            let websiteData = JSON.parse(localStorage.getItem('rajveerWebsiteData') || '{}');
+            websiteData.testimonials = testimonials;
+            localStorage.setItem('rajveerWebsiteData', JSON.stringify(websiteData));
+            
+            alert('✅ Testimonials updated successfully!');
+        }
+
+        // Add New Product
+        function addNewProduct() {
+            const name = document.getElementById('newProductName').value;
+            const category = document.getElementById('newProductCategory').value;
+            const price = document.getElementById('newProductPrice').value;
+            const description = document.getElementById('newProductDesc').value;
+            
+            if (!name || !price) {
+                alert('❌ Please fill product name and price!');
+                return;
+            }
+            
+            const newProduct = {
+                id: Date.now(),
+                name: name,
+                category: category,
+                price: price,
+                description: description,
+                status: 'active',
+                createdAt: new Date().toLocaleString()
+            };
+            
+            let products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+            products.push(newProduct);
+            localStorage.setItem('rajveerProducts', JSON.stringify(products));
+            
+            // Clear form
+            document.getElementById('newProductName').value = '';
+            document.getElementById('newProductPrice').value = '';
+            document.getElementById('newProductDesc').value = '';
+            
+            // Reload products list
+            loadProducts();
+            
+            alert('✅ Product added successfully!');
+        }
+
+        // Load Products
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+            const container = document.getElementById('productsList');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<p class="text-muted">No products added yet.</p>';
+                return;
+            }
+            
+            container.innerHTML = products.map(product => `
+                <div class="border p-3 mb-2 rounded">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">${product.name}</h6>
+                            <small class="text-muted">${product.category} • ₹${product.price}</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary me-1" onclick="editProduct(${product.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Edit Product
+        function editProduct(productId) {
+            const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+            const product = products.find(p => p.id === productId);
+            
+            if (product) {
+                const newName = prompt('Enter new product name:', product.name);
+                const newPrice = prompt('Enter new price:', product.price);
+                
+                if (newName && newPrice) {
+                    product.name = newName;
+                    product.price = newPrice;
+                    localStorage.setItem('rajveerProducts', JSON.stringify(products));
+                    loadProducts();
+                    alert('✅ Product updated!');
+                }
+            }
+        }
+
+        // Delete Product
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                let products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+                products = products.filter(p => p.id !== productId);
+                localStorage.setItem('rajveerProducts', JSON.stringify(products));
+                loadProducts();
+                alert('✅ Product deleted!');
+            }
+        }
+
+        // Update Website Info
+        function updateWebsiteInfo() {
+            const websiteData = {
+                name: document.getElementById('websiteName').value,
+                tagline: document.getElementById('websiteTagline').value,
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value
+            };
+            
+            localStorage.setItem('rajveerWebsiteInfo', JSON.stringify(websiteData));
+            alert('✅ Website information updated!');
+        }
+
+        // Update Colors
+        function updateColors() {
+            const colors = {
+                primary: document.getElementById('primaryColor').value,
+                secondary: document.getElementById('secondaryColor').value
+            };
+            
+            localStorage.setItem('rajveerWebsiteColors', JSON.stringify(colors));
+            alert('✅ Colors updated! Refresh website to see changes.');
+        }
+
+        // Load Saved Data on Page Load
+        function loadSavedData() {
+            if (!checkAdminAuth()) return;
+            
+            // Load website data
+            const websiteData = JSON.parse(localStorage.getItem('rajveerWebsiteData') || '{}');
+            
+            // Hero Section
+            if (websiteData.heroSection) {
+                document.getElementById('heroTitle').value = websiteData.heroSection.title;
+                document.getElementById('heroSubtitle').value = websiteData.heroSection.subtitle;
+                document.getElementById('previewHeroTitle').textContent = websiteData.heroSection.title;
+                document.getElementById('previewHeroSubtitle').textContent = websiteData.heroSection.subtitle;
+            }
+            
+            // Products Section
+            if (websiteData.productsSection) {
+                document.getElementById('productsTitle').value = websiteData.productsSection.title;
+                document.getElementById('productsDesc').value = websiteData.productsSection.description;
+                document.getElementById('previewProductsTitle').textContent = websiteData.productsSection.title;
+                document.getElementById('previewProductsDesc').textContent = websiteData.productsSection.description;
+            }
+            
+            // Features
+            if (websiteData.features) {
+                document.getElementById('feature1Title').value = websiteData.features.feature1.title;
+                document.getElementById('feature1Desc').value = websiteData.features.feature1.description;
+                document.getElementById('feature2Title').value = websiteData.features.feature2.title;
+                document.getElementById('feature2Desc').value = websiteData.features.feature2.description;
+                document.getElementById('feature3Title').value = websiteData.features.feature3.title;
+                document.getElementById('feature3Desc').value = websiteData.features.feature3.description;
+            }
+            
+            // Testimonials
+            if (websiteData.testimonials) {
+                document.getElementById('testimonial1').value = websiteData.testimonials.testimonial1.text;
+                document.getElementById('testimonial1Author').value = websiteData.testimonials.testimonial1.author;
+                document.getElementById('testimonial2').value = websiteData.testimonials.testimonial2.text;
+                document.getElementById('testimonial2Author').value = websiteData.testimonials.testimonial2.author;
+                document.getElementById('testimonial3').value = websiteData.testimonials.testimonial3.text;
+                document.getElementById('testimonial3Author').value = websiteData.testimonials.testimonial3.author;
+            }
+            
+            // Website Info
+            const websiteInfo = JSON.parse(localStorage.getItem('rajveerWebsiteInfo') || '{}');
+            if (websiteInfo.name) {
+                document.getElementById('websiteName').value = websiteInfo.name;
+                document.getElementById('websiteTagline').value = websiteInfo.tagline;
+                document.getElementById('contactEmail').value = websiteInfo.email;
+                document.getElementById('contactPhone').value = websiteInfo.phone;
+            }
+            
+            // Colors
+            const colors = JSON.parse(localStorage.getItem('rajveerWebsiteColors') || '{}');
+            if (colors.primary) {
+                document.getElementById('primaryColor').value = colors.primary;
+            }
+            if (colors.secondary) {
+                document.getElementById('secondaryColor').value = colors.secondary;
+            }
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Check admin authentication
-            const isAdminLoggedIn = localStorage.getItem('rajveerAdminLoggedIn');
-            if (isAdminLoggedIn !== 'true') {
-                alert('Access Denied! Please login as admin.');
-                window.location.href = 'adminlogin.html';
-                return;
-            }
-            
-            // Load initial data
-            loadWebsiteData();
+            loadSavedData();
         });
-
-        function loadWebsiteData() {
-            // Load all website data from localStorage
-            console.log('Loading all website data...');
-            // This would load products, users, settings, etc.
-        }
     </script>
 </body>
 </html>
