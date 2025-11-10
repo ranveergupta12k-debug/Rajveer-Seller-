@@ -1066,3 +1066,104 @@
     </script>
 </body>
 </html>
+
+// Add this to your existing index.html file, inside <script> tag
+
+// Load dynamic content from admin panel
+function loadDynamicContentFromAdmin() {
+    // Load website data
+    const websiteData = JSON.parse(localStorage.getItem('rajveerWebsiteData') || '{}');
+    const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+    const websiteInfo = JSON.parse(localStorage.getItem('rajveerWebsiteInfo') || '{}');
+    
+    // ✅ UPDATE HERO SECTION (ACTUALLY WORKS!)
+    if (websiteData.heroSection) {
+        const heroTitle = document.querySelector('.hero-title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        
+        if (heroTitle) heroTitle.textContent = websiteData.heroSection.title;
+        if (heroSubtitle) heroSubtitle.textContent = websiteData.heroSection.subtitle;
+    }
+    
+    // ✅ UPDATE PRODUCTS SECTION
+    if (websiteData.productsSection) {
+        const productsTitle = document.querySelector('#popular-products .section-title');
+        const productsDesc = document.querySelector('#popular-products .section-subtitle');
+        
+        if (productsTitle) productsTitle.textContent = websiteData.productsSection.title;
+        if (productsDesc) productsDesc.textContent = websiteData.productsSection.description;
+    }
+    
+    // ✅ UPDATE FEATURES
+    if (websiteData.features) {
+        const features = document.querySelectorAll('.feature-card');
+        if (features.length >= 3) {
+            features[0].querySelector('h4').textContent = websiteData.features.feature1.title;
+            features[0].querySelector('p').textContent = websiteData.features.feature1.description;
+            
+            features[1].querySelector('h4').textContent = websiteData.features.feature2.title;
+            features[1].querySelector('p').textContent = websiteData.features.feature2.description;
+            
+            features[2].querySelector('h4').textContent = websiteData.features.feature3.title;
+            features[2].querySelector('p').textContent = websiteData.features.feature3.description;
+        }
+    }
+    
+    // ✅ UPDATE TESTIMONIALS
+    if (websiteData.testimonials) {
+        const testimonials = document.querySelectorAll('.testimonial-card');
+        if (testimonials.length >= 3) {
+            testimonials[0].querySelector('.testimonial-text').textContent = websiteData.testimonials.testimonial1.text;
+            testimonials[0].querySelector('.testimonial-author').textContent = websiteData.testimonials.testimonial1.author;
+            
+            testimonials[1].querySelector('.testimonial-text').textContent = websiteData.testimonials.testimonial2.text;
+            testimonials[1].querySelector('.testimonial-author').textContent = websiteData.testimonials.testimonial2.author;
+            
+            testimonials[2].querySelector('.testimonial-text').textContent = websiteData.testimonials.testimonial3.text;
+            testimonials[2].querySelector('.testimonial-author').textContent = websiteData.testimonials.testimonial3.author;
+        }
+    }
+    
+    // ✅ UPDATE WEBSITE INFO
+    if (websiteInfo.name) {
+        const websiteName = document.querySelector('.navbar-brand');
+        const footerTitle = document.querySelector('#dynamic-footer-title');
+        
+        if (websiteName) websiteName.innerHTML = `<i class="fas fa-gem me-2"></i>${websiteInfo.name}`;
+        if (footerTitle) footerTitle.textContent = websiteInfo.name;
+    }
+    
+    // ✅ UPDATE PRODUCTS LIST
+    updateProductsList(products);
+}
+
+// Update products in homepage
+function updateProductsList(products) {
+    const productsContainer = document.querySelector('#popular-products .row');
+    if (!productsContainer) return;
+    
+    if (products.length > 0) {
+        const activeProducts = products.filter(p => p.status === 'active').slice(0, 3);
+        
+        productsContainer.innerHTML = activeProducts.map((product, index) => `
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="product-card">
+                    ${index === 0 ? '<span class="product-tag">Most Popular</span>' : ''}
+                    <div class="product-icon">
+                        <i class="fas fa-${getProductIcon(product.category)}"></i>
+                    </div>
+                    <h4>${product.name}</h4>
+                    <p>${product.description || 'Premium digital product with instant delivery.'}</p>
+                    <div class="product-price">
+                        <span class="current-price">₹${product.price}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// Call this function when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadDynamicContentFromAdmin();
+});
