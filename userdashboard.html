@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard - Rajveer Shop</title>
+    <title>Rajveer Shop - Premium Digital Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c5aa0;
-            --secondary-color: #1cc88a;
-            --accent-color: #4e73df;
-            --light-blue: #e8f1ff;
-            --dark-blue: #1a3c7a;
-            --warning-color: #f6c23e;
-            --info-color: #36b9cc;
-            --text-dark: #2e384d;
-            --text-light: #6c757d;
-            --border-color: #e3e6f0;
+            --primary-blue: #1a56db;
+            --dark-blue: #1e3a8a;
+            --light-blue: #3b82f6;
+            --accent-blue: #60a5fa;
+            --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            --gradient-dark: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --card-shadow: 0 10px 25px -5px rgba(30, 64, 175, 0.1);
+            --hover-shadow: 0 20px 40px -10px rgba(30, 64, 175, 0.2);
         }
         
         * {
@@ -27,331 +30,470 @@
         }
         
         body {
-            background-color: #f5f7fb;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        /* Sidebar Styles */
-        .sidebar {
-            background: linear-gradient(180deg, var(--primary-color) 0%, var(--dark-blue) 100%);
-            color: white;
-            min-height: 100vh;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-            position: fixed;
-            width: 250px;
+        /* Header Styles */
+        .navbar {
+            background: var(--gradient-primary);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            transition: all 0.3s;
         }
         
-        .sidebar.collapsed {
-            width: 70px;
-        }
-        
-        .sidebar.collapsed .sidebar-text {
-            display: none;
-        }
-        
-        .sidebar-header {
-            padding: 1.5rem 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-        
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--accent-color), var(--dark-blue));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(78, 115, 223, 0.3);
-            border: 3px solid white;
-            margin: 0 auto;
-        }
-        
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.85);
-            padding: 0.8rem 1rem;
-            border-left: 4px solid transparent;
-            transition: all 0.3s;
-            margin: 2px 10px;
-            border-radius: 8px;
-            text-decoration: none;
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
             display: flex;
             align-items: center;
         }
         
-        .sidebar .nav-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.15);
-            border-left: 4px solid white;
-            transform: translateX(5px);
-        }
-        
-        .sidebar .nav-link.active {
-            color: white;
-            background: rgba(255, 255, 255, 0.2);
-            border-left: 4px solid white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .sidebar .nav-link i {
-            width: 20px;
+        .navbar-brand i {
             margin-right: 10px;
-            text-align: center;
+            font-size: 2rem;
         }
         
-        .sidebar-toggle {
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            margin: 0 8px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+        }
+        
+        .nav-link::after {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: -15px;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
             background: white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            cursor: pointer;
-            color: var(--primary-color);
-            z-index: 1001;
+            transition: width 0.3s;
         }
         
-        /* Main Content */
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            transition: all 0.3s;
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
         }
         
-        .main-content.expanded {
-            margin-left: 70px;
-        }
-        
-        /* Dashboard Cards */
-        .dashboard-card {
+        .navbar-toggler {
             border: none;
-            border-radius: 15px;
-            box-shadow: 0 0.35rem 1.75rem 0 rgba(58, 59, 69, 0.1);
-            transition: all 0.3s;
-            overflow: hidden;
-            background: white;
-        }
-        
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
-        }
-        
-        .card-primary { 
-            border-left: 5px solid var(--primary-color);
-            background: linear-gradient(45deg, #fff, var(--light-blue));
-        }
-        
-        .card-success { 
-            border-left: 5px solid var(--secondary-color);
-            background: linear-gradient(45deg, #fff, #f0fff8);
-        }
-        
-        .card-warning { 
-            border-left: 5px solid var(--warning-color);
-            background: linear-gradient(45deg, #fff, #fffbf0);
-        }
-        
-        .card-info { 
-            border-left: 5px solid var(--info-color);
-            background: linear-gradient(45deg, #fff, #f0f9ff);
-        }
-        
-        .stats-icon {
-            font-size: 2.5rem;
-            opacity: 0.7;
-        }
-        
-        /* Order Status */
-        .order-status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .status-completed { 
-            background: #d4edda; 
-            color: #155724; 
-        }
-        
-        .status-pending { 
-            background: #fff3cd; 
-            color: #856404; 
-        }
-        
-        .status-processing { 
-            background: #cce7ff; 
-            color: #004085; 
-        }
-        
-        /* Quick Actions */
-        .quick-action-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s;
-            border: 1px solid var(--border-color);
-            height: 100%;
-        }
-        
-        .quick-action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            border-color: var(--primary-color);
-        }
-        
-        .quick-action-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-blue));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
             color: white;
-            font-size: 24px;
+            font-size: 1.5rem;
         }
         
-        /* Recent Activity */
-        .recent-activity {
-            max-height: 300px;
-            overflow-y: auto;
+        .navbar-toggler:focus {
+            box-shadow: none;
         }
         
-        .activity-item {
-            padding: 15px;
-            border-left: 3px solid var(--primary-color);
-            background: white;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 70px;
-                min-height: 100vh;
-            }
-            
-            .sidebar .sidebar-text {
-                display: none;
-            }
-            
-            .sidebar-header {
-                padding: 1rem 0.5rem;
-            }
-            
-            .user-avatar {
-                width: 50px;
-                height: 50px;
-                font-size: 18px;
-            }
-            
-            .sidebar .nav-link {
-                padding: 0.8rem 0.5rem;
-                margin: 2px 5px;
-                justify-content: center;
-            }
-            
-            .sidebar .nav-link i {
-                margin-right: 0;
-            }
-            
-            .main-content {
-                margin-left: 70px;
-                padding: 15px;
-            }
-            
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start !important;
-            }
-            
-            .dashboard-header .btn {
-                margin-top: 10px;
-                width: 100%;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .sidebar {
-                width: 0;
-                overflow: hidden;
-            }
-            
-            .sidebar.mobile-open {
-                width: 250px;
-            }
-            
-            .sidebar.mobile-open .sidebar-text {
-                display: inline;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .mobile-menu-toggle {
-                display: block !important;
-                position: fixed;
-                top: 15px;
-                left: 15px;
-                z-index: 999;
-                background: var(--primary-color);
-                color: white;
-                border-radius: 5px;
-                padding: 8px 12px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            }
-        }
-        
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-        }
-        
-        /* Table Responsive */
-        .table-responsive {
-            border-radius: 10px;
+        /* Hero Section */
+        .hero-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 5rem 0;
+            position: relative;
             overflow: hidden;
         }
         
-        /* Custom Buttons */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M0,0 V100 Q500,50 1000,100 V0Z" fill="%23f8fafc"/></svg>');
+            background-size: cover;
+            background-position: bottom;
+            bottom: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Buttons */
         .btn-primary {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
+            background: var(--gradient-primary);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
         }
         
         .btn-primary:hover {
-            background: var(--dark-blue);
-            border-color: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
         }
         
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
+        .btn-outline-light {
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            color: white;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
         }
         
-        .btn-outline-primary:hover {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
+        .btn-outline-light:hover {
+            background: white;
+            color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+        
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+            height: 100%;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .feature-card h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+        
+        .feature-card p {
+            color: var(--text-light);
+        }
+        
+        /* Products Section */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .product-img {
+            height: 200px;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .product-body {
+            padding: 1.5rem;
+        }
+        
+        .product-badge {
+            background: var(--light-blue);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin: 1rem 0;
+        }
+        
+        .product-rating {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+        
+        /* Testimonials */
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            margin: 1rem;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--light-blue);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gradient-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-blue);
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .navbar-collapse {
+                background: var(--gradient-primary);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 10px;
+            }
+            
+            .feature-card, .product-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--light-blue);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-blue);
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
         }
         
         /* Loading Animation */
@@ -359,9 +501,9 @@
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: #fff;
+            border-top-color: white;
             animation: spin 1s ease-in-out infinite;
         }
         
@@ -369,280 +511,125 @@
             to { transform: rotate(360deg); }
         }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        /* Notification Toast */
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px 20px;
             border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transform: translateX(-120%);
+            transition: transform 0.4s ease;
+            border-left: 4px solid var(--primary-blue);
         }
         
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 10px;
+        .toast-notification.show {
+            transform: translateX(0);
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--dark-blue);
+        .toast-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
         }
     </style>
 </head>
 <body>
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 sidebar p-0">
-                <div class="sidebar-toggle">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-                
-                <div class="sidebar-header">
-                    <div class="user-avatar mx-auto mb-3" id="userAvatar">
-                        <!-- Avatar will be generated from initials -->
-                    </div>
-                    <h5 class="fw-bold sidebar-text" id="userName">Loading...</h5>
-                    <p class="text-white-50 small mb-2 sidebar-text" id="userEmail">Loading...</p>
-                    <span class="badge bg-success bg-opacity-25 text-success sidebar-text">Active Member</span>
-                </div>
-
-                <nav class="nav flex-column py-3">
-                    <a class="nav-link active" href="#">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span class="sidebar-text">Dashboard</span>
-                    </a>
-                    <a class="nav-link" href="product.html">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="sidebar-text">Shop Products</span>
-                    </a>
-                    <a class="nav-link" href="#orders">
-                        <i class="fas fa-history"></i>
-                        <span class="sidebar-text">Order History</span>
-                    </a>
-                    <a class="nav-link" href="#profile">
-                        <i class="fas fa-user"></i>
-                        <span class="sidebar-text">My Profile</span>
-                    </a>
-                    <a class="nav-link" href="#support">
-                        <i class="fas fa-headset"></i>
-                        <span class="sidebar-text">Support</span>
-                    </a>
-                    <div class="mt-4 pt-3 border-top border-white border-opacity-25">
-                        <a class="nav-link text-warning" href="#" id="logoutBtn">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span class="sidebar-text">Logout</span>
-                        </a>
-                    </div>
-                </nav>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-crown"></i>Rajveer Shop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-outline-light" href="login.html">Login</a>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </nav>
 
-            <!-- Main Content -->
-            <div class="col-md-9 col-lg-10 main-content">
-                <!-- Dashboard Header -->
-                <div class="d-flex justify-content-between align-items-center mb-4 dashboard-header">
-                    <div>
-                        <h3 class="fw-bold text-primary">Welcome Back, <span id="greetingName">User</span>! 👋</h3>
-                        <p class="text-muted">Here's your account overview and recent activity</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <a href="product.html" class="btn btn-primary btn-lg">
-                            <i class="fas fa-bolt me-2"></i>Shop Now
-                        </a>
-                        <a href="index.html" class="btn btn-outline-primary btn-lg">
-                            <i class="fas fa-home me-2"></i>Home
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Stats Cards -->
-                <div class="row mb-4">
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card dashboard-card card-primary h-100">
-                            <div class="card-body p-4">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="text-primary text-uppercase fw-bold small mb-2">
-                                            Total Orders
-                                        </div>
-                                        <div class="h2 fw-bold text-gray-800" id="totalOrders">0</div>
-                                        <div class="small text-success">
-                                            <i class="fas fa-arrow-up me-1"></i>
-                                            <span id="orderGrowth">0%</span> growth
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-shopping-bag stats-icon text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card dashboard-card card-success h-100">
-                            <div class="card-body p-4">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="text-success text-uppercase fw-bold small mb-2">
-                                            Total Spent
-                                        </div>
-                                        <div class="h2 fw-bold text-gray-800" id="totalSpent">₹0</div>
-                                        <div class="small text-muted">All time purchases</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-rupee-sign stats-icon text-success"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card dashboard-card card-warning h-100">
-                            <div class="card-body p-4">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="text-warning text-uppercase fw-bold small mb-2">
-                                            Active Products
-                                        </div>
-                                        <div class="h2 fw-bold text-gray-800" id="activeProducts">0</div>
-                                        <div class="small text-muted">Currently using</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-play-circle stats-icon text-warning"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card dashboard-card card-info h-100">
-                            <div class="card-body p-4">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="text-info text-uppercase fw-bold small mb-2">
-                                            Member Since
-                                        </div>
-                                        <div class="h5 fw-bold text-gray-800" id="memberSince">-</div>
-                                        <div class="small text-muted">Loyal customer</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-award stats-icon text-info"></i>
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content animate-fadeInUp">
+                        <span class="hero-badge">
+                            <i class="fas fa-bolt me-2"></i>Premium Digital Products
+                        </span>
+                        <h1 class="hero-title">Get Premium Accounts At Unbeatable Prices</h1>
+                        <p class="hero-subtitle">Access Netflix, Amazon Prime, Disney+, Spotify and more with our lifetime premium accounts. 100% working guarantee with 24/7 support.</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="#products" class="btn btn-primary">
+                                <i class="fas fa-shopping-bag me-2"></i>Shop Now
+                            </a>
+                            <a href="#features" class="btn btn-outline-light">
+                                <i class="fas fa-play-circle me-2"></i>How It Works
+                            </a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Recent Orders & Activity -->
-                <div class="row">
-                    <!-- Recent Orders -->
-                    <div class="col-lg-8 mb-4">
-                        <div class="card dashboard-card">
-                            <div class="card-header bg-white border-0 py-3">
-                                <h5 class="m-0 fw-bold text-primary">
-                                    <i class="fas fa-clock me-2"></i>Recent Orders
-                                </h5>
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-hover mb-0" id="ordersTable">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th class="border-0">Order ID</th>
-                                                <th class="border-0">Product</th>
-                                                <th class="border-0">Amount</th>
-                                                <th class="border-0">Date</th>
-                                                <th class="border-0">Status</th>
-                                                <th class="border-0">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ordersTableBody">
-                                            <!-- Orders will be loaded here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-center py-5" id="noOrdersMessage" style="display: none;">
-                                    <i class="fas fa-shopping-bag fa-4x text-muted mb-3"></i>
-                                    <h4 class="text-muted">No Orders Yet</h4>
-                                    <p class="text-muted mb-4">Start your shopping journey with us</p>
-                                    <a href="product.html" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-shopping-bag me-2"></i>Browse Products
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions & Recent Activity -->
-                    <div class="col-lg-4">
-                        <!-- Quick Actions -->
-                        <div class="card dashboard-card mb-4">
-                            <div class="card-header bg-white border-0 py-3">
-                                <h5 class="m-0 fw-bold text-primary">
-                                    <i class="fas fa-bolt me-2"></i>Quick Actions
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <div class="quick-action-card">
-                                            <div class="quick-action-icon">
-                                                <i class="fas fa-shopping-bag"></i>
-                                            </div>
-                                            <h6>Shop Now</h6>
-                                            <a href="product.html" class="btn btn-sm btn-primary mt-2">Explore</a>
-                                        </div>
+                <div class="col-lg-6">
+                    <div class="text-center animate-fadeInUp" style="animation-delay: 0.3s;">
+                        <div class="position-relative">
+                            <div class="bg-white rounded-3 p-4 d-inline-block shadow-lg">
+                                <div class="d-flex flex-wrap justify-content-center gap-3">
+                                    <div class="bg-primary bg-opacity-10 rounded-2 p-3 text-center">
+                                        <i class="fas fa-tv fa-2x text-primary mb-2"></i>
+                                        <p class="mb-0 fw-bold">Streaming</p>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="quick-action-card">
-                                            <div class="quick-action-icon">
-                                                <i class="fas fa-download"></i>
-                                            </div>
-                                            <h6>Downloads</h6>
-                                            <button class="btn btn-sm btn-success mt-2" onclick="showDownloads()">View</button>
-                                        </div>
+                                    <div class="bg-primary bg-opacity-10 rounded-2 p-3 text-center">
+                                        <i class="fas fa-music fa-2x text-primary mb-2"></i>
+                                        <p class="mb-0 fw-bold">Music</p>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="quick-action-card">
-                                            <div class="quick-action-icon">
-                                                <i class="fas fa-headset"></i>
-                                            </div>
-                                            <h6>Support</h6>
-                                            <button class="btn btn-sm btn-warning mt-2" onclick="contactSupport()">Contact</button>
-                                        </div>
+                                    <div class="bg-primary bg-opacity-10 rounded-2 p-3 text-center">
+                                        <i class="fas fa-gamepad fa-2x text-primary mb-2"></i>
+                                        <p class="mb-0 fw-bold">Gaming</p>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="quick-action-card">
-                                            <div class="quick-action-icon">
-                                                <i class="fas fa-share-alt"></i>
-                                            </div>
-                                            <h6>Refer & Earn</h6>
-                                            <button class="btn btn-sm btn-info mt-2" onclick="referFriend()">Share</button>
-                                        </div>
+                                    <div class="bg-primary bg-opacity-10 rounded-2 p-3 text-center">
+                                        <i class="fas fa-laptop fa-2x text-primary mb-2"></i>
+                                        <p class="mb-0 fw-bold">Software</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Recent Activity -->
-                        <div class="card dashboard-card">
-                            <div class="card-header bg-white border-0 py-3">
-                                <h5 class="m-0 fw-bold text-primary">
-                                    <i class="fas fa-bell me-2"></i>Recent Activity
-                                </h5>
-                            </div>
-                            <div class="card-body recent-activity">
-                                <div id="activityList">
-                                    <!-- Activity items will be loaded here -->
+                                <div class="mt-4 p-3 bg-primary bg-opacity-5 rounded-2">
+                                    <h5 class="text-primary">Limited Time Offer</h5>
+                                    <p class="mb-2">Get 25% off on all products</p>
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;"></div>
+                                    </div>
+                                    <small class="text-muted">Offer ends in 2 days</small>
                                 </div>
                             </div>
                         </div>
@@ -650,255 +637,429 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Rajveer Shop?</h2>
+                <p>We provide the best premium accounts with guaranteed service and support</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>100% Secure</h4>
+                        <p>All accounts are verified and secure with lifetime warranty and replacement guarantee.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Instant Delivery</h4>
+                        <p>Get your account credentials instantly after payment. No waiting time required.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>24/7 Support</h4>
+                        <p>Our support team is available round the clock to assist you with any issues.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h4>Best Prices</h4>
+                        <p>We offer the most competitive prices in the market with regular discounts.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <h4>Free Replacements</h4>
+                        <p>If your account stops working, we provide free replacement without any questions.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4>Worldwide Access</h4>
+                        <p>Our accounts work globally without any regional restrictions or limitations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-5 bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Popular Products</h2>
+                <p>Check out our most popular premium accounts with lifetime access</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <i class="fab fa-netflix"></i>
+                        </div>
+                        <div class="product-body">
+                            <span class="product-badge">Bestseller</span>
+                            <h4>Netflix Premium</h4>
+                            <p>Lifetime access to Netflix Premium with 4K streaming and multiple screens</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ms-1 text-muted">(4.7)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="product-price">₹299</div>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fas fa-shopping-cart me-1"></i>Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <i class="fab fa-spotify"></i>
+                        </div>
+                        <div class="product-body">
+                            <span class="product-badge">Limited Stock</span>
+                            <h4>Spotify Premium</h4>
+                            <p>Ad-free music streaming with unlimited skips and offline downloads</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ms-1 text-muted">(4.9)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="product-price">₹199</div>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fas fa-shopping-cart me-1"></i>Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <i class="fab fa-amazon"></i>
+                        </div>
+                        <div class="product-body">
+                            <span class="product-badge">New</span>
+                            <h4>Amazon Prime</h4>
+                            <p>Complete Amazon Prime benefits including video, music, and free shipping</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ms-1 text-muted">(4.3)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="product-price">₹349</div>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fas fa-shopping-cart me-1"></i>Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="products.html" class="btn btn-outline-primary">
+                    View All Products <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5">
+        <div class="container">
+            <div class="section-title">
+                <h2>Customer Reviews</h2>
+                <p>See what our customers are saying about our products and service</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">I bought Netflix premium account and it's working perfectly. The delivery was instant and the support team helped me with setup. Highly recommended!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">RK</div>
+                            <div>
+                                <h5 class="mb-0">Rahul Kumar</h5>
+                                <small class="text-muted">Delhi, India</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Got Spotify premium at an unbelievable price. The account is working flawlessly for 3 months now. Best purchase I've made online!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">PS</div>
+                            <div>
+                                <h5 class="mb-0">Priya Singh</h5>
+                                <small class="text-muted">Mumbai, India</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">My Disney+ account stopped working after 2 weeks, but they replaced it immediately without any questions. Great customer service!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AS</div>
+                            <div>
+                                <h5 class="mb-0">Amit Sharma</h5>
+                                <small class="text-muted">Bangalore, India</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h3 class="fw-bold mb-3">Ready to Get Premium Access?</h3>
+                    <p class="mb-0">Join thousands of satisfied customers and get lifetime access to your favorite streaming services.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="#products" class="btn btn-light btn-lg">
+                        <i class="fas fa-shopping-bag me-2"></i>Shop Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-crown me-2"></i>Rajveer Shop</h5>
+                    <p class="mt-3">Your trusted source for premium digital accounts. We provide 100% working accounts with lifetime warranty and 24/7 customer support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Products</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Netflix Premium</a></li>
+                        <li><a href="#">Spotify Premium</a></li>
+                        <li><a href="#">Amazon Prime</a></li>
+                        <li><a href="#">Disney+</a></li>
+                        <li><a href="#">YouTube Premium</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope me-2"></i> support@rajveershop.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +91 9506483711</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Delhi, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2023 Rajveer Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast-notification">
+        <div class="toast-icon">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        <div>
+            <h6 class="mb-0">Product Added to Cart</h6>
+            <small class="text-muted">Netflix Premium - ₹299</small>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // User Dashboard Functions
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
         
-        // Load User Data
-        function loadUserData() {
-            const userData = JSON.parse(localStorage.getItem('rajveerUser') || '{}');
-            
-            if (!userData.firstName) {
-                alert('Please login first!');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Display user info
-            document.getElementById('userName').textContent = `${userData.firstName} ${userData.lastName}`;
-            document.getElementById('userEmail').textContent = userData.email;
-            document.getElementById('greetingName').textContent = userData.firstName;
-            document.getElementById('memberSince').textContent = userData.joinedDate || 'Recently';
-
-            // Generate avatar from initials
-            const initials = (userData.firstName.charAt(0) + userData.lastName.charAt(0)).toUpperCase();
-            document.getElementById('userAvatar').textContent = initials;
-
-            // Load user data
-            loadUserStats();
-        }
-
-        // Load User Stats and Orders
-        function loadUserStats() {
-            const allOrders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
-            const currentUser = JSON.parse(localStorage.getItem('rajveerUser') || '{}');
-            const ordersTableBody = document.getElementById('ordersTableBody');
-            const noOrdersMessage = document.getElementById('noOrdersMessage');
-
-            // Filter orders for current user
-            const userOrders = allOrders.filter(order => order.userEmail === currentUser.email);
-            
-            // Calculate stats
-            const totalOrders = userOrders.length;
-            const totalSpent = userOrders.reduce((sum, order) => sum + parseInt(order.price || 0), 0);
-            const activeProducts = userOrders.filter(order => order.status === 'Completed').length;
-
-            // Update stats
-            document.getElementById('totalOrders').textContent = totalOrders;
-            document.getElementById('totalSpent').textContent = `₹${totalSpent}`;
-            document.getElementById('activeProducts').textContent = activeProducts;
-            document.getElementById('orderGrowth').textContent = totalOrders > 0 ? '12.5%' : '0%';
-
-            // Display orders
-            if (userOrders.length === 0) {
-                ordersTableBody.style.display = 'none';
-                noOrdersMessage.style.display = 'block';
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
             } else {
-                ordersTableBody.innerHTML = '';
-                userOrders.slice().reverse().forEach(order => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td class="fw-bold">#${order.id}</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-${getProductIcon(order.product)} text-primary me-2"></i>
-                                <span>${order.product}</span>
-                            </div>
-                        </td>
-                        <td class="fw-bold">₹${order.price}</td>
-                        <td class="text-muted">${order.date}</td>
-                        <td>
-                            <span class="order-status status-${order.status.toLowerCase()}">
-                                ${order.status}
-                            </span>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-primary" onclick="viewOrderDetails('${order.id}')">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                ${order.status === 'Completed' ? `
-                                <button class="btn btn-sm btn-outline-success" onclick="downloadProduct('${order.id}')">
-                                    <i class="fas fa-download"></i>
-                                </button>
-                                ` : ''}
-                            </div>
-                        </td>
-                    `;
-                    ordersTableBody.appendChild(row);
-                });
+                backToTopButton.classList.remove('active');
             }
-
-            // Load activity
-            loadRecentActivity(userOrders);
-        }
-
-        // Get Product Icon
-        function getProductIcon(productName) {
-            if (!productName) return 'box';
-            
-            const icons = {
-                'netflix': 'tv',
-                'Netflix': 'tv',
-                'amazon': 'amazon',
-                'Amazon': 'amazon',
-                'windows': 'microsoft',
-                'Windows': 'microsoft',
-                'gta': 'gamepad',
-                'GTA': 'gamepad',
-                'office': 'microsoft',
-                'disney': 'film',
-                'Disney': 'film',
-                'hotstar': 'film'
-            };
-            
-            for (const [key, icon] of Object.entries(icons)) {
-                if (productName.toLowerCase().includes(key)) return icon;
-            }
-            return 'box';
-        }
-
-        // Load Recent Activity
-        function loadRecentActivity(userOrders) {
-            const activityList = document.getElementById('activityList');
-            const currentUser = JSON.parse(localStorage.getItem('rajveerUser') || '{}');
-            
-            let activities = [];
-            
-            // Add order activities
-            userOrders.slice(0, 3).forEach(order => {
-                activities.push({
-                    icon: 'shopping-cart',
-                    color: 'success',
-                    title: 'Order Placed',
-                    description: `You ordered ${order.product}`,
-                    time: order.date
-                });
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-            
-            // Add default activities if no orders
-            if (activities.length === 0) {
-                activities = [
-                    {
-                        icon: 'user-check',
-                        color: 'primary',
-                        title: 'Profile Updated',
-                        description: 'You updated your contact information',
-                        time: '1 day ago'
-                    },
-                    {
-                        icon: 'gift',
-                        color: 'warning',
-                        title: 'Special Offer',
-                        description: 'New deals available for you',
-                        time: '2 days ago'
-                    },
-                    {
-                        icon: 'shield-alt',
-                        color: 'success',
-                        title: 'Account Created',
-                        description: 'Welcome to Rajveer Shop!',
-                        time: currentUser.joinedDate || 'Recently'
-                    }
-                ];
-            }
-
-            activityList.innerHTML = activities.map(activity => `
-                <div class="activity-item">
-                    <div class="d-flex align-items-center mb-2">
-                        <i class="fas fa-${activity.icon} text-${activity.color} me-2"></i>
-                        <strong>${activity.title}</strong>
-                    </div>
-                    <p class="mb-1 small">${activity.description}</p>
-                    <small class="text-muted">${activity.time}</small>
-                </div>
-            `).join('');
+        });
+        
+        // Toast Notification
+        const toastNotification = document.querySelector('.toast-notification');
+        
+        function showToast() {
+            toastNotification.classList.add('show');
+            setTimeout(() => {
+                toastNotification.classList.remove('show');
+            }, 3000);
         }
-
-        // View Order Details
-        function viewOrderDetails(orderId) {
-            const allOrders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
-            const order = allOrders.find(o => o.id === orderId);
-            
-            if (order) {
-                alert(`📦 Order Details\n\nOrder ID: ${order.id}\nProduct: ${order.product}\nPrice: ₹${order.price}\nStatus: ${order.status}\nDate: ${order.date}\n\nContact support for any issues.`);
-            }
-        }
-
-        // Download Product
-        function downloadProduct(orderId) {
-            alert(`⬇️ Download initiated for order ${orderId}\n\nYour product download will start shortly. Contact support if you face any issues.`);
-        }
-
-        // Quick Action Functions
-        function showDownloads() {
-            const userOrders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]')
-                .filter(order => order.status === 'Completed');
+        
+        // Add to Cart Buttons
+        const addToCartButtons = document.querySelectorAll('.btn-primary');
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                if (e.target.closest('.product-card')) {
+                    showToast();
+                }
+            });
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
                 
-            if (userOrders.length === 0) {
-                alert('📥 No downloads available\n\nComplete your first purchase to get downloads.');
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'var(--gradient-primary)';
+                navbar.style.boxShadow = '0 4px 12px rgba(30, 64, 175, 0.15)';
             } else {
-                alert('📥 Your Downloads\n\nAll your purchased products are available for download.');
+                navbar.style.background = 'var(--gradient-primary)';
+                navbar.style.boxShadow = '0 4px 12px rgba(30, 64, 175, 0.15)';
             }
-        }
-
-        function contactSupport() {
-            alert('🛟 Contact Support\n\nEmail: support@rajveershop.com\nPhone: +91 9506483711\n\nWe are here to help you 24/7!');
-        }
-
-        function referFriend() {
-            alert('👥 Refer & Earn\n\nShare your referral code: RAJVEER2024\n\nEarn ₹100 for every friend who signs up and makes a purchase!');
-        }
-
-        // Sidebar Toggle Functionality
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            const toggleIcon = this.querySelector('i');
+        });
+        
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature-card, .product-card, .testimonial-card');
             
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
-            
-            if (sidebar.classList.contains('collapsed')) {
-                toggleIcon.classList.remove('fa-chevron-left');
-                toggleIcon.classList.add('fa-chevron-right');
-            } else {
-                toggleIcon.classList.remove('fa-chevron-right');
-                toggleIcon.classList.add('fa-chevron-left');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state for animation
+        document.querySelectorAll('.feature-card, .product-card, .testimonial-card').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+        // Initial check in case elements are already in view
+        animateOnScroll();
+        
+        // Product counter animation
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Initialize counters when in view
+        const counters = document.querySelectorAll('.counter');
+        let counted = false;
+        
+        function checkCounters() {
+            const countersSection = document.getElementById('counters');
+            if (countersSection && !counted) {
+                const sectionTop = countersSection.getBoundingClientRect().top;
+                if (sectionTop < window.innerHeight - 100) {
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        animateValue(counter, 0, target, 2000);
+                    });
+                    counted = true;
+                }
             }
-        });
-
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('mobile-open');
-        });
-
-        // Logout Function
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            if (confirm('🚪 Are you sure you want to logout?')) {
-                localStorage.removeItem('rajveerUser');
-                alert('You have been logged out successfully!');
-                window.location.href = 'login.html';
-            }
-        });
-
-        // Initialize Dashboard
-        document.addEventListener('DOMContentLoaded', function() {
-            loadUserData();
-        });
+        }
+        
+        window.addEventListener('scroll', checkCounters);
     </script>
 </body>
 </html>
