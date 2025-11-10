@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Admin Panel - Rajveer Shop</title>
+    <title>Admin Dashboard - Rajveer Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -211,171 +211,9 @@
         .theme-blue { background: linear-gradient(135deg, #4e73df, #2e59d9); }
         .theme-green { background: linear-gradient(135deg, #1cc88a, #17a673); }
         
-        /* New Features CSS */
-        .discount-badge {
-            background: #e74a3b;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        
-        .featured-badge {
-            background: #f6c23e;
-            color: #856404;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        
-        .price-comparison {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 5px 0;
-        }
-        
-        .current-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        .original-price {
-            font-size: 0.9rem;
-            color: #6c757d;
-            text-decoration: line-through;
-        }
-        
-        .discount-percent {
-            background: #e74a3b;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .quick-actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .quick-action-btn {
-            background: white;
-            border: 2px solid var(--primary-color);
-            border-radius: 10px;
-            padding: 10px 15px;
-            color: var(--primary-color);
-            font-weight: 600;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .quick-action-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        .search-filter {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
-        }
-        
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
-            transition: all 0.3s;
-            border: 1px solid #e3e6f0;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
-        }
-        
-        .product-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 15px;
-        }
-        
-        .product-card-image {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        
-        .product-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e3e6f0;
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        .stat-label {
-            font-size: 0.8rem;
-            color: #6c757d;
-        }
-        
-        .bulk-actions {
-            background: #f8f9fc;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 2px dashed #e3e6f0;
-        }
-        
         @media (max-width: 768px) {
             .admin-sidebar {
                 min-height: auto;
-            }
-            
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .quick-actions {
-                flex-direction: column;
             }
         }
     </style>
@@ -389,13 +227,13 @@
                     <div class="admin-avatar mx-auto mb-3">
                         <i class="fas fa-user-shield"></i>
                     </div>
-                    <h5 class="fw-bold">Advanced Admin Panel</h5>
-                    <p class="text-white-50 small mb-2">Rajveer Shop Complete Control</p>
+                    <h5 class="fw-bold">Admin Panel</h5>
+                    <p class="text-white-50 small mb-2">Rajveer Shop Control Center</p>
                     <span class="badge bg-warning">Super Admin</span>
                 </div>
 
                 <nav class="nav flex-column py-3">
-                    <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+                    <a class="nav-link" href="#" onclick="showSection('dashboard')">
                         <i class="fas fa-tachometer-alt me-3"></i>Dashboard
                     </a>
                     <a class="nav-link" href="#" onclick="showSection('products')">
@@ -407,11 +245,8 @@
                     <a class="nav-link" href="#" onclick="showSection('users')">
                         <i class="fas fa-users me-3"></i>Users Management
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('website')">
+                    <a class="nav-link active" href="#" onclick="showSection('website')">
                         <i class="fas fa-globe me-3"></i>Website Settings
-                    </a>
-                    <a class="nav-link" href="#" onclick="showSection('analytics')">
-                        <i class="fas fa-chart-bar me-3"></i>Analytics
                     </a>
                 
                     <div class="mt-4 pt-3 border-top border-white border-opacity-25">
@@ -430,8 +265,8 @@
                     <div class="admin-header">
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <h2 class="fw-bold mb-2">Advanced Admin Dashboard</h2>
-                                <p class="mb-0 opacity-75">Complete control over Rajveer Shop with advanced features</p>
+                                <h2 class="fw-bold mb-2">Admin Dashboard</h2>
+                                <p class="mb-0 opacity-75">Complete control over Rajveer Shop</p>
                             </div>
                             <div class="col-md-6 text-end">
                                 <div class="d-flex justify-content-end gap-2">
@@ -441,31 +276,9 @@
                                     <button class="btn btn-warning" onclick="showQuickActions()">
                                         <i class="fas fa-bolt me-2"></i>Quick Actions
                                     </button>
-                                    <button class="btn btn-success" onclick="exportData()">
-                                        <i class="fas fa-download me-2"></i>Export Data
-                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Quick Actions -->
-                    <div class="quick-actions">
-                        <a href="#" class="quick-action-btn" onclick="showAddProductModal()">
-                            <i class="fas fa-plus"></i> Add New Product
-                        </a>
-                        <a href="#" class="quick-action-btn" onclick="bulkImportProducts()">
-                            <i class="fas fa-upload"></i> Bulk Import
-                        </a>
-                        <a href="#" class="quick-action-btn" onclick="manageDiscounts()">
-                            <i class="fas fa-tag"></i> Manage Discounts
-                        </a>
-                        <a href="#" class="quick-action-btn" onclick="generateReports()">
-                            <i class="fas fa-chart-pie"></i> Generate Reports
-                        </a>
-                        <a href="#" class="quick-action-btn" onclick="backupData()">
-                            <i class="fas fa-database"></i> Backup Data
-                        </a>
                     </div>
 
                     <!-- Statistics Cards -->
@@ -479,10 +292,7 @@
                                                 Total Products
                                             </div>
                                             <div class="h2 fw-bold text-gray-800" id="totalProducts">0</div>
-                                            <div class="small text-muted">
-                                                <span id="activeProducts">0</span> Active • 
-                                                <span id="featuredProducts">0</span> Featured
-                                            </div>
+                                            <div class="small text-muted">Active in store</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-box stats-icon text-primary"></i>
@@ -498,16 +308,16 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <div class="text-success text-uppercase fw-bold small mb-2">
-                                                Total Revenue
+                                                Total Orders
                                             </div>
-                                            <div class="h2 fw-bold text-gray-800" id="totalRevenue">₹0</div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalOrders">0</div>
                                             <div class="small text-success">
                                                 <i class="fas fa-arrow-up me-1"></i>
-                                                <span id="revenueGrowth">0%</span> this month
+                                                <span id="orderGrowth">0%</span> growth
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-rupee-sign stats-icon text-success"></i>
+                                            <i class="fas fa-shopping-bag stats-icon text-success"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -520,16 +330,13 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <div class="text-warning text-uppercase fw-bold small mb-2">
-                                                Total Orders
+                                                Total Users
                                             </div>
-                                            <div class="h2 fw-bold text-gray-800" id="totalOrders">0</div>
-                                            <div class="small text-muted">
-                                                <span id="pendingOrders">0</span> Pending • 
-                                                <span id="completedOrders">0</span> Completed
-                                            </div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalUsers">0</div>
+                                            <div class="small text-muted">Registered customers</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-shopping-bag stats-icon text-warning"></i>
+                                            <i class="fas fa-users stats-icon text-warning"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -542,15 +349,13 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <div class="text-danger text-uppercase fw-bold small mb-2">
-                                                Customer Satisfaction
+                                                Total Revenue
                                             </div>
-                                            <div class="h2 fw-bold text-gray-800" id="satisfactionRate">0%</div>
-                                            <div class="small text-muted">
-                                                Based on <span id="totalReviews">0</span> reviews
-                                            </div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalRevenue">₹0</div>
+                                            <div class="small text-muted">Lifetime earnings</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-star stats-icon text-danger"></i>
+                                            <i class="fas fa-rupee-sign stats-icon text-danger"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -558,53 +363,87 @@
                         </div>
                     </div>
 
-                    <!-- Products Grid View -->
+                    <!-- Products Management -->
                     <div class="row mb-4">
                         <div class="col-12">
                             <div class="card admin-card">
                                 <div class="card-header bg-white py-3">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5 class="m-0 fw-bold text-primary">
-                                            <i class="fas fa-box me-2"></i>Recent Products
+                                            <i class="fas fa-box me-2"></i>Products Management
                                         </h5>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-outline-primary btn-sm" onclick="toggleView('grid')">
-                                                <i class="fas fa-th-large"></i> Grid
-                                            </button>
-                                            <button class="btn btn-outline-primary btn-sm" onclick="toggleView('table')">
-                                                <i class="fas fa-table"></i> Table
-                                            </button>
-                                        </div>
+                                        <button class="btn btn-admin" onclick="showAddProductModal()">
+                                            <i class="fas fa-plus me-2"></i>Add New Product
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <!-- Grid View -->
-                                    <div id="productsGridView">
-                                        <div class="product-grid" id="productsGrid">
-                                            <!-- Products will be loaded here in grid -->
-                                        </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-admin table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Product</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="productsTableBody">
+                                                <!-- Products will be loaded here -->
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    
-                                    <!-- Table View -->
-                                    <div id="productsTableView" style="display: none;">
-                                        <div class="table-responsive">
-                                            <table class="table table-admin table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Product</th>
-                                                        <th>Category</th>
-                                                        <th>Price</th>
-                                                        <th>Discount</th>
-                                                        <th>Status</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="productsTableBody">
-                                                    <!-- Products will be loaded here in table -->
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders & Users -->
+                    <div class="row">
+                        <!-- Recent Orders -->
+                        <div class="col-lg-8 mb-4">
+                            <div class="card admin-card">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="m-0 fw-bold text-primary">
+                                        <i class="fas fa-shopping-bag me-2"></i>Recent Orders
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-admin table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <th>Customer</th>
+                                                    <th>Product</th>
+                                                    <th>Amount</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ordersTableBody">
+                                                <!-- Orders will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Users -->
+                        <div class="col-lg-4 mb-4">
+                            <div class="card admin-card">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="m-0 fw-bold text-primary">
+                                        <i class="fas fa-users me-2"></i>Recent Users
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="usersList">
+                                        <!-- Users will be loaded here -->
                                     </div>
                                 </div>
                             </div>
@@ -612,150 +451,260 @@
                     </div>
                 </div>
 
-                <!-- Products Management Section -->
-                <div id="products-section" style="display: none;">
+                <!-- Website Settings Section -->
+                <div id="website-section" style="display: none;">
                     <div class="admin-header">
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <h2 class="fw-bold mb-2">Advanced Products Management</h2>
-                                <p class="mb-0 opacity-75">Manage products with discounts, categories and advanced features</p>
+                                <h2 class="fw-bold mb-2">Website Settings</h2>
+                                <p class="mb-0 opacity-75">Customize your website appearance and functionality</p>
                             </div>
                             <div class="col-md-6 text-end">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <button class="btn btn-light" onclick="refreshData()">
-                                        <i class="fas fa-sync-alt me-2"></i>Refresh
+                                    <button class="btn btn-light" onclick="resetWebsiteSettings()">
+                                        <i class="fas fa-undo me-2"></i>Reset to Default
                                     </button>
-                                    <button class="btn btn-admin" onclick="showAddProductModal()">
-                                        <i class="fas fa-plus me-2"></i>Add New Product
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Search and Filter -->
-                    <div class="search-filter">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Search Products</label>
-                                    <input type="text" class="form-control" id="productSearch" placeholder="Search by name, category...">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Category</label>
-                                    <select class="form-select" id="categoryFilter">
-                                        <option value="">All Categories</option>
-                                        <option value="ott">OTT Platforms</option>
-                                        <option value="games">Games</option>
-                                        <option value="windows">Windows</option>
-                                        <option value="software">Software</option>
-                                        <option value="social-media-service">Social Media Service</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Status</label>
-                                    <select class="form-select" id="statusFilter">
-                                        <option value="">All Status</option>
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                        <option value="featured">Featured</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">&nbsp;</label>
-                                    <button class="btn btn-primary w-100" onclick="filterProducts()">
-                                        <i class="fas fa-filter me-2"></i>Filter
+                                    <button class="btn btn-admin" onclick="saveWebsiteSettings()">
+                                        <i class="fas fa-save me-2"></i>Save All Settings
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Bulk Actions -->
-                    <div class="bulk-actions">
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <h6 class="mb-0 fw-bold">Bulk Actions</h6>
-                                <small class="text-muted">Apply actions to multiple products</small>
-                            </div>
-                            <div class="col-md-6 text-end">
-                                <div class="d-flex gap-2 justify-content-end">
-                                    <select class="form-select form-select-sm" style="width: auto;" id="bulkAction">
-                                        <option value="">Choose Action</option>
-                                        <option value="activate">Activate Selected</option>
-                                        <option value="deactivate">Deactivate Selected</option>
-                                        <option value="featured">Mark as Featured</option>
-                                        <option value="delete">Delete Selected</option>
-                                    </select>
-                                    <button class="btn btn-sm btn-primary" onclick="applyBulkAction()">
-                                        Apply
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Products Table -->
                     <div class="card admin-card">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-admin table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th width="50">
-                                                <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
-                                            </th>
-                                            <th>Product</th>
-                                            <th>Category</th>
-                                            <th>Pricing</th>
-                                            <th>Discount</th>
-                                            <th>Stock</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="advancedProductsTable">
-                                        <!-- Advanced products will be loaded here -->
-                                    </tbody>
-                                </table>
+                            <!-- General Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-cog me-2"></i>General Settings</h5>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Website Name</label>
+                                        <input type="text" class="form-control" id="websiteName" placeholder="Enter website name">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Website Tagline</label>
+                                        <input type="text" class="form-control" id="websiteTagline" placeholder="Enter website tagline">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Contact Email</label>
+                                        <input type="email" class="form-control" id="contactEmail" placeholder="Enter contact email">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Contact Phone</label>
+                                        <input type="text" class="form-control" id="contactPhone" placeholder="Enter contact phone">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Website Description</label>
+                                    <textarea class="form-control" id="websiteDescription" rows="3" placeholder="Enter website description"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Appearance Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-palette me-2"></i>Appearance Settings</h5>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Primary Color</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text color-preview" id="primaryColorPreview" style="background-color: #4e73df;"></span>
+                                            <input type="color" class="form-control form-control-color" id="primaryColor" value="#4e73df" title="Choose primary color">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Secondary Color</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text color-preview" id="secondaryColorPreview" style="background-color: #1cc88a;"></span>
+                                            <input type="color" class="form-control form-control-color" id="secondaryColor" value="#1cc88a" title="Choose secondary color">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Website Theme</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="theme-option active" onclick="selectTheme('light')">
+                                                <div class="theme-preview theme-light"></div>
+                                                <div class="text-center">Light Theme</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="theme-option" onclick="selectTheme('dark')">
+                                                <div class="theme-preview theme-dark"></div>
+                                                <div class="text-center">Dark Theme</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="theme-option" onclick="selectTheme('blue')">
+                                                <div class="theme-preview theme-blue"></div>
+                                                <div class="text-center">Blue Theme</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="theme-option" onclick="selectTheme('green')">
+                                                <div class="theme-preview theme-green"></div>
+                                                <div class="text-center">Green Theme</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Functionality Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-sliders-h me-2"></i>Functionality Settings</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableRegistration">
+                                                <label class="form-check-label" for="enableRegistration">Enable User Registration</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableReviews">
+                                                <label class="form-check-label" for="enableReviews">Enable Product Reviews</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableWishlist">
+                                                <label class="form-check-label" for="enableWishlist">Enable Wishlist Feature</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableNewsletter">
+                                                <label class="form-check-label" for="enableNewsletter">Enable Newsletter Subscription</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="enableCoupons">
+                                                <label class="form-check-label" for="enableCoupons">Enable Coupon Codes</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                                                <label class="form-check-label" for="maintenanceMode">Maintenance Mode</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SEO Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-search me-2"></i>SEO Settings</h5>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Meta Title</label>
+                                    <input type="text" class="form-control" id="metaTitle" placeholder="Enter meta title for SEO">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Meta Description</label>
+                                    <textarea class="form-control" id="metaDescription" rows="3" placeholder="Enter meta description for SEO"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Keywords</label>
+                                    <input type="text" class="form-control" id="metaKeywords" placeholder="Enter keywords separated by commas">
+                                    <div class="form-text">Separate keywords with commas for better SEO</div>
+                                </div>
+                            </div>
+
+                            <!-- Social Media Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-share-alt me-2"></i>Social Media Settings</h5>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Facebook URL</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fab fa-facebook"></i></span>
+                                            <input type="url" class="form-control" id="facebookUrl" placeholder="Enter Facebook page URL">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Instagram URL</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fab fa-instagram"></i></span>
+                                            <input type="url" class="form-control" id="instagramUrl" placeholder="Enter Instagram profile URL">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Twitter URL</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fab fa-twitter"></i></span>
+                                            <input type="url" class="form-control" id="twitterUrl" placeholder="Enter Twitter profile URL">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">YouTube URL</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fab fa-youtube"></i></span>
+                                            <input type="url" class="form-control" id="youtubeUrl" placeholder="Enter YouTube channel URL">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Advanced Settings -->
+                            <div class="settings-section">
+                                <h5><i class="fas fa-tools me-2"></i>Advanced Settings</h5>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Custom CSS</label>
+                                    <textarea class="form-control" id="customCSS" rows="4" placeholder="Enter custom CSS code"></textarea>
+                                    <div class="form-text">Add custom CSS to modify the appearance of your website</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Custom JavaScript</label>
+                                    <textarea class="form-control" id="customJS" rows="4" placeholder="Enter custom JavaScript code"></textarea>
+                                    <div class="form-text">Add custom JavaScript for additional functionality</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Google Analytics ID</label>
+                                    <input type="text" class="form-control" id="googleAnalyticsId" placeholder="Enter Google Analytics tracking ID">
+                                </div>
+                            </div>
+
+                            <!-- Save Settings Button -->
+                            <div class="text-center mt-4">
+                                <button class="btn btn-admin btn-lg" onclick="saveWebsiteSettings()">
+                                    <i class="fas fa-save me-2"></i>Save All Website Settings
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Other sections remain the same -->
-                <div id="website-section" style="display: none;">
-                    <!-- Your existing website settings content -->
-                </div>
-
             </div>
         </div>
     </div>
 
-    <!-- Enhanced Add Product Modal -->
+    <!-- Add Product Modal -->
     <div class="modal fade" id="addProductModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="productModalTitle">Add New Product</h5>
+                    <h5 class="modal-title">Add New Product</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <form id="addProductForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Product Name</label>
-                                <input type="text" class="form-control" id="productName" required>
+                                <label class="form-label">Product Name</label>
+                                <input type="text" class="form-control" name="productName" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Category</label>
-                                <select class="form-select" id="productCategory" required>
+                                <label class="form-label">Category</label>
+                                <select class="form-select" name="category" required>
                                     <option value="">Select Category</option>
                                     <option value="ott">OTT Platforms</option>
                                     <option value="games">Games</option>
@@ -763,6 +712,7 @@
                                     <option value="software">Software</option>
                                     <option value="social-media-service">Social Media Service</option>
                                     <option value="design-&-branding">Design & Branding</option>
+                                    <option value="Window installation">windows-installation</option>
                                     <option value="cloud-storage">Cloud Storage</option>
                                     <option value="tools">Tools</option>
                                     <option value="codes-&-digital-payments">Codes & Digital Payments</option>
@@ -775,59 +725,28 @@
                                 </select>
                             </div>
                         </div>
-                        
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold">Original Price (₹)</label>
-                                <input type="number" class="form-control" id="originalPrice" required>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold">Discount (%)</label>
-                                <input type="number" class="form-control" id="discountPercent" min="0" max="100" value="0">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold">Final Price (₹)</label>
-                                <input type="number" class="form-control" id="finalPrice" readonly>
-                            </div>
-                        </div>
-                        
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Stock Quantity</label>
-                                <input type="number" class="form-control" id="stockQuantity" value="1" min="1">
+                                <label class="form-label">Price (₹)</label>
+                                <input type="number" class="form-control" name="price" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Status</label>
-                                <select class="form-select" id="productStatus" required>
+                                <label class="form-label">Status</label>
+                                <select class="form-select" name="status" required>
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
                                 </select>
                             </div>
                         </div>
-                        
                         <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="isFeatured">
-                                <label class="form-check-label fw-bold" for="isFeatured">
-                                    Mark as Featured Product
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Product Description</label>
-                            <textarea class="form-control" id="productDescription" rows="4" placeholder="Describe your product features and benefits..."></textarea>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Product Features (One per line)</label>
-                            <textarea class="form-control" id="productFeatures" rows="3" placeholder="Feature 1&#10;Feature 2&#10;Feature 3"></textarea>
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="saveProductBtn" onclick="saveProduct()">Add Product</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewProduct()">Add Product</button>
                 </div>
             </div>
         </div>
@@ -835,9 +754,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Enhanced Admin Panel Functions
-        let editingProductId = null;
-
         // Check Admin Authentication
         function checkAdminAuth() {
             const isLoggedIn = localStorage.getItem('rajveerAdminLoggedIn');
@@ -849,137 +765,45 @@
             return true;
         }
 
-        // Enhanced Load Admin Dashboard Data
+        // Load Admin Dashboard Data
         function loadAdminDashboard() {
             if (!checkAdminAuth()) return;
 
+            // Load products
             const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
-            const orders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
-            const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
-
-            // Update statistics
             document.getElementById('totalProducts').textContent = products.length;
+            
+            // Load orders
+            const orders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
             document.getElementById('totalOrders').textContent = orders.length;
+            
+            // Load users
+            const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
             document.getElementById('totalUsers').textContent = users.length;
             
-            const activeProducts = products.filter(p => p.status === 'active').length;
-            const featuredProducts = products.filter(p => p.isFeatured).length;
-            const pendingOrders = orders.filter(o => o.status === 'pending').length;
-            const completedOrders = orders.filter(o => o.status === 'completed').length;
-            
-            document.getElementById('activeProducts').textContent = activeProducts;
-            document.getElementById('featuredProducts').textContent = featuredProducts;
-            document.getElementById('pendingOrders').textContent = pendingOrders;
-            document.getElementById('completedOrders').textContent = completedOrders;
-
             // Calculate revenue
-            const totalRevenue = orders.reduce((sum, order) => sum + parseFloat(order.finalPrice || order.price || 0), 0);
-            document.getElementById('totalRevenue').textContent = `₹${totalRevenue.toLocaleString()}`;
-            
-            // Calculate discount savings
-            const discountSavings = products.reduce((sum, product) => {
-                if (product.discountPercent > 0) {
-                    return sum + (product.originalPrice * product.discountPercent / 100);
-                }
-                return sum;
-            }, 0);
-            
-            document.getElementById('revenueGrowth').textContent = `₹${Math.round(discountSavings).toLocaleString()} saved`;
+            const totalRevenue = orders.reduce((sum, order) => sum + parseInt(order.price || 0), 0);
+            document.getElementById('totalRevenue').textContent = `₹${totalRevenue}`;
+            document.getElementById('orderGrowth').textContent = orders.length > 0 ? '15.2%' : '0%';
 
-            // Display products
-            displayProductsGrid(products);
+            // Display products table
             displayProductsTable(products);
-        }
-
-        // Display Products in Grid View
-        function displayProductsGrid(products) {
-            const container = document.getElementById('productsGrid');
-            const recentProducts = products.slice(-6).reverse();
             
-            if (recentProducts.length === 0) {
-                container.innerHTML = `
-                    <div class="col-12 text-center py-5">
-                        <i class="fas fa-box fa-4x text-muted mb-3"></i>
-                        <h5 class="text-muted">No products found</h5>
-                        <p class="text-muted">Add your first product to get started</p>
-                        <button class="btn btn-primary" onclick="showAddProductModal()">
-                            <i class="fas fa-plus me-2"></i>Add First Product
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = recentProducts.map(product => {
-                const finalPrice = product.finalPrice || product.price;
-                const originalPrice = product.originalPrice || product.price;
-                const discountPercent = product.discountPercent || 0;
-                const savings = originalPrice - finalPrice;
-                
-                return `
-                    <div class="product-card">
-                        <div class="product-card-header">
-                            <div class="product-card-image">
-                                <i class="fas fa-${getProductIcon(product.category)}"></i>
-                            </div>
-                            <div>
-                                ${product.isFeatured ? '<span class="featured-badge">Featured</span>' : ''}
-                                ${discountPercent > 0 ? `<span class="discount-badge">${discountPercent}% OFF</span>` : ''}
-                            </div>
-                        </div>
-                        
-                        <h6 class="fw-bold mb-2">${product.name}</h6>
-                        <p class="text-muted small mb-3">${product.category}</p>
-                        
-                        <div class="price-comparison">
-                            <span class="current-price">₹${finalPrice}</span>
-                            ${discountPercent > 0 ? `
-                                <span class="original-price">₹${originalPrice}</span>
-                                <span class="discount-percent">Save ₹${savings}</span>
-                            ` : ''}
-                        </div>
-                        
-                        <div class="product-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">${product.stock || '∞'}</div>
-                                <div class="stat-label">Stock</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">${product.orders || 0}</div>
-                                <div class="stat-label">Orders</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">
-                                    <span class="status-badge status-${product.status || 'active'}">
-                                        ${(product.status || 'active').toUpperCase()}
-                                    </span>
-                                </div>
-                                <div class="stat-label">Status</div>
-                            </div>
-                        </div>
-                        
-                        <div class="d-flex gap-2 mt-3">
-                            <button class="btn btn-sm btn-outline-primary flex-fill" onclick="editProduct(${product.id})">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${product.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            // Display orders table
+            displayOrdersTable(orders);
+            
+            // Display users list
+            displayUsersList(users);
         }
 
-        // Display Products in Table View
+        // Display Products Table
         function displayProductsTable(products) {
             const tbody = document.getElementById('productsTableBody');
-            const recentProducts = products.slice(-6).reverse();
             
-            if (recentProducts.length === 0) {
+            if (products.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" class="text-center py-4">
+                        <td colspan="6" class="text-center py-4">
                             <i class="fas fa-box fa-3x text-muted mb-3"></i>
                             <p class="text-muted">No products found</p>
                             <button class="btn btn-primary" onclick="showAddProductModal()">
@@ -991,140 +815,163 @@
                 return;
             }
 
-            tbody.innerHTML = recentProducts.map(product => {
-                const finalPrice = product.finalPrice || product.price;
-                const originalPrice = product.originalPrice || product.price;
-                const discountPercent = product.discountPercent || 0;
-                
-                return `
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td class="fw-bold">#${product.id}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="product-image me-3">
+                                <i class="fas fa-${getProductIcon(product.category)}"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold">${product.name}</div>
+                                <small class="text-muted">${product.description || 'No description'}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="text-capitalize">${product.category}</span>
+                    </td>
+                    <td class="fw-bold text-success">₹${product.price}</td>
+                    <td>
+                        <span class="status-badge status-${product.status || 'active'}">
+                            ${(product.status || 'active').toUpperCase()}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-primary" onclick="editProduct(${product.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Display Orders Table
+        function displayOrdersTable(orders) {
+            const tbody = document.getElementById('ordersTableBody');
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = `
                     <tr>
-                        <td class="fw-bold">#${product.id}</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="product-image me-3">
-                                    <i class="fas fa-${getProductIcon(product.category)}"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold">${product.name}</div>
-                                    <small class="text-muted">${product.description || 'No description'}</small>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="text-capitalize">${product.category}</span>
-                        </td>
-                        <td>
-                            <div class="fw-bold text-success">₹${finalPrice}</div>
-                            ${discountPercent > 0 ? `<small class="text-muted">₹${originalPrice}</small>` : ''}
-                        </td>
-                        <td>
-                            ${discountPercent > 0 ? `
-                                <span class="discount-badge">${discountPercent}% OFF</span>
-                            ` : '<span class="text-muted">No discount</span>'}
-                        </td>
-                        <td>
-                            <span class="status-badge status-${product.status || 'active'}">
-                                ${(product.status || 'active').toUpperCase()}
-                            </span>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-primary" onclick="editProduct(${product.id})">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${product.id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
+                        <td colspan="7" class="text-center py-4">
+                            <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No orders yet</p>
                         </td>
                     </tr>
                 `;
-            }).join('');
+                return;
+            }
+
+            tbody.innerHTML = orders.slice().reverse().map(order => `
+                <tr>
+                    <td class="fw-bold">#${order.id}</td>
+                    <td>${order.userName || 'Customer'}</td>
+                    <td>${order.product}</td>
+                    <td class="fw-bold">₹${order.price}</td>
+                    <td>
+                        <span class="status-badge status-${(order.status || 'pending').toLowerCase()}">
+                            ${order.status || 'PENDING'}
+                        </span>
+                    </td>
+                    <td class="text-muted">${order.date}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-success" onclick="updateOrderStatus('${order.id}', 'completed')">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" onclick="updateOrderStatus('${order.id}', 'pending')">
+                                <i class="fas fa-clock"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
         }
 
-        // Toggle between Grid and Table view
-        function toggleView(viewType) {
-            if (viewType === 'grid') {
-                document.getElementById('productsGridView').style.display = 'block';
-                document.getElementById('productsTableView').style.display = 'none';
-            } else {
-                document.getElementById('productsGridView').style.display = 'none';
-                document.getElementById('productsTableView').style.display = 'block';
+        // Display Users List
+        function displayUsersList(users) {
+            const container = document.getElementById('usersList');
+            
+            if (users.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No users registered yet</p>
+                    </div>
+                `;
+                return;
             }
+
+            container.innerHTML = users.slice().reverse().map(user => `
+                <div class="d-flex align-items-center mb-3 p-2 border rounded">
+                    <div class="admin-avatar me-3">
+                        ${(user.firstName?.charAt(0) + user.lastName?.charAt(0)).toUpperCase()}
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="fw-bold">${user.firstName} ${user.lastName}</div>
+                        <small class="text-muted">${user.email}</small>
+                        <div class="small text-muted">Joined: ${user.joinedDate}</div>
+                    </div>
+                    <span class="status-badge status-active">Active</span>
+                </div>
+            `).join('');
+        }
+
+        // Get Product Icon
+        function getProductIcon(category) {
+            const icons = {
+                'ott': 'tv',
+                'games': 'gamepad',
+                'windows': 'microsoft',
+                'software': 'code'
+            };
+            return icons[category] || 'box';
         }
 
         // Show Add Product Modal
         function showAddProductModal() {
             if (!checkAdminAuth()) return;
-            
-            editingProductId = null;
-            document.getElementById('productModalTitle').textContent = 'Add New Product';
-            document.getElementById('saveProductBtn').textContent = 'Add Product';
-            document.getElementById('addProductForm').reset();
-            document.getElementById('finalPrice').value = '';
-            
             const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
             modal.show();
         }
 
-        // Calculate final price when discount changes
-        document.getElementById('discountPercent').addEventListener('input', calculateFinalPrice);
-        document.getElementById('originalPrice').addEventListener('input', calculateFinalPrice);
-
-        function calculateFinalPrice() {
-            const originalPrice = parseFloat(document.getElementById('originalPrice').value) || 0;
-            const discountPercent = parseFloat(document.getElementById('discountPercent').value) || 0;
+        // Add New Product
+        function addNewProduct() {
+            const form = document.getElementById('addProductForm');
+            const formData = new FormData(form);
             
-            if (originalPrice > 0) {
-                const discountAmount = (originalPrice * discountPercent) / 100;
-                const finalPrice = originalPrice - discountAmount;
-                document.getElementById('finalPrice').value = finalPrice.toFixed(2);
-            }
-        }
-
-        // Save Product (Add or Update)
-        function saveProduct() {
-            const productData = {
-                name: document.getElementById('productName').value,
-                category: document.getElementById('productCategory').value,
-                originalPrice: parseFloat(document.getElementById('originalPrice').value),
-                discountPercent: parseFloat(document.getElementById('discountPercent').value) || 0,
-                finalPrice: parseFloat(document.getElementById('finalPrice').value),
-                stock: parseInt(document.getElementById('stockQuantity').value) || 1,
-                status: document.getElementById('productStatus').value,
-                isFeatured: document.getElementById('isFeatured').checked,
-                description: document.getElementById('productDescription').value,
-                features: document.getElementById('productFeatures').value.split('\n').filter(f => f.trim()),
+            const newProduct = {
+                id: Date.now(),
+                name: formData.get('productName'),
+                category: formData.get('category'),
+                price: formData.get('price'),
+                status: formData.get('status'),
+                description: formData.get('description'),
                 createdAt: new Date().toLocaleString()
             };
 
-            if (!productData.name || !productData.category || !productData.originalPrice) {
-                alert('❌ Please fill all required fields!');
-                return;
-            }
-
-            let products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
-
-            if (editingProductId) {
-                // Update existing product
-                const productIndex = products.findIndex(p => p.id === editingProductId);
-                if (productIndex !== -1) {
-                    products[productIndex] = { ...products[productIndex], ...productData };
-                    showNotification('✅ Product updated successfully!', 'success');
-                }
-            } else {
-                // Add new product
-                productData.id = Date.now();
-                productData.orders = 0;
-                products.push(productData);
-                showNotification('✅ Product added successfully!', 'success');
-            }
-
+            // Save to localStorage - YE PRODUCT USER KO WEBSITE PE DIKHEGA
+            const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+            products.push(newProduct);
             localStorage.setItem('rajveerProducts', JSON.stringify(products));
+
+            // Refresh display
             loadAdminDashboard();
             
+            // Close modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
             modal.hide();
+            
+            // Reset form
+            form.reset();
+            
+            alert('✅ Product added successfully! This product will now appear on the website.');
         }
 
         // Edit Product
@@ -1133,177 +980,56 @@
             const product = products.find(p => p.id === productId);
             
             if (product) {
-                editingProductId = productId;
-                
-                document.getElementById('productModalTitle').textContent = 'Edit Product';
-                document.getElementById('saveProductBtn').textContent = 'Update Product';
-                
-                // Fill form with product data
-                document.getElementById('productName').value = product.name;
-                document.getElementById('productCategory').value = product.category;
-                document.getElementById('originalPrice').value = product.originalPrice || product.price;
-                document.getElementById('discountPercent').value = product.discountPercent || 0;
-                document.getElementById('stockQuantity').value = product.stock || 1;
-                document.getElementById('productStatus').value = product.status;
-                document.getElementById('isFeatured').checked = product.isFeatured || false;
-                document.getElementById('productDescription').value = product.description || '';
-                document.getElementById('productFeatures').value = (product.features || []).join('\n');
-                
-                // Calculate final price
-                calculateFinalPrice();
-                
-                const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
-                modal.show();
+                const newName = prompt('Enter new product name:', product.name);
+                if (newName) {
+                    product.name = newName;
+                    localStorage.setItem('rajveerProducts', JSON.stringify(products));
+                    loadAdminDashboard();
+                    alert('✅ Product updated successfully!');
+                }
             }
         }
 
         // Delete Product
         function deleteProduct(productId) {
             if (confirm('🗑 Are you sure you want to delete this product?')) {
-                let products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
-                products = products.filter(p => p.id !== productId);
-                localStorage.setItem('rajveerProducts', JSON.stringify(products));
+                const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+                const updatedProducts = products.filter(p => p.id !== productId);
+                localStorage.setItem('rajveerProducts', JSON.stringify(updatedProducts));
                 loadAdminDashboard();
-                showNotification('✅ Product deleted successfully!', 'success');
+                alert('✅ Product deleted successfully! This product will be removed from the website.');
             }
         }
 
-        // Get Product Icon
-        function getProductIcon(category) {
-            const icons = {
-                'ott': 'tv',
-                'games': 'gamepad',
-                'windows': 'windows',
-                'software': 'code',
-                'social-media-service': 'share-alt',
-                'design-&-branding': 'palette',
-                'cloud-storage': 'cloud',
-                'tools': 'tools',
-                'codes-&-digital-payments': 'credit-card',
-                'ai-services': 'robot',
-                'cyber-&-security': 'shield-alt',
-                'learning-&-skills': 'graduation-cap',
-                'digital-marketing': 'bullhorn',
-                'recharge-&-bill-payments': 'mobile-alt',
-                'ready-made-content-packs': 'images'
-            };
-            return icons[category] || 'box';
-        }
-
-        // New Features Functions
-        function showQuickActions() {
-            alert('⚡ Advanced Quick Actions:\n\n• Bulk Product Management\n• Discount Management\n• Inventory Tracking\n• Sales Analytics\n• Customer Insights\n• Automated Reports');
-        }
-
-        function exportData() {
-            const data = {
-                products: JSON.parse(localStorage.getItem('rajveerProducts') || '[]'),
-                users: JSON.parse(localStorage.getItem('rajveerUsers') || '[]'),
-                orders: JSON.parse(localStorage.getItem('rajveerOrders') || '[]'),
-                settings: JSON.parse(localStorage.getItem('rajveerWebsiteSettings') || '{}'),
-                exportDate: new Date().toLocaleString()
-            };
+        // Update Order Status
+        function updateOrderStatus(orderId, status) {
+            const orders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
+            const order = orders.find(o => o.id === orderId);
             
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", "rajveer-shop-complete-data.json");
-            document.body.appendChild(downloadAnchorNode);
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
-            
-            showNotification('✅ All data exported successfully!', 'success');
-        }
-
-        function bulkImportProducts() {
-            alert('📦 Bulk import feature would allow you to upload CSV/Excel files with product data');
-        }
-
-        function manageDiscounts() {
-            alert('🏷️ Discount management panel would open for bulk discount operations');
-        }
-
-        function generateReports() {
-            alert('📊 Advanced reporting system would generate sales, revenue, and customer reports');
-        }
-
-        function backupData() {
-            alert('💾 Automated backup system would create a complete backup of your store data');
-        }
-
-        function filterProducts() {
-            const searchTerm = document.getElementById('productSearch').value.toLowerCase();
-            const categoryFilter = document.getElementById('categoryFilter').value;
-            const statusFilter = document.getElementById('statusFilter').value;
-            
-            let products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
-            
-            let filteredProducts = products.filter(product => {
-                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                                    product.category.toLowerCase().includes(searchTerm);
-                const matchesCategory = !categoryFilter || product.category === categoryFilter;
-                const matchesStatus = !statusFilter || 
-                                    (statusFilter === 'featured' ? product.isFeatured : product.status === statusFilter);
-                
-                return matchesSearch && matchesCategory && matchesStatus;
-            });
-            
-            displayProductsGrid(filteredProducts);
-            displayProductsTable(filteredProducts);
-        }
-
-        function toggleSelectAll() {
-            const checkboxes = document.querySelectorAll('#advancedProductsTable input[type="checkbox"]');
-            const selectAll = document.getElementById('selectAll').checked;
-            
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = selectAll;
-            });
-        }
-
-        function applyBulkAction() {
-            const action = document.getElementById('bulkAction').value;
-            if (!action) {
-                alert('Please select an action first!');
-                return;
+            if (order) {
+                order.status = status.charAt(0).toUpperCase() + status.slice(1);
+                localStorage.setItem('rajveerOrders', JSON.stringify(orders));
+                loadAdminDashboard();
+                alert(`✅ Order #${orderId} status updated to ${order.status}`);
             }
-            
-            alert(`Bulk action "${action}" would be applied to selected products`);
         }
 
-        function showNotification(message, type = 'info') {
-            // Create a simple notification
-            const alertClass = type === 'success' ? 'alert-success' : 
-                             type === 'error' ? 'alert-danger' : 'alert-info';
-            
-            const notification = document.createElement('div');
-            notification.className = `alert ${alertClass} alert-dismissible fade show position-fixed`;
-            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
-            notification.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                }
-            }, 3000);
-        }
-
+        // Refresh Data
         function refreshData() {
             loadAdminDashboard();
-            showNotification('🔄 Data refreshed successfully!', 'success');
+            alert('🔄 Data refreshed successfully!');
+        }
+
+        // Show Quick Actions
+        function showQuickActions() {
+            alert('⚡ Quick Actions:\n\n• Add Multiple Products\n• Export Data\n• Backup Database\n• Clear Cache\n• Send Notifications');
         }
 
         // Show Section
         function showSection(sectionName) {
             // Hide all sections
-            const sections = ['dashboard', 'products', 'orders', 'users', 'website', 'analytics'];
-            sections.forEach(section => {
-                document.getElementById(section + '-section').style.display = 'none';
-            });
+            document.getElementById('dashboard-section').style.display = 'none';
+            document.getElementById('website-section').style.display = 'none';
             
             // Show selected section
             document.getElementById(sectionName + '-section').style.display = 'block';
@@ -1314,13 +1040,13 @@
             });
             event.target.classList.add('active');
             
-            // Load section-specific data
+            // Load website settings if website section is selected
             if (sectionName === 'website') {
                 loadWebsiteSettings();
             }
         }
 
-        // Your existing website settings functions remain the same
+        // Load Website Settings
         function loadWebsiteSettings() {
             const settings = JSON.parse(localStorage.getItem('rajveerWebsiteSettings') || '{}');
             
@@ -1331,8 +1057,132 @@
             document.getElementById('contactPhone').value = settings.contactPhone || '+91 9876543210';
             document.getElementById('websiteDescription').value = settings.websiteDescription || 'Your one-stop shop for premium digital products including OTT accounts, games, software, and more.';
             
-            // ... rest of your existing loadWebsiteSettings code
+            // Appearance Settings
+            document.getElementById('primaryColor').value = settings.primaryColor || '#4e73df';
+            document.getElementById('secondaryColor').value = settings.secondaryColor || '#1cc88a';
+            document.getElementById('primaryColorPreview').style.backgroundColor = settings.primaryColor || '#4e73df';
+            document.getElementById('secondaryColorPreview').style.backgroundColor = settings.secondaryColor || '#1cc88a';
+            
+            // Select theme
+            const theme = settings.theme || 'light';
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`.theme-option:nth-child(${getThemeIndex(theme)})`).classList.add('active');
+            
+            // Functionality Settings
+            document.getElementById('enableRegistration').checked = settings.enableRegistration !== false;
+            document.getElementById('enableReviews').checked = settings.enableReviews !== false;
+            document.getElementById('enableWishlist').checked = settings.enableWishlist || false;
+            document.getElementById('enableNewsletter').checked = settings.enableNewsletter || false;
+            document.getElementById('enableCoupons').checked = settings.enableCoupons || false;
+            document.getElementById('maintenanceMode').checked = settings.maintenanceMode || false;
+            
+            // SEO Settings
+            document.getElementById('metaTitle').value = settings.metaTitle || 'Rajveer Shop - Premium Digital Products';
+            document.getElementById('metaDescription').value = settings.metaDescription || 'Buy premium digital products including OTT accounts, games, software, and more at affordable prices.';
+            document.getElementById('metaKeywords').value = settings.metaKeywords || 'digital products, ott accounts, games, software, windows';
+            
+            // Social Media Settings
+            document.getElementById('facebookUrl').value = settings.facebookUrl || '';
+            document.getElementById('instagramUrl').value = settings.instagramUrl || '';
+            document.getElementById('twitterUrl').value = settings.twitterUrl || '';
+            document.getElementById('youtubeUrl').value = settings.youtubeUrl || '';
+            
+            // Advanced Settings
+            document.getElementById('customCSS').value = settings.customCSS || '';
+            document.getElementById('customJS').value = settings.customJS || '';
+            document.getElementById('googleAnalyticsId').value = settings.googleAnalyticsId || '';
         }
+
+        // Get Theme Index
+        function getThemeIndex(theme) {
+            const themes = ['light', 'dark', 'blue', 'green'];
+            return themes.indexOf(theme) + 1;
+        }
+
+        // Select Theme
+        function selectTheme(theme) {
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.closest('.theme-option').classList.add('active');
+        }
+
+        // Save Website Settings
+        function saveWebsiteSettings() {
+            const settings = {
+                // General Settings
+                websiteName: document.getElementById('websiteName').value,
+                websiteTagline: document.getElementById('websiteTagline').value,
+                contactEmail: document.getElementById('contactEmail').value,
+                contactPhone: document.getElementById('contactPhone').value,
+                websiteDescription: document.getElementById('websiteDescription').value,
+                
+                // Appearance Settings
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                theme: document.querySelector('.theme-option.active').textContent.trim().toLowerCase().split(' ')[0],
+                
+                // Functionality Settings
+                enableRegistration: document.getElementById('enableRegistration').checked,
+                enableReviews: document.getElementById('enableReviews').checked,
+                enableWishlist: document.getElementById('enableWishlist').checked,
+                enableNewsletter: document.getElementById('enableNewsletter').checked,
+                enableCoupons: document.getElementById('enableCoupons').checked,
+                maintenanceMode: document.getElementById('maintenanceMode').checked,
+                
+                // SEO Settings
+                metaTitle: document.getElementById('metaTitle').value,
+                metaDescription: document.getElementById('metaDescription').value,
+                metaKeywords: document.getElementById('metaKeywords').value,
+                
+                // Social Media Settings
+                facebookUrl: document.getElementById('facebookUrl').value,
+                instagramUrl: document.getElementById('instagramUrl').value,
+                twitterUrl: document.getElementById('twitterUrl').value,
+                youtubeUrl: document.getElementById('youtubeUrl').value,
+                
+                // Advanced Settings
+                customCSS: document.getElementById('customCSS').value,
+                customJS: document.getElementById('customJS').value,
+                googleAnalyticsId: document.getElementById('googleAnalyticsId').value,
+                
+                lastUpdated: new Date().toLocaleString()
+            };
+            
+            localStorage.setItem('rajveerWebsiteSettings', JSON.stringify(settings));
+            alert('✅ Website settings saved successfully!');
+        }
+
+        // Reset Website Settings
+        function resetWebsiteSettings() {
+            if (confirm('⚠ Are you sure you want to reset all website settings to default?')) {
+                localStorage.removeItem('rajveerWebsiteSettings');
+                loadWebsiteSettings();
+                alert('✅ Website settings reset to default!');
+            }
+        }
+
+        // Update Color Preview
+        document.getElementById('primaryColor').addEventListener('input', function() {
+            document.getElementById('primaryColorPreview').style.backgroundColor = this.value;
+        });
+        
+        document.getElementById('secondaryColor').addEventListener('input', function() {
+            document.getElementById('secondaryColorPreview').style.backgroundColor = this.value;
+        });
+
+        // Admin Logout
+        document.getElementById('adminLogoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('🚪 Are you sure you want to logout from admin panel?')) {
+                localStorage.removeItem('rajveerAdminLoggedIn');
+                localStorage.removeItem('rajveerAdminLoginTime');
+                alert('👋 Admin logged out successfully!');
+                window.location.href = 'adminlogin.html';
+            }
+        });
 
         // Initialize Admin Dashboard
         document.addEventListener('DOMContentLoaded', function() {
@@ -1342,4 +1192,4 @@
         });
     </script>
 </body>
-</html>
+</html>                   
