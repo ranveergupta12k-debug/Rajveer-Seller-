@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Rajveer Shop</title>
+    <title>Website Control Center - Rajveer Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -211,9 +211,58 @@
         .theme-blue { background: linear-gradient(135deg, #4e73df, #2e59d9); }
         .theme-green { background: linear-gradient(135deg, #1cc88a, #17a673); }
         
+        .file-manager-item {
+            border: 1px solid #e3e6f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .file-manager-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .preview-container {
+            border: 1px solid #e3e6f0;
+            border-radius: 10px;
+            padding: 15px;
+            background: white;
+            height: 400px;
+            overflow-y: auto;
+        }
+        
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .content-editor {
+            height: 300px;
+        }
+        
         @media (max-width: 768px) {
             .admin-sidebar {
                 min-height: auto;
+            }
+            
+            .preview-container {
+                height: 300px;
             }
         }
     </style>
@@ -227,26 +276,29 @@
                     <div class="admin-avatar mx-auto mb-3">
                         <i class="fas fa-user-shield"></i>
                     </div>
-                    <h5 class="fw-bold">Admin Panel</h5>
-                    <p class="text-white-50 small mb-2">Rajveer Shop Control Center</p>
+                    <h5 class="fw-bold">Website Control Center</h5>
+                    <p class="text-white-50 small mb-2">Rajveer Shop Complete Control</p>
                     <span class="badge bg-warning">Super Admin</span>
                 </div>
 
                 <nav class="nav flex-column py-3">
-                    <a class="nav-link" href="#" onclick="showSection('dashboard')">
+                    <a class="nav-link active" href="#" onclick="showSection('dashboard')">
                         <i class="fas fa-tachometer-alt me-3"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('pages')">
+                        <i class="fas fa-file-alt me-3"></i>Pages Management
                     </a>
                     <a class="nav-link" href="#" onclick="showSection('products')">
                         <i class="fas fa-box me-3"></i>Products Management
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('orders')">
-                        <i class="fas fa-shopping-bag me-3"></i>Orders Management
-                    </a>
                     <a class="nav-link" href="#" onclick="showSection('users')">
                         <i class="fas fa-users me-3"></i>Users Management
                     </a>
-                    <a class="nav-link active" href="#" onclick="showSection('website')">
+                    <a class="nav-link" href="#" onclick="showSection('website')">
                         <i class="fas fa-globe me-3"></i>Website Settings
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('content')">
+                        <i class="fas fa-edit me-3"></i>Content Editor
                     </a>
                 
                     <div class="mt-4 pt-3 border-top border-white border-opacity-25">
@@ -265,8 +317,8 @@
                     <div class="admin-header">
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <h2 class="fw-bold mb-2">Admin Dashboard</h2>
-                                <p class="mb-0 opacity-75">Complete control over Rajveer Shop</p>
+                                <h2 class="fw-bold mb-2">Website Control Center</h2>
+                                <p class="mb-0 opacity-75">Complete control over all website pages and content</p>
                             </div>
                             <div class="col-md-6 text-end">
                                 <div class="d-flex justify-content-end gap-2">
@@ -289,13 +341,13 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <div class="text-primary text-uppercase fw-bold small mb-2">
-                                                Total Products
+                                                Website Pages
                                             </div>
-                                            <div class="h2 fw-bold text-gray-800" id="totalProducts">0</div>
-                                            <div class="small text-muted">Active in store</div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalPages">9</div>
+                                            <div class="small text-muted">Active pages on website</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-box stats-icon text-primary"></i>
+                                            <i class="fas fa-file-alt stats-icon text-primary"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -308,16 +360,16 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <div class="text-success text-uppercase fw-bold small mb-2">
-                                                Total Orders
+                                                Total Products
                                             </div>
-                                            <div class="h2 fw-bold text-gray-800" id="totalOrders">0</div>
+                                            <div class="h2 fw-bold text-gray-800" id="totalProducts">0</div>
                                             <div class="small text-success">
                                                 <i class="fas fa-arrow-up me-1"></i>
-                                                <span id="orderGrowth">0%</span> growth
+                                                <span id="productGrowth">0%</span> growth
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-shopping-bag stats-icon text-success"></i>
+                                            <i class="fas fa-box stats-icon text-success"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -363,87 +415,70 @@
                         </div>
                     </div>
 
-                    <!-- Products Management -->
+                    <!-- Quick Page Management -->
                     <div class="row mb-4">
                         <div class="col-12">
                             <div class="card admin-card">
                                 <div class="card-header bg-white py-3">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5 class="m-0 fw-bold text-primary">
-                                            <i class="fas fa-box me-2"></i>Products Management
+                                            <i class="fas fa-file-alt me-2"></i>Quick Page Management
                                         </h5>
-                                        <button class="btn btn-admin" onclick="showAddProductModal()">
-                                            <i class="fas fa-plus me-2"></i>Add New Product
+                                        <button class="btn btn-admin" onclick="showAddPageModal()">
+                                            <i class="fas fa-plus me-2"></i>Add New Page
                                         </button>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-admin table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Product</th>
-                                                    <th>Category</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="productsTableBody">
-                                                <!-- Products will be loaded here -->
-                                            </tbody>
-                                        </table>
+                                    <div class="row" id="pagesGrid">
+                                        <!-- Pages will be loaded here -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Recent Orders & Users -->
+                    <!-- Recent Activity -->
                     <div class="row">
-                        <!-- Recent Orders -->
                         <div class="col-lg-8 mb-4">
                             <div class="card admin-card">
                                 <div class="card-header bg-white py-3">
                                     <h5 class="m-0 fw-bold text-primary">
-                                        <i class="fas fa-shopping-bag me-2"></i>Recent Orders
+                                        <i class="fas fa-history me-2"></i>Recent Activity
                                     </h5>
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-admin table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Order ID</th>
-                                                    <th>Customer</th>
-                                                    <th>Product</th>
-                                                    <th>Amount</th>
-                                                    <th>Status</th>
-                                                    <th>Date</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="ordersTableBody">
-                                                <!-- Orders will be loaded here -->
-                                            </tbody>
-                                        </table>
+                                    <div id="activityLog">
+                                        <!-- Activity log will be loaded here -->
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Recent Users -->
                         <div class="col-lg-4 mb-4">
                             <div class="card admin-card">
                                 <div class="card-header bg-white py-3">
                                     <h5 class="m-0 fw-bold text-primary">
-                                        <i class="fas fa-users me-2"></i>Recent Users
+                                        <i class="fas fa-tasks me-2"></i>Quick Tasks
                                     </h5>
                                 </div>
                                 <div class="card-body">
-                                    <div id="usersList">
-                                        <!-- Users will be loaded here -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-outline-primary text-start" onclick="showSection('pages')">
+                                            <i class="fas fa-edit me-2"></i>Edit Website Pages
+                                        </button>
+                                        <button class="btn btn-outline-success text-start" onclick="showSection('products')">
+                                            <i class="fas fa-box me-2"></i>Manage Products
+                                        </button>
+                                        <button class="btn btn-outline-warning text-start" onclick="showSection('website')">
+                                            <i class="fas fa-cog me-2"></i>Website Settings
+                                        </button>
+                                        <button class="btn btn-outline-info text-start" onclick="showSection('content')">
+                                            <i class="fas fa-palette me-2"></i>Content Editor
+                                        </button>
+                                        <button class="btn btn-outline-danger text-start" onclick="backupWebsite()">
+                                            <i class="fas fa-download me-2"></i>Backup Website
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -451,8 +486,182 @@
                     </div>
                 </div>
 
+                <!-- Pages Management Section -->
+                <div id="pages-section" style="display: none;">
+                    <div class="admin-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="fw-bold mb-2">Pages Management</h2>
+                                <p class="mb-0 opacity-75">Manage all website pages and content</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn btn-light" onclick="loadPages()">
+                                        <i class="fas fa-sync-alt me-2"></i>Refresh
+                                    </button>
+                                    <button class="btn btn-admin" onclick="showAddPageModal()">
+                                        <i class="fas fa-plus me-2"></i>Add New Page
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card admin-card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Search Pages</label>
+                                        <input type="text" class="form-control" id="pageSearch" placeholder="Search pages..." onkeyup="searchPages()">
+                                    </div>
+                                    <div id="pagesList" class="mb-4">
+                                        <!-- Pages list will be loaded here -->
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div id="pageEditor" style="display: none;">
+                                        <h4 class="mb-3" id="pageEditorTitle">Edit Page</h4>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Page Title</label>
+                                            <input type="text" class="form-control" id="editPageTitle">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Page URL</label>
+                                            <input type="text" class="form-control" id="editPageUrl">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Page Content</label>
+                                            <textarea class="form-control content-editor" id="editPageContent"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Meta Description</label>
+                                            <textarea class="form-control" id="editPageMeta" rows="2"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Page Status</label>
+                                            <select class="form-select" id="editPageStatus">
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                                <option value="draft">Draft</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-admin" onclick="savePageChanges()">
+                                                <i class="fas fa-save me-2"></i>Save Changes
+                                            </button>
+                                            <button class="btn btn-outline-secondary" onclick="previewPage()">
+                                                <i class="fas fa-eye me-2"></i>Preview
+                                            </button>
+                                            <button class="btn btn-outline-danger" onclick="deleteCurrentPage()">
+                                                <i class="fas fa-trash me-2"></i>Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="pagePreview" class="preview-container" style="display: none;">
+                                        <!-- Page preview will be shown here -->
+                                    </div>
+                                    <div id="pagePlaceholder" class="text-center py-5">
+                                        <i class="fas fa-file-alt fa-4x text-muted mb-3"></i>
+                                        <h5 class="text-muted">Select a page to edit</h5>
+                                        <p class="text-muted">Choose a page from the list to start editing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Management Section -->
+                <div id="products-section" style="display: none;">
+                    <!-- Products management content from your original code -->
+                    <div class="admin-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="fw-bold mb-2">Products Management</h2>
+                                <p class="mb-0 opacity-75">Manage your product catalog</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn btn-light" onclick="loadProducts()">
+                                        <i class="fas fa-sync-alt me-2"></i>Refresh
+                                    </button>
+                                    <button class="btn btn-admin" onclick="showAddProductModal()">
+                                        <i class="fas fa-plus me-2"></i>Add New Product
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card admin-card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-admin table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Product</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productsTableBody">
+                                        <!-- Products will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Management Section -->
+                <div id="users-section" style="display: none;">
+                    <div class="admin-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="fw-bold mb-2">Users Management</h2>
+                                <p class="mb-0 opacity-75">Manage website users and permissions</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn btn-light" onclick="loadUsers()">
+                                        <i class="fas fa-sync-alt me-2"></i>Refresh
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card admin-card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-admin table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>User</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th>Joined</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="usersTableBody">
+                                        <!-- Users will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Website Settings Section -->
                 <div id="website-section" style="display: none;">
+                    <!-- Website settings content from your original code -->
                     <div class="admin-header">
                         <div class="row align-items-center">
                             <div class="col-md-6">
@@ -683,6 +892,64 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Content Editor Section -->
+                <div id="content-section" style="display: none;">
+                    <div class="admin-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="fw-bold mb-2">Content Editor</h2>
+                                <p class="mb-0 opacity-75">Edit website content in real-time</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn btn-light" onclick="resetContent()">
+                                        <i class="fas fa-undo me-2"></i>Reset
+                                    </button>
+                                    <button class="btn btn-admin" onclick="saveContentChanges()">
+                                        <i class="fas fa-save me-2"></i>Save All Content
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card admin-card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <h5 class="fw-bold text-primary mb-3">Edit Content Blocks</h5>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Homepage Hero Text</label>
+                                            <textarea class="form-control" id="homeHeroText" rows="3" placeholder="Enter homepage hero text"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">About Us Content</label>
+                                            <textarea class="form-control content-editor" id="aboutContent" placeholder="Enter about us content"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Contact Information</label>
+                                            <textarea class="form-control" id="contactContent" rows="3" placeholder="Enter contact information"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Footer Text</label>
+                                            <textarea class="form-control" id="footerText" rows="2" placeholder="Enter footer text"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="preview-container">
+                                        <h5 class="fw-bold text-primary mb-3">Live Preview</h5>
+                                        <div id="contentPreview">
+                                            <!-- Content preview will be shown here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -752,8 +1019,70 @@
         </div>
     </div>
 
+    <!-- Add Page Modal -->
+    <div class="modal fade" id="addPageModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Add New Page</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPageForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Page Title</label>
+                                <input type="text" class="form-control" name="pageTitle" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Page URL</label>
+                                <input type="text" class="form-control" name="pageUrl" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Page Content</label>
+                            <textarea class="form-control content-editor" name="pageContent" rows="6"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Meta Description</label>
+                            <textarea class="form-control" name="pageMeta" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="pageStatus" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="draft">Draft</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewPage()">Add Page</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Website Pages Data
+        const defaultPages = [
+            { id: 1, title: "Home", url: "index.html", content: "<h1>Welcome to Rajveer Shop</h1><p>Your premium digital products destination</p>", meta: "Rajveer Shop - Premium Digital Products", status: "active", type: "home" },
+            { id: 2, title: "Products", url: "product.html", content: "<h1>Our Products</h1><p>Browse our amazing collection of digital products</p>", meta: "Products - Rajveer Shop", status: "active", type: "products" },
+            { id: 3, title: "About Us", url: "about.html", content: "<h1>About Rajveer Shop</h1><p>Learn more about our company and mission</p>", meta: "About Us - Rajveer Shop", status: "active", type: "about" },
+            { id: 4, title: "Contact", url: "contact.html", content: "<h1>Contact Us</h1><p>Get in touch with our team</p>", meta: "Contact - Rajveer Shop", status: "active", type: "contact" },
+            { id: 5, title: "Login", url: "login.html", content: "<h1>Login</h1><p>Access your account</p>", meta: "Login - Rajveer Shop", status: "active", type: "login" },
+            { id: 6, title: "Register", url: "register.html", content: "<h1>Register</h1><p>Create a new account</p>", meta: "Register - Rajveer Shop", status: "active", type: "register" },
+            { id: 7, title: "User Dashboard", url: "userdashboard.html", content: "<h1>User Dashboard</h1><p>Manage your account and orders</p>", meta: "User Dashboard - Rajveer Shop", status: "active", type: "dashboard" },
+            { id: 8, title: "Admin Login", url: "adminlogin.html", content: "<h1>Admin Login</h1><p>Access the admin panel</p>", meta: "Admin Login - Rajveer Shop", status: "active", type: "admin" },
+            { id: 9, title: "Admin Dashboard", url: "admindashboard.html", content: "<h1>Admin Dashboard</h1><p>Manage your website</p>", meta: "Admin Dashboard - Rajveer Shop", status: "active", type: "admin" }
+        ];
+
+        // Current editing page
+        let currentEditingPage = null;
+
         // Check Admin Authentication
         function checkAdminAuth() {
             const isLoggedIn = localStorage.getItem('rajveerAdminLoggedIn');
@@ -769,31 +1098,545 @@
         function loadAdminDashboard() {
             if (!checkAdminAuth()) return;
 
+            // Load pages
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            document.getElementById('totalPages').textContent = pages.length;
+            
             // Load products
             const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
             document.getElementById('totalProducts').textContent = products.length;
-            
-            // Load orders
-            const orders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
-            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('productGrowth').textContent = products.length > 0 ? '12.5%' : '0%';
             
             // Load users
             const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
             document.getElementById('totalUsers').textContent = users.length;
             
             // Calculate revenue
+            const orders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
             const totalRevenue = orders.reduce((sum, order) => sum + parseInt(order.price || 0), 0);
             document.getElementById('totalRevenue').textContent = `₹${totalRevenue}`;
-            document.getElementById('orderGrowth').textContent = orders.length > 0 ? '15.2%' : '0%';
 
-            // Display products table
+            // Display pages grid
+            displayPagesGrid(pages);
+            
+            // Display activity log
+            displayActivityLog();
+        }
+
+        // Display Pages Grid
+        function displayPagesGrid(pages) {
+            const container = document.getElementById('pagesGrid');
+            
+            if (pages.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-4">
+                        <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No pages found</p>
+                        <button class="btn btn-primary" onclick="showAddPageModal()">
+                            <i class="fas fa-plus me-2"></i>Add First Page
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = pages.map(page => `
+                <div class="col-md-4 mb-4">
+                    <div class="file-manager-item">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="file-icon me-3">
+                                <i class="fas fa-${getPageIcon(page.type)}"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1 fw-bold">${page.title}</h6>
+                                <small class="text-muted">${page.url}</small>
+                            </div>
+                            <span class="status-badge status-${page.status}">${page.status.toUpperCase()}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-sm btn-outline-primary" onclick="editPage(${page.id})">
+                                <i class="fas fa-edit me-1"></i>Edit
+                            </button>
+                            <button class="btn btn-sm btn-outline-info" onclick="previewPageById(${page.id})">
+                                <i class="fas fa-eye me-1"></i>Preview
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deletePage(${page.id})">
+                                <i class="fas fa-trash me-1"></i>Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Get Page Icon
+        function getPageIcon(type) {
+            const icons = {
+                'home': 'home',
+                'products': 'box',
+                'about': 'info-circle',
+                'contact': 'envelope',
+                'login': 'sign-in-alt',
+                'register': 'user-plus',
+                'dashboard': 'tachometer-alt',
+                'admin': 'user-shield'
+            };
+            return icons[type] || 'file';
+        }
+
+        // Load Pages for Management
+        function loadPages() {
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            const container = document.getElementById('pagesList');
+            
+            container.innerHTML = pages.map(page => `
+                <div class="file-manager-item mb-2 page-item" data-id="${page.id}">
+                    <div class="d-flex align-items-center">
+                        <div class="file-icon me-3">
+                            <i class="fas fa-${getPageIcon(page.type)}"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-bold">${page.title}</h6>
+                            <small class="text-muted">${page.url}</small>
+                        </div>
+                        <span class="status-badge status-${page.status}">${page.status.toUpperCase()}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add click event to page items
+            document.querySelectorAll('.page-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const pageId = parseInt(this.getAttribute('data-id'));
+                    loadPageEditor(pageId);
+                });
+            });
+        }
+
+        // Load Page Editor
+        function loadPageEditor(pageId) {
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            const page = pages.find(p => p.id === pageId);
+            
+            if (page) {
+                currentEditingPage = page;
+                
+                document.getElementById('pageEditorTitle').textContent = `Edit Page: ${page.title}`;
+                document.getElementById('editPageTitle').value = page.title;
+                document.getElementById('editPageUrl').value = page.url;
+                document.getElementById('editPageContent').value = page.content;
+                document.getElementById('editPageMeta').value = page.meta;
+                document.getElementById('editPageStatus').value = page.status;
+                
+                document.getElementById('pageEditor').style.display = 'block';
+                document.getElementById('pagePreview').style.display = 'none';
+                document.getElementById('pagePlaceholder').style.display = 'none';
+                
+                // Update active page in list
+                document.querySelectorAll('.page-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (parseInt(item.getAttribute('data-id')) === pageId) {
+                        item.classList.add('active');
+                        item.style.borderColor = 'var(--primary-color)';
+                    }
+                });
+            }
+        }
+
+        // Save Page Changes
+        function savePageChanges() {
+            if (!currentEditingPage) return;
+            
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            const pageIndex = pages.findIndex(p => p.id === currentEditingPage.id);
+            
+            if (pageIndex !== -1) {
+                pages[pageIndex] = {
+                    ...pages[pageIndex],
+                    title: document.getElementById('editPageTitle').value,
+                    url: document.getElementById('editPageUrl').value,
+                    content: document.getElementById('editPageContent').value,
+                    meta: document.getElementById('editPageMeta').value,
+                    status: document.getElementById('editPageStatus').value
+                };
+                
+                localStorage.setItem('rajveerWebsitePages', JSON.stringify(pages));
+                
+                // Update current editing page
+                currentEditingPage = pages[pageIndex];
+                
+                // Reload pages list
+                loadPages();
+                
+                alert('✅ Page changes saved successfully!');
+                
+                // Log activity
+                logActivity(`Page "${pages[pageIndex].title}" updated`);
+            }
+        }
+
+        // Preview Page
+        function previewPage() {
+            if (!currentEditingPage) return;
+            
+            const previewContainer = document.getElementById('pagePreview');
+            const title = document.getElementById('editPageTitle').value;
+            const content = document.getElementById('editPageContent').value;
+            
+            previewContainer.innerHTML = `
+                <h3>${title}</h3>
+                <div>${content}</div>
+            `;
+            
+            document.getElementById('pageEditor').style.display = 'none';
+            document.getElementById('pagePreview').style.display = 'block';
+        }
+
+        // Preview Page by ID
+        function previewPageById(pageId) {
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            const page = pages.find(p => p.id === pageId);
+            
+            if (page) {
+                const previewContainer = document.getElementById('pagePreview');
+                previewContainer.innerHTML = `
+                    <h3>${page.title}</h3>
+                    <div>${page.content}</div>
+                `;
+                
+                document.getElementById('pageEditor').style.display = 'none';
+                document.getElementById('pagePreview').style.display = 'block';
+                document.getElementById('pagePlaceholder').style.display = 'none';
+            }
+        }
+
+        // Delete Current Page
+        function deleteCurrentPage() {
+            if (!currentEditingPage) return;
+            
+            if (confirm(`🗑 Are you sure you want to delete the page "${currentEditingPage.title}"?`)) {
+                deletePage(currentEditingPage.id);
+            }
+        }
+
+        // Delete Page
+        function deletePage(pageId) {
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            const pageIndex = pages.findIndex(p => p.id === pageId);
+            
+            if (pageIndex !== -1) {
+                const pageTitle = pages[pageIndex].title;
+                pages.splice(pageIndex, 1);
+                localStorage.setItem('rajveerWebsitePages', JSON.stringify(pages));
+                
+                // Reset editor
+                document.getElementById('pageEditor').style.display = 'none';
+                document.getElementById('pagePreview').style.display = 'none';
+                document.getElementById('pagePlaceholder').style.display = 'block';
+                
+                // Reload pages
+                loadPages();
+                
+                alert(`✅ Page "${pageTitle}" deleted successfully!`);
+                
+                // Log activity
+                logActivity(`Page "${pageTitle}" deleted`);
+                
+                // Update dashboard
+                loadAdminDashboard();
+            }
+        }
+
+        // Show Add Page Modal
+        function showAddPageModal() {
+            if (!checkAdminAuth()) return;
+            const modal = new bootstrap.Modal(document.getElementById('addPageModal'));
+            modal.show();
+        }
+
+        // Add New Page
+        function addNewPage() {
+            const form = document.getElementById('addPageForm');
+            const formData = new FormData(form);
+            
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            
+            const newPage = {
+                id: Date.now(),
+                title: formData.get('pageTitle'),
+                url: formData.get('pageUrl'),
+                content: formData.get('pageContent'),
+                meta: formData.get('pageMeta'),
+                status: formData.get('pageStatus'),
+                type: 'custom',
+                createdAt: new Date().toLocaleString()
+            };
+
+            pages.push(newPage);
+            localStorage.setItem('rajveerWebsitePages', JSON.stringify(pages));
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addPageModal'));
+            modal.hide();
+            
+            // Reset form
+            form.reset();
+            
+            // Reload pages
+            loadPages();
+            
+            // Update dashboard
+            loadAdminDashboard();
+            
+            alert('✅ New page added successfully!');
+            
+            // Log activity
+            logActivity(`New page "${newPage.title}" created`);
+        }
+
+        // Search Pages
+        function searchPages() {
+            const searchTerm = document.getElementById('pageSearch').value.toLowerCase();
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            
+            const filteredPages = pages.filter(page => 
+                page.title.toLowerCase().includes(searchTerm) || 
+                page.url.toLowerCase().includes(searchTerm)
+            );
+            
+            const container = document.getElementById('pagesList');
+            
+            if (filteredPages.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-search fa-2x text-muted mb-3"></i>
+                        <p class="text-muted">No pages found matching your search</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredPages.map(page => `
+                <div class="file-manager-item mb-2 page-item" data-id="${page.id}">
+                    <div class="d-flex align-items-center">
+                        <div class="file-icon me-3">
+                            <i class="fas fa-${getPageIcon(page.type)}"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-bold">${page.title}</h6>
+                            <small class="text-muted">${page.url}</small>
+                        </div>
+                        <span class="status-badge status-${page.status}">${page.status.toUpperCase()}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add click event to page items
+            document.querySelectorAll('.page-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const pageId = parseInt(this.getAttribute('data-id'));
+                    loadPageEditor(pageId);
+                });
+            });
+        }
+
+        // Display Activity Log
+        function displayActivityLog() {
+            const activities = JSON.parse(localStorage.getItem('rajveerActivityLog') || '[]');
+            const container = document.getElementById('activityLog');
+            
+            if (activities.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-history fa-2x text-muted mb-3"></i>
+                        <p class="text-muted">No recent activity</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = activities.slice().reverse().map(activity => `
+                <div class="d-flex align-items-start mb-3 p-2 border-bottom">
+                    <div class="flex-shrink-0">
+                        <div class="admin-avatar" style="width: 40px; height: 40px;">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <div class="fw-bold">${activity.action}</div>
+                        <small class="text-muted">${activity.timestamp}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Log Activity
+        function logActivity(action) {
+            const activities = JSON.parse(localStorage.getItem('rajveerActivityLog') || '[]');
+            
+            activities.push({
+                action: action,
+                timestamp: new Date().toLocaleString()
+            });
+            
+            // Keep only last 50 activities
+            if (activities.length > 50) {
+                activities.splice(0, activities.length - 50);
+            }
+            
+            localStorage.setItem('rajveerActivityLog', JSON.stringify(activities));
+            
+            // Update activity log display if on dashboard
+            if (document.getElementById('dashboard-section').style.display !== 'none') {
+                displayActivityLog();
+            }
+        }
+
+        // Backup Website
+        function backupWebsite() {
+            const pages = JSON.parse(localStorage.getItem('rajveerWebsitePages') || JSON.stringify(defaultPages));
+            const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+            const settings = JSON.parse(localStorage.getItem('rajveerWebsiteSettings') || '{}');
+            
+            const backupData = {
+                pages: pages,
+                products: products,
+                settings: settings,
+                backupDate: new Date().toLocaleString()
+            };
+            
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "rajveer-shop-backup-" + new Date().toISOString().split('T')[0] + ".json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            
+            alert('✅ Website backup downloaded successfully!');
+            
+            // Log activity
+            logActivity("Website backup created");
+        }
+
+        // Load Content Editor
+        function loadContentEditor() {
+            const settings = JSON.parse(localStorage.getItem('rajveerWebsiteSettings') || '{}');
+            
+            // Load content from settings
+            document.getElementById('homeHeroText').value = settings.homeHeroText || '';
+            document.getElementById('aboutContent').value = settings.aboutContent || '';
+            document.getElementById('contactContent').value = settings.contactContent || '';
+            document.getElementById('footerText').value = settings.footerText || '';
+            
+            // Update preview
+            updateContentPreview();
+        }
+
+        // Update Content Preview
+        function updateContentPreview() {
+            const previewContainer = document.getElementById('contentPreview');
+            
+            const homeHeroText = document.getElementById('homeHeroText').value;
+            const aboutContent = document.getElementById('aboutContent').value;
+            const contactContent = document.getElementById('contactContent').value;
+            const footerText = document.getElementById('footerText').value;
+            
+            previewContainer.innerHTML = `
+                <div class="mb-4">
+                    <h4>Homepage Hero</h4>
+                    <p>${homeHeroText || 'No hero text set'}</p>
+                </div>
+                <div class="mb-4">
+                    <h4>About Us</h4>
+                    <div>${aboutContent || 'No about content set'}</div>
+                </div>
+                <div class="mb-4">
+                    <h4>Contact Information</h4>
+                    <p>${contactContent || 'No contact information set'}</p>
+                </div>
+                <div class="mt-4 pt-3 border-top">
+                    <h5>Footer</h5>
+                    <p class="small">${footerText || 'No footer text set'}</p>
+                </div>
+            `;
+        }
+
+        // Save Content Changes
+        function saveContentChanges() {
+            const settings = JSON.parse(localStorage.getItem('rajveerWebsiteSettings') || '{}');
+            
+            // Save content to settings
+            settings.homeHeroText = document.getElementById('homeHeroText').value;
+            settings.aboutContent = document.getElementById('aboutContent').value;
+            settings.contactContent = document.getElementById('contactContent').value;
+            settings.footerText = document.getElementById('footerText').value;
+            
+            localStorage.setItem('rajveerWebsiteSettings', JSON.stringify(settings));
+            
+            alert('✅ Content changes saved successfully!');
+            
+            // Log activity
+            logActivity("Website content updated");
+        }
+
+        // Reset Content
+        function resetContent() {
+            if (confirm('⚠ Are you sure you want to reset all content to default?')) {
+                document.getElementById('homeHeroText').value = '';
+                document.getElementById('aboutContent').value = '';
+                document.getElementById('contactContent').value = '';
+                document.getElementById('footerText').value = '';
+                
+                updateContentPreview();
+                
+                alert('✅ Content reset to default!');
+            }
+        }
+
+        // Show Section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.getElementById('dashboard-section').style.display = 'none';
+            document.getElementById('pages-section').style.display = 'none';
+            document.getElementById('products-section').style.display = 'none';
+            document.getElementById('users-section').style.display = 'none';
+            document.getElementById('website-section').style.display = 'none';
+            document.getElementById('content-section').style.display = 'none';
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').style.display = 'block';
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Load section-specific data
+            if (sectionName === 'pages') {
+                loadPages();
+            } else if (sectionName === 'products') {
+                loadProducts();
+            } else if (sectionName === 'users') {
+                loadUsers();
+            } else if (sectionName === 'website') {
+                loadWebsiteSettings();
+            } else if (sectionName === 'content') {
+                loadContentEditor();
+            }
+        }
+
+        // Load Products
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
             displayProductsTable(products);
-            
-            // Display orders table
-            displayOrdersTable(orders);
-            
-            // Display users list
-            displayUsersList(users);
+        }
+
+        // Load Users
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
+            displayUsersTable(users);
         }
 
         // Display Products Table
@@ -852,74 +1695,54 @@
             `).join('');
         }
 
-        // Display Orders Table
-        function displayOrdersTable(orders) {
-            const tbody = document.getElementById('ordersTableBody');
+        // Display Users Table
+        function displayUsersTable(users) {
+            const tbody = document.getElementById('usersTableBody');
             
-            if (orders.length === 0) {
+            if (users.length === 0) {
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="7" class="text-center py-4">
-                            <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">No orders yet</p>
+                            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No users found</p>
                         </td>
                     </tr>
                 `;
                 return;
             }
 
-            tbody.innerHTML = orders.slice().reverse().map(order => `
+            tbody.innerHTML = users.map(user => `
                 <tr>
-                    <td class="fw-bold">#${order.id}</td>
-                    <td>${order.userName || 'Customer'}</td>
-                    <td>${order.product}</td>
-                    <td class="fw-bold">₹${order.price}</td>
+                    <td class="fw-bold">#${user.id}</td>
                     <td>
-                        <span class="status-badge status-${(order.status || 'pending').toLowerCase()}">
-                            ${order.status || 'PENDING'}
-                        </span>
+                        <div class="d-flex align-items-center">
+                            <div class="admin-avatar me-3" style="width: 40px; height: 40px;">
+                                ${(user.firstName?.charAt(0) + user.lastName?.charAt(0)).toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="fw-bold">${user.firstName} ${user.lastName}</div>
+                            </div>
+                        </div>
                     </td>
-                    <td class="text-muted">${order.date}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <span class="badge bg-secondary">Customer</span>
+                    </td>
+                    <td>
+                        <span class="status-badge status-active">Active</span>
+                    </td>
+                    <td class="text-muted">${user.joinedDate}</td>
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-success" onclick="updateOrderStatus('${order.id}', 'completed')">
-                                <i class="fas fa-check"></i>
+                            <button class="btn btn-sm btn-outline-primary" onclick="editUser(${user.id})">
+                                <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-warning" onclick="updateOrderStatus('${order.id}', 'pending')">
-                                <i class="fas fa-clock"></i>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteUser(${user.id})">
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </td>
                 </tr>
-            `).join('');
-        }
-
-        // Display Users List
-        function displayUsersList(users) {
-            const container = document.getElementById('usersList');
-            
-            if (users.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-4">
-                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                        <p class="text-muted">No users registered yet</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = users.slice().reverse().map(user => `
-                <div class="d-flex align-items-center mb-3 p-2 border rounded">
-                    <div class="admin-avatar me-3">
-                        ${(user.firstName?.charAt(0) + user.lastName?.charAt(0)).toUpperCase()}
-                    </div>
-                    <div class="flex-grow-1">
-                        <div class="fw-bold">${user.firstName} ${user.lastName}</div>
-                        <small class="text-muted">${user.email}</small>
-                        <div class="small text-muted">Joined: ${user.joinedDate}</div>
-                    </div>
-                    <span class="status-badge status-active">Active</span>
-                </div>
             `).join('');
         }
 
@@ -956,13 +1779,13 @@
                 createdAt: new Date().toLocaleString()
             };
 
-            // Save to localStorage - YE PRODUCT USER KO WEBSITE PE DIKHEGA
+            // Save to localStorage
             const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
             products.push(newProduct);
             localStorage.setItem('rajveerProducts', JSON.stringify(products));
 
             // Refresh display
-            loadAdminDashboard();
+            loadProducts();
             
             // Close modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
@@ -971,7 +1794,10 @@
             // Reset form
             form.reset();
             
-            alert('✅ Product added successfully! This product will now appear on the website.');
+            alert('✅ Product added successfully!');
+            
+            // Log activity
+            logActivity(`Product "${newProduct.name}" added`);
         }
 
         // Edit Product
@@ -984,8 +1810,11 @@
                 if (newName) {
                     product.name = newName;
                     localStorage.setItem('rajveerProducts', JSON.stringify(products));
-                    loadAdminDashboard();
+                    loadProducts();
                     alert('✅ Product updated successfully!');
+                    
+                    // Log activity
+                    logActivity(`Product "${product.name}" updated`);
                 }
             }
         }
@@ -994,23 +1823,52 @@
         function deleteProduct(productId) {
             if (confirm('🗑 Are you sure you want to delete this product?')) {
                 const products = JSON.parse(localStorage.getItem('rajveerProducts') || '[]');
+                const product = products.find(p => p.id === productId);
+                const productName = product ? product.name : 'Unknown';
+                
                 const updatedProducts = products.filter(p => p.id !== productId);
                 localStorage.setItem('rajveerProducts', JSON.stringify(updatedProducts));
-                loadAdminDashboard();
-                alert('✅ Product deleted successfully! This product will be removed from the website.');
+                loadProducts();
+                alert('✅ Product deleted successfully!');
+                
+                // Log activity
+                logActivity(`Product "${productName}" deleted`);
             }
         }
 
-        // Update Order Status
-        function updateOrderStatus(orderId, status) {
-            const orders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
-            const order = orders.find(o => o.id === orderId);
+        // Edit User
+        function editUser(userId) {
+            const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
+            const user = users.find(u => u.id === userId);
             
-            if (order) {
-                order.status = status.charAt(0).toUpperCase() + status.slice(1);
-                localStorage.setItem('rajveerOrders', JSON.stringify(orders));
-                loadAdminDashboard();
-                alert(`✅ Order #${orderId} status updated to ${order.status}`);
+            if (user) {
+                const newEmail = prompt('Enter new email:', user.email);
+                if (newEmail) {
+                    user.email = newEmail;
+                    localStorage.setItem('rajveerUsers', JSON.stringify(users));
+                    loadUsers();
+                    alert('✅ User updated successfully!');
+                    
+                    // Log activity
+                    logActivity(`User "${user.firstName} ${user.lastName}" updated`);
+                }
+            }
+        }
+
+        // Delete User
+        function deleteUser(userId) {
+            if (confirm('🗑 Are you sure you want to delete this user?')) {
+                const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
+                const user = users.find(u => u.id === userId);
+                const userName = user ? `${user.firstName} ${user.lastName}` : 'Unknown';
+                
+                const updatedUsers = users.filter(u => u.id !== userId);
+                localStorage.setItem('rajveerUsers', JSON.stringify(updatedUsers));
+                loadUsers();
+                alert('✅ User deleted successfully!');
+                
+                // Log activity
+                logActivity(`User "${userName}" deleted`);
             }
         }
 
@@ -1023,27 +1881,6 @@
         // Show Quick Actions
         function showQuickActions() {
             alert('⚡ Quick Actions:\n\n• Add Multiple Products\n• Export Data\n• Backup Database\n• Clear Cache\n• Send Notifications');
-        }
-
-        // Show Section
-        function showSection(sectionName) {
-            // Hide all sections
-            document.getElementById('dashboard-section').style.display = 'none';
-            document.getElementById('website-section').style.display = 'none';
-            
-            // Show selected section
-            document.getElementById(sectionName + '-section').style.display = 'block';
-            
-            // Update active nav link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Load website settings if website section is selected
-            if (sectionName === 'website') {
-                loadWebsiteSettings();
-            }
         }
 
         // Load Website Settings
@@ -1153,6 +1990,9 @@
             
             localStorage.setItem('rajveerWebsiteSettings', JSON.stringify(settings));
             alert('✅ Website settings saved successfully!');
+            
+            // Log activity
+            logActivity("Website settings updated");
         }
 
         // Reset Website Settings
@@ -1161,6 +2001,9 @@
                 localStorage.removeItem('rajveerWebsiteSettings');
                 loadWebsiteSettings();
                 alert('✅ Website settings reset to default!');
+                
+                // Log activity
+                logActivity("Website settings reset to default");
             }
         }
 
@@ -1172,6 +2015,12 @@
         document.getElementById('secondaryColor').addEventListener('input', function() {
             document.getElementById('secondaryColorPreview').style.backgroundColor = this.value;
         });
+
+        // Add event listeners for content editor
+        document.getElementById('homeHeroText').addEventListener('input', updateContentPreview);
+        document.getElementById('aboutContent').addEventListener('input', updateContentPreview);
+        document.getElementById('contactContent').addEventListener('input', updateContentPreview);
+        document.getElementById('footerText').addEventListener('input', updateContentPreview);
 
         // Admin Logout
         document.getElementById('adminLogoutBtn').addEventListener('click', function(e) {
@@ -1188,6 +2037,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (checkAdminAuth()) {
                 loadAdminDashboard();
+                
+                // Initialize default pages if not exists
+                if (!localStorage.getItem('rajveerWebsitePages')) {
+                    localStorage.setItem('rajveerWebsitePages', JSON.stringify(defaultPages));
+                }
             }
         });
     </script>
