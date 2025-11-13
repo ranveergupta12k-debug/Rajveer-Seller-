@@ -7,70 +7,159 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #4e73df;
+            --primary-dark: #2e59d9;
+            --secondary: #764ba2;
+            --success: #1cc88a;
+            --danger: #e74a3b;
+            --warning: #f6c23e;
+            --light: #f8f9fc;
+            --dark: #5a5c69;
+        }
+        
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         .login-container {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             overflow: hidden;
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
+            margin: 20px auto;
+            transition: all 0.3s ease;
         }
+        
         .login-header {
-            background: linear-gradient(135deg, #4e73df, #2e59d9);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        }
+        
+        .login-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+        }
+        
         .login-body {
             padding: 30px;
         }
+        
         .form-control {
             border-radius: 8px;
             padding: 12px 15px;
             border: 2px solid #e9ecef;
             transition: all 0.3s;
         }
+        
         .form-control:focus {
-            border-color: #4e73df;
+            border-color: var(--primary);
             box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
         }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        
+        .input-group-text {
+            background-color: #f8f9fc;
+            border: 2px solid #e9ecef;
+            border-right: none;
+        }
+        
         .btn-login {
-            background: linear-gradient(135deg, #4e73df, #2e59d9);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border: none;
             border-radius: 8px;
             padding: 12px;
             font-weight: 600;
             transition: all 0.3s;
+            color: white;
         }
+        
         .btn-login:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(78, 115, 223, 0.4);
-        }
-        .modal-content {
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        .modal-header {
-            background: linear-gradient(135deg, #4e73df, #2e59d9);
             color: white;
         }
+        
+        .login-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            margin-top: 20px;
+        }
+        
+        .auth-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+        
+        .password-toggle {
+            cursor: pointer;
+            border: 2px solid #e9ecef;
+            border-left: none;
+            background-color: #f8f9fc;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
         .step {
             display: none;
         }
+        
         .step.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .otp-inputs {
             display: flex;
             justify-content: space-between;
             margin: 20px 0;
         }
+        
         .otp-input {
             width: 50px;
             height: 50px;
@@ -79,14 +168,40 @@
             font-weight: bold;
             border: 2px solid #e9ecef;
             border-radius: 8px;
+            transition: all 0.3s;
         }
+        
         .otp-input:focus {
-            border-color: #4e73df;
+            border-color: var(--primary);
             outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
         }
+        
         .countdown {
             font-weight: bold;
-            color: #4e73df;
+            color: var(--primary);
+        }
+        
+        .alert {
+            border-radius: 8px;
+            border: none;
+            padding: 12px 15px;
+        }
+        
+        .alert-success {
+            background-color: rgba(28, 200, 138, 0.1);
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background-color: rgba(231, 74, 59, 0.1);
+            color: #721c24;
+        }
+        
+        .success-icon {
+            color: var(--success);
+            font-size: 4rem;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -96,7 +211,9 @@
             <div class="col-md-6 col-lg-4">
                 <div class="login-container">
                     <div class="login-header">
-                        <i class="fas fa-store fa-3x mb-3"></i>
+                        <div class="login-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
                         <h3>Welcome Back</h3>
                         <p class="mb-0">Sign in to your account</p>
                     </div>
@@ -120,25 +237,27 @@
                                         <i class="fas fa-lock"></i>
                                     </span>
                                     <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
-                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <button class="btn password-toggle" type="button" id="togglePassword">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </div>
                             </div>
 
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="rememberMe">
-                                <label class="form-check-label" for="rememberMe">Remember me</label>
-                                <a href="#" class="float-end text-decoration-none" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                                </div>
+                                <a href="#" class="auth-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
                             </div>
 
-                            <button type="submit" class="btn btn-login text-white w-100 mb-3">
+                            <button type="submit" class="btn btn-login w-100 mb-3">
                                 <i class="fas fa-sign-in-alt me-2"></i>Sign In
                             </button>
 
-                            <div class="text-center">
+                            <div class="login-footer">
                                 <p class="mb-0">Don't have an account? 
-                                    <a href="register.html" class="text-decoration-none fw-bold">Sign Up</a>
+                                    <a href="register.html" class="auth-link">Sign Up</a>
                                 </p>
                             </div>
                         </form>
@@ -154,7 +273,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="forgotPasswordModalLabel">Reset Your Password</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Step 1: Enter Email -->
@@ -164,7 +283,7 @@
                             <label for="resetEmail" class="form-label">Email Address</label>
                             <input type="email" class="form-control" id="resetEmail" placeholder="Enter your email">
                         </div>
-                        <button type="button" class="btn btn-login text-white w-100" id="sendOtpBtn">
+                        <button type="button" class="btn btn-login w-100" id="sendOtpBtn">
                             <i class="fas fa-paper-plane me-2"></i>Send Verification Code
                         </button>
                     </div>
@@ -182,9 +301,9 @@
                         </div>
                         <div class="text-center mb-3">
                             <p class="mb-1">Code expires in: <span class="countdown" id="countdown">05:00</span></p>
-                            <a href="#" id="resendOtp" class="text-decoration-none">Resend Code</a>
+                            <a href="#" id="resendOtp" class="auth-link">Resend Code</a>
                         </div>
-                        <button type="button" class="btn btn-login text-white w-100" id="verifyOtpBtn">
+                        <button type="button" class="btn btn-login w-100" id="verifyOtpBtn">
                             <i class="fas fa-check me-2"></i>Verify Code
                         </button>
                     </div>
@@ -196,24 +315,24 @@
                             <label for="newPassword" class="form-label">New Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
-                                <button class="btn btn-outline-secondary" type="button" id="toggleNewPassword">
+                                <button class="btn password-toggle" type="button" id="toggleNewPassword">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
                             <div class="form-text">
-                                Password must be at least 8 characters with uppercase, lowercase, number and special character.
+                                Password must be at least 6 characters long.
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <label for="confirmNewPassword" class="form-label">Confirm Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
-                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                                <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm new password">
+                                <button class="btn password-toggle" type="button" id="toggleConfirmPassword">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-login text-white w-100" id="resetPasswordBtn">
+                        <button type="button" class="btn btn-login w-100" id="resetPasswordBtn">
                             <i class="fas fa-key me-2"></i>Reset Password
                         </button>
                     </div>
@@ -221,10 +340,10 @@
                     <!-- Success Message -->
                     <div class="step" id="successStep">
                         <div class="text-center py-4">
-                            <i class="fas fa-check-circle text-success fa-3x mb-3"></i>
+                            <i class="fas fa-check-circle success-icon"></i>
                             <h4>Password Reset Successful!</h4>
                             <p>Your password has been reset successfully. You can now login with your new password.</p>
-                            <button type="button" class="btn btn-login text-white" data-bs-dismiss="modal">
+                            <button type="button" class="btn btn-login" data-bs-dismiss="modal">
                                 Continue to Login
                             </button>
                         </div>
@@ -236,6 +355,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Initialize localStorage if not exists
+        if (!localStorage.getItem('rajveerUsers')) {
+            localStorage.setItem('rajveerUsers', JSON.stringify([]));
+        }
+
         // Password Toggle
         document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('password');
@@ -260,7 +384,7 @@
             const password = document.getElementById('password').value;
             
             // Get all registered users
-            const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
+            const users = JSON.parse(localStorage.getItem('rajveerUsers'));
             
             // Find user with matching email and password
             const user = users.find(u => u.email === email && u.password === password);
@@ -278,10 +402,12 @@
                 
                 localStorage.setItem('rajveerUser', JSON.stringify(userData));
                 
-                alert('Login successful! Redirecting to dashboard...');
-                window.location.href = 'userdashboard.html';
+                showAlert('Login successful! Redirecting to dashboard...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'userdashboard.html';
+                }, 1500);
             } else {
-                alert('Invalid email or password. Please try again.');
+                showAlert('Invalid email or password. Please try again.', 'danger');
                 document.getElementById('password').value = '';
                 document.getElementById('password').focus();
             }
@@ -301,15 +427,15 @@
         let currentEmail = '';
 
         // Step Navigation
-                function showStep(stepNumber) {
-                    document.querySelectorAll('.step').forEach(step => {
-                        step.classList.remove('active');
-                    });
-                    // allow passing 1,2,3 or 4 (4 = success), or 'success'
-                    const id = (stepNumber === 4 || stepNumber === 'success') ? 'successStep' : 'step' + stepNumber;
-                    const el = document.getElementById(id);
-                    if (el) el.classList.add('active');
-                }
+        function showStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            const id = (stepNumber === 4 || stepNumber === 'success') ? 'successStep' : 'step' + stepNumber;
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active');
+        }
 
         // Generate OTP
         function generateOtp() {
@@ -318,7 +444,7 @@
             return otp;
         }
 
-        // Start countdown (separate function so it can be called from multiple places)
+        // Start countdown
         function startCountdown() {
             let timeLeft = 300; // 5 minutes in seconds
             const countdownElement = document.getElementById('countdown');
@@ -344,7 +470,7 @@
             }, 1000);
         }
 
-        // OTP Input Handling (setup once)
+        // OTP Input Handling
         function setupOtpInputs() {
             document.querySelectorAll('.otp-input').forEach(input => {
                 input.addEventListener('input', function() {
@@ -376,16 +502,16 @@
             const email = document.getElementById('resetEmail').value.trim();
             
             if (!email) {
-                alert('Please enter your email address.');
+                showAlert('Please enter your email address.', 'danger');
                 return;
             }
             
             // Check if email exists in registered users
-            const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
+            const users = JSON.parse(localStorage.getItem('rajveerUsers'));
             const userExists = users.some(u => u.email === email);
             
             if (!userExists) {
-                alert('This email is not registered. Please check your email or sign up for a new account.');
+                showAlert('This email is not registered. Please check your email or sign up for a new account.', 'danger');
                 return;
             }
             
@@ -394,7 +520,7 @@
             
             // In a real application, you would send the OTP to the user's email
             // For demo purposes, we'll just show it in an alert
-            alert(`OTP sent to ${email}: ${generatedOtp}\n\nIn a real application, this would be sent via email.`);
+            showAlert(`OTP sent to ${email}: ${generatedOtp}\n\nIn a real application, this would be sent via email.`, 'success');
             
             showStep(2);
             startCountdown();
@@ -414,7 +540,7 @@
             });
             
             if (enteredOtp.length !== 6) {
-                alert('Please enter the complete 6-digit code.');
+                showAlert('Please enter the complete 6-digit code.', 'danger');
                 return;
             }
             
@@ -422,7 +548,7 @@
                 clearInterval(countdownInterval);
                 showStep(3);
             } else {
-                alert('Invalid verification code. Please try again.');
+                showAlert('Invalid verification code. Please try again.', 'danger');
                 // Clear OTP inputs
                 document.querySelectorAll('.otp-input').forEach(input => {
                     input.value = '';
@@ -436,13 +562,13 @@
         document.getElementById('resendOtp').addEventListener('click', function(e) {
             e.preventDefault();
             if (!currentEmail) {
-                alert('Please enter your email and request a code first.');
+                showAlert('Please enter your email and request a code first.', 'danger');
                 return;
             }
             generatedOtp = generateOtp();
             
             // In a real application, you would resend the OTP to the user's email
-            alert(`New OTP sent to ${currentEmail}: ${generatedOtp}\n\nIn a real application, this would be sent via email.`);
+            showAlert(`New OTP sent to ${currentEmail}: ${generatedOtp}\n\nIn a real application, this would be sent via email.`, 'success');
             
             startCountdown();
             const verifyBtn = document.getElementById('verifyOtpBtn');
@@ -474,7 +600,7 @@
 
         // Toggle Confirm Password Visibility
         document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('confirmPassword');
+            const passwordInput = document.getElementById('confirmNewPassword');
             const icon = this.querySelector('i');
             
             if (passwordInput.type === 'password') {
@@ -491,27 +617,25 @@
         // Reset Password
         document.getElementById('resetPasswordBtn').addEventListener('click', function() {
             const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
             
             if (!newPassword || !confirmPassword) {
-                alert('Please fill in all password fields.');
+                showAlert('Please fill in all password fields.', 'danger');
                 return;
             }
             
             if (newPassword !== confirmPassword) {
-                alert('Passwords do not match. Please try again.');
+                showAlert('Passwords do not match. Please try again.', 'danger');
                 return;
             }
             
-            // Password strength validation
-            const passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
-            if (!passwordRegex.test(newPassword)) {
-                alert('Password must be at least 8 characters long and contain uppercase, lowercase, number and special character.');
+            if (newPassword.length < 6) {
+                showAlert('Password must be at least 6 characters long.', 'danger');
                 return;
             }
             
             // Update password in localStorage
-            const users = JSON.parse(localStorage.getItem('rajveerUsers') || '[]');
+            const users = JSON.parse(localStorage.getItem('rajveerUsers'));
             const userIndex = users.findIndex(u => u.email === currentEmail);
             
             if (userIndex !== -1) {
@@ -520,7 +644,7 @@
                 
                 showStep(4); // Success step
             } else {
-                alert('Error updating password. Please try again.');
+                showAlert('Error updating password. Please try again.', 'danger');
             }
         });
 
@@ -529,7 +653,7 @@
             showStep(1);
             document.getElementById('resetEmail').value = '';
             document.getElementById('newPassword').value = '';
-            document.getElementById('confirmPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
             
             // Clear OTP inputs
             document.querySelectorAll('.otp-input').forEach(input => {
@@ -540,6 +664,30 @@
             generatedOtp = '';
             currentEmail = '';
         });
+
+        // Utility function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} mt-3`;
+            alertDiv.textContent = message;
+            
+            // Insert alert at the top of the form body
+            const formBody = document.querySelector('.login-body');
+            formBody.insertBefore(alertDiv, formBody.firstChild);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
     </script>
 </body>
 </html>
