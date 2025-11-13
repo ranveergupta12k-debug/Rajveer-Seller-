@@ -37,7 +37,7 @@
             overflow-x: hidden;
         }
         
-        /* Mobile-First Sidebar */
+        /* Mobile Header */
         .mobile-header {
             background: var(--gradient-dark);
             color: white;
@@ -80,6 +80,7 @@
             cursor: pointer;
         }
         
+        /* Enhanced Mobile Sidebar */
         .mobile-sidebar {
             position: fixed;
             top: 0;
@@ -355,7 +356,7 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
         
-        /* Mobile Responsive */
+        /* Desktop Sidebar */
         @media (min-width: 768px) {
             .mobile-header {
                 display: none;
@@ -502,6 +503,22 @@
         .sidebar-overlay.active {
             display: block;
         }
+        
+        /* Enhanced Menu Items */
+        .menu-category {
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 10px;
+        }
+        
+        .menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 20px;
+        }
     </style>
 </head>
 <body>
@@ -547,6 +564,7 @@
         </div>
 
         <nav class="nav flex-column py-3">
+            <div class="menu-category">Main</div>
             <a class="nav-link active" href="#">
                 <i class="fas fa-tachometer-alt"></i>
                 <span>Dashboard</span>
@@ -556,6 +574,8 @@
                 <span>Shop Products</span>
                 <span class="notification-badge">3</span>
             </a>
+            
+            <div class="menu-category">Account</div>
             <a class="nav-link" href="#orders">
                 <i class="fas fa-history"></i>
                 <span>Order History</span>
@@ -568,20 +588,27 @@
                 <i class="fas fa-heart"></i>
                 <span>Wishlist</span>
             </a>
-            <a class="nav-link" href="#support">
+            <a class="nav-link" href="#downloads">
+                <i class="fas fa-download"></i>
+                <span>My Downloads</span>
+            </a>
+            
+            <div class="menu-category">Support</div>
+            <a class="nav-link" href="#help">
+                <i class="fas fa-question-circle"></i>
+                <span>Help Center</span>
+            </a>
+            <a class="nav-link" href="#contact">
                 <i class="fas fa-headset"></i>
-                <span>Support</span>
+                <span>Contact Us</span>
             </a>
-            <a class="nav-link" href="#referral">
-                <i class="fas fa-gift"></i>
-                <span>Refer & Earn</span>
+            
+            <div class="menu-divider"></div>
+            
+            <a class="nav-link text-warning" href="#" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
             </a>
-            <div class="mt-4 pt-3 border-top border-white border-opacity-25">
-                <a class="nav-link text-warning" href="#" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                </a>
-            </div>
         </nav>
     </div>
 
@@ -611,6 +638,7 @@
         </div>
 
         <nav class="nav flex-column py-3">
+            <div class="menu-category sidebar-text">Main</div>
             <a class="nav-link active" href="#">
                 <i class="fas fa-tachometer-alt"></i>
                 <span class="sidebar-text">Dashboard</span>
@@ -620,6 +648,8 @@
                 <span class="sidebar-text">Shop Products</span>
                 <span class="notification-badge">3</span>
             </a>
+            
+            <div class="menu-category sidebar-text">Account</div>
             <a class="nav-link" href="#orders">
                 <i class="fas fa-history"></i>
                 <span class="sidebar-text">Order History</span>
@@ -632,20 +662,27 @@
                 <i class="fas fa-heart"></i>
                 <span class="sidebar-text">Wishlist</span>
             </a>
-            <a class="nav-link" href="#support">
+            <a class="nav-link" href="#downloads">
+                <i class="fas fa-download"></i>
+                <span class="sidebar-text">My Downloads</span>
+            </a>
+            
+            <div class="menu-category sidebar-text">Support</div>
+            <a class="nav-link" href="#help">
+                <i class="fas fa-question-circle"></i>
+                <span class="sidebar-text">Help Center</span>
+            </a>
+            <a class="nav-link" href="#contact">
                 <i class="fas fa-headset"></i>
-                <span class="sidebar-text">Support</span>
+                <span class="sidebar-text">Contact Us</span>
             </a>
-            <a class="nav-link" href="#referral">
-                <i class="fas fa-gift"></i>
-                <span class="sidebar-text">Refer & Earn</span>
+            
+            <div class="menu-divider"></div>
+            
+            <a class="nav-link text-warning" href="#" id="desktopLogoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="sidebar-text">Logout</span>
             </a>
-            <div class="mt-4 pt-3 border-top border-white border-opacity-25">
-                <a class="nav-link text-warning" href="#" id="desktopLogoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span class="sidebar-text">Logout</span>
-                </a>
-            </div>
         </nav>
     </div>
 
@@ -824,19 +861,19 @@
                             <div class="col-6">
                                 <div class="quick-action-card">
                                     <div class="quick-action-icon">
-                                        <i class="fas fa-headset"></i>
+                                        <i class="fas fa-user"></i>
                                     </div>
-                                    <h6>Support</h6>
-                                    <button class="btn btn-sm btn-warning mt-2" onclick="contactSupport()">Contact</button>
+                                    <h6>Profile</h6>
+                                    <button class="btn btn-sm btn-warning mt-2" onclick="viewProfile()">Edit</button>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="quick-action-card">
                                     <div class="quick-action-icon">
-                                        <i class="fas fa-share-alt"></i>
+                                        <i class="fas fa-headset"></i>
                                     </div>
-                                    <h6>Refer & Earn</h6>
-                                    <button class="btn btn-sm btn-info mt-2" onclick="referFriend()">Share</button>
+                                    <h6>Support</h6>
+                                    <button class="btn btn-sm btn-info mt-2" onclick="contactSupport()">Contact</button>
                                 </div>
                             </div>
                         </div>
@@ -854,81 +891,6 @@
                         <div id="activityList">
                             <!-- Activity items will be loaded here -->
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Additional Features Section -->
-        <div class="row mt-4">
-            <!-- Referral Program -->
-            <div class="col-12 mb-4">
-                <div class="card dashboard-card">
-                    <div class="card-header bg-white border-0 py-3">
-                        <h5 class="m-0 fw-bold text-primary">
-                            <i class="fas fa-gift me-2"></i>Referral Program
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
-                                <i class="fas fa-user-plus fa-2x text-primary"></i>
-                            </div>
-                            <div>
-                                <h5 class="mb-1">Earn ₹100 Per Referral</h5>
-                                <p class="text-muted mb-0">Share your code and earn rewards</p>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" value="RAJVEER2024" id="referralCode" readonly>
-                            <button class="btn btn-primary" onclick="copyReferralCode()">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="text-center">
-                                <h4 class="text-primary mb-0">5</h4>
-                                <small class="text-muted">Total Referrals</small>
-                            </div>
-                            <div class="text-center">
-                                <h4 class="text-success mb-0">₹500</h4>
-                                <small class="text-muted">Earned</small>
-                            </div>
-                            <div class="text-center">
-                                <h4 class="text-warning mb-0">₹200</h4>
-                                <small class="text-muted">Pending</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Support Tickets -->
-            <div class="col-12 mb-4">
-                <div class="card dashboard-card">
-                    <div class="card-header bg-white border-0 py-3">
-                        <h5 class="m-0 fw-bold text-primary">
-                            <i class="fas fa-ticket-alt me-2"></i>Support Tickets
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded">
-                            <div>
-                                <h6 class="mb-1">Netflix Account Issue</h6>
-                                <small class="text-muted">Submitted 2 days ago</small>
-                            </div>
-                            <span class="badge bg-warning">In Progress</span>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between p-3">
-                            <div>
-                                <h6 class="mb-1">Payment Refund Request</h6>
-                                <small class="text-muted">Submitted 1 week ago</small>
-                            </div>
-                            <span class="badge bg-success">Resolved</span>
-                        </div>
-                        <button class="btn btn-outline-primary w-100 mt-3" onclick="contactSupport()">
-                            <i class="fas fa-plus me-2"></i>Create New Ticket
-                        </button>
                     </div>
                 </div>
             </div>
@@ -1141,20 +1103,12 @@
             }
         }
 
-        function contactSupport() {
-            alert('🛟 Contact Support\n\nEmail: support@rajveershop.com\nPhone: +91 9506483711\n\nWe are here to help you 24/7!');
+        function viewProfile() {
+            alert('👤 Profile\n\nYou can update your profile information from the My Profile section.');
         }
 
-        function referFriend() {
-            alert('👥 Refer & Earn\n\nShare your referral code: RAJVEER2024\n\nEarn ₹100 for every friend who signs up and makes a purchase!');
-        }
-        
-        // Copy Referral Code
-        function copyReferralCode() {
-            const referralCode = document.getElementById('referralCode');
-            referralCode.select();
-            document.execCommand('copy');
-            alert('Referral code copied to clipboard!');
+        function contactSupport() {
+            alert('🛟 Contact Support\n\nEmail: support@rajveershop.com\nPhone: +91 9506483711\n\nWe are here to help you 24/7!');
         }
 
         // Mobile Sidebar Toggle
