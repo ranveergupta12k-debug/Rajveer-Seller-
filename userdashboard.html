@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Dashboard - Rajveer Shop</title>
+    <title>User Dashboard - Rajveer Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -37,24 +37,65 @@
             overflow-x: hidden;
         }
         
-        /* Sidebar Styles */
-        .sidebar {
+        /* Mobile-First Sidebar */
+        .mobile-header {
             background: var(--gradient-dark);
             color: white;
-            min-height: 100vh;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-            position: fixed;
-            width: 280px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
-        .sidebar.collapsed {
-            width: 80px;
+        .mobile-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .sidebar.collapsed .sidebar-text {
-            display: none;
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .mobile-menu-toggle {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--gradient-dark);
+            color: white;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 0 0 25px rgba(0,0,0,0.2);
+        }
+        
+        .mobile-sidebar.open {
+            left: 0;
         }
         
         .sidebar-header {
@@ -64,30 +105,14 @@
             position: relative;
         }
         
-        .user-avatar {
-            width: 100px;
-            height: 100px;
-            background: var(--gradient-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            margin: 0 auto;
-            transition: all 0.3s;
+        .sidebar-header .user-avatar {
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+            margin: 0 auto 15px;
         }
         
-        .sidebar.collapsed .user-avatar {
-            width: 50px;
-            height: 50px;
-            font-size: 1.2rem;
-        }
-        
-        .sidebar .nav-link {
+        .mobile-sidebar .nav-link {
             color: rgba(255, 255, 255, 0.85);
             padding: 1rem 1.5rem;
             border-left: 4px solid transparent;
@@ -101,7 +126,7 @@
             overflow: hidden;
         }
         
-        .sidebar .nav-link::before {
+        .mobile-sidebar .nav-link::before {
             content: '';
             position: absolute;
             top: 0;
@@ -112,67 +137,62 @@
             transition: left 0.5s;
         }
         
-        .sidebar .nav-link:hover::before {
+        .mobile-sidebar .nav-link:hover::before {
             left: 100%;
         }
         
-        .sidebar .nav-link:hover {
+        .mobile-sidebar .nav-link:hover {
             color: white;
             background: rgba(255, 255, 255, 0.1);
             border-left: 4px solid var(--accent-blue);
             transform: translateX(5px);
         }
         
-        .sidebar .nav-link.active {
+        .mobile-sidebar .nav-link.active {
             color: white;
             background: rgba(255, 255, 255, 0.15);
             border-left: 4px solid white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
-        .sidebar .nav-link i {
+        .mobile-sidebar .nav-link i {
             width: 24px;
             margin-right: 15px;
             text-align: center;
             font-size: 1.2rem;
         }
         
-        .sidebar.collapsed .nav-link i {
-            margin-right: 0;
-        }
-        
-        .sidebar-toggle {
+        .notification-badge {
             position: absolute;
-            top: 20px;
-            right: -15px;
-            background: white;
+            top: 10px;
+            right: 10px;
+            background: #ef4444;
+            color: white;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            cursor: pointer;
-            color: var(--primary-blue);
-            z-index: 1001;
-            transition: all 0.3s;
+            font-size: 0.7rem;
+            font-weight: bold;
         }
         
-        .sidebar-toggle:hover {
-            transform: scale(1.1);
+        .close-sidebar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         
         /* Main Content */
         .main-content {
-            margin-left: 280px;
-            padding: 25px;
-            transition: all 0.3s;
+            padding: 20px;
             min-height: 100vh;
-        }
-        
-        .main-content.expanded {
-            margin-left: 80px;
         }
         
         /* Dashboard Cards */
@@ -184,6 +204,7 @@
             overflow: hidden;
             background: white;
             position: relative;
+            margin-bottom: 20px;
         }
         
         .dashboard-card::before {
@@ -197,7 +218,7 @@
         }
         
         .dashboard-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: var(--hover-shadow);
         }
         
@@ -222,16 +243,16 @@
         }
         
         .stats-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             opacity: 0.8;
             color: var(--primary-blue);
         }
         
         /* Order Status */
         .order-status {
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             display: inline-block;
         }
@@ -255,13 +276,14 @@
         .quick-action-card {
             background: white;
             border-radius: 16px;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
             transition: all 0.3s;
             border: 1px solid #e5e7eb;
             height: 100%;
             position: relative;
             overflow: hidden;
+            margin-bottom: 15px;
         }
         
         .quick-action-card::before {
@@ -275,22 +297,22 @@
         }
         
         .quick-action-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             box-shadow: var(--hover-shadow);
             border-color: var(--light-blue);
         }
         
         .quick-action-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: var(--gradient-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
             color: white;
-            font-size: 28px;
+            font-size: 24px;
             transition: all 0.3s;
         }
         
@@ -301,16 +323,16 @@
         
         /* Recent Activity */
         .recent-activity {
-            max-height: 350px;
+            max-height: 300px;
             overflow-y: auto;
             padding-right: 10px;
         }
         
         .activity-item {
-            padding: 18px;
+            padding: 15px;
             border-left: 4px solid var(--primary-blue);
             background: white;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             transition: all 0.3s;
@@ -329,99 +351,70 @@
         }
         
         .activity-item:hover {
-            transform: translateX(5px);
+            transform: translateX(3px);
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
         
         /* Mobile Responsive */
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 80px;
-            }
-            
-            .sidebar .sidebar-text {
+        @media (min-width: 768px) {
+            .mobile-header {
                 display: none;
             }
             
-            .sidebar-header {
-                padding: 1rem 0.5rem;
+            .mobile-sidebar {
+                display: none;
             }
             
-            .user-avatar {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-            
-            .sidebar .nav-link {
-                padding: 0.8rem 0.5rem;
-                margin: 5px 8px;
-                justify-content: center;
-            }
-            
-            .sidebar .nav-link i {
-                margin-right: 0;
-            }
-            
-            .main-content {
-                margin-left: 80px;
-                padding: 20px;
-            }
-            
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start !important;
-            }
-            
-            .dashboard-header .btn {
-                margin-top: 15px;
-                width: 100%;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                overflow: hidden;
-            }
-            
-            .sidebar.mobile-open {
-                width: 280px;
-            }
-            
-            .sidebar.mobile-open .sidebar-text {
-                display: inline;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .mobile-menu-toggle {
-                display: block !important;
-                position: fixed;
-                top: 20px;
-                left: 20px;
-                z-index: 999;
-                background: var(--primary-blue);
+            .desktop-sidebar {
+                display: block;
+                background: var(--gradient-dark);
                 color: white;
-                border-radius: 10px;
-                padding: 10px 15px;
-                box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
-                border: none;
+                min-height: 100vh;
+                box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+                position: fixed;
+                width: 280px;
+                z-index: 1000;
+                transition: all 0.3s;
             }
-        }
-        
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-        }
-        
-        /* Table Responsive */
-        .table-responsive {
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            
+            .desktop-sidebar.collapsed {
+                width: 80px;
+            }
+            
+            .desktop-sidebar.collapsed .sidebar-text {
+                display: none;
+            }
+            
+            .desktop-sidebar .sidebar-toggle {
+                position: absolute;
+                top: 20px;
+                right: -15px;
+                background: white;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                cursor: pointer;
+                color: var(--primary-blue);
+                z-index: 1001;
+                transition: all 0.3s;
+            }
+            
+            .desktop-sidebar .sidebar-toggle:hover {
+                transform: scale(1.1);
+            }
+            
+            .main-content {
+                margin-left: 280px;
+                transition: all 0.3s;
+            }
+            
+            .main-content.expanded {
+                margin-left: 80px;
+            }
         }
         
         /* Custom Buttons */
@@ -456,24 +449,9 @@
             box-shadow: 0 4px 15px rgba(30, 64, 175, 0.2);
         }
         
-        /* Loading Animation */
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         
         ::-webkit-scrollbar-track {
@@ -488,36 +466,6 @@
         
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-blue);
-        }
-        
-        /* Notification Badge */
-        .notification-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-        
-        /* Progress Bar */
-        .progress {
-            height: 8px;
-            border-radius: 10px;
-            background: #e5e7eb;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            background: var(--gradient-primary);
-            border-radius: 10px;
         }
         
         /* Animation Classes */
@@ -538,360 +486,449 @@
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        
+        /* Overlay for mobile sidebar */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="user-info">
+            <div class="user-avatar" id="mobileUserAvatar">
+                <!-- Avatar will be generated from initials -->
+            </div>
+            <div>
+                <h6 class="mb-0" id="mobileUserName">User</h6>
+                <small class="opacity-75">Premium Member</small>
+            </div>
+        </div>
+        <button class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 sidebar p-0">
-                <div class="sidebar-toggle">
-                    <i class="fas fa-chevron-left"></i>
+    <!-- Mobile Sidebar -->
+    <div class="mobile-sidebar">
+        <button class="close-sidebar">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="sidebar-header">
+            <div class="user-avatar mx-auto mb-3" id="userAvatar">
+                <!-- Avatar will be generated from initials -->
+            </div>
+            <h5 class="fw-bold" id="userName">Loading...</h5>
+            <p class="text-white-50 small mb-2" id="userEmail">Loading...</p>
+            <span class="badge bg-success bg-opacity-25 text-success">Premium Member</span>
+            
+            <div class="mt-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <small class="text-white-50">Profile Completion</small>
+                    <small class="text-white-50">75%</small>
                 </div>
-                
-                <div class="sidebar-header">
-                    <div class="user-avatar mx-auto mb-3" id="userAvatar">
-                        <!-- Avatar will be generated from initials -->
-                    </div>
-                    <h5 class="fw-bold sidebar-text" id="userName">Loading...</h5>
-                    <p class="text-white-50 small mb-2 sidebar-text" id="userEmail">Loading...</p>
-                    <span class="badge bg-success bg-opacity-25 text-success sidebar-text">Premium Member</span>
-                    
-                    <div class="mt-3 sidebar-text">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <small class="text-white-50">Profile Completion</small>
-                            <small class="text-white-50">75%</small>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 75%"></div>
-                        </div>
-                    </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 75%"></div>
                 </div>
+            </div>
+        </div>
 
-                <nav class="nav flex-column py-3">
-                    <a class="nav-link active" href="#">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span class="sidebar-text">Dashboard</span>
-                    </a>
-                    <a class="nav-link" href="product.html">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="sidebar-text">Shop Products</span>
-                        <span class="notification-badge">3</span>
-                    </a>
-                    <a class="nav-link" href="#orders">
-                        <i class="fas fa-history"></i>
-                        <span class="sidebar-text">Order History</span>
-                    </a>
-                    <a class="nav-link" href="#profile">
-                        <i class="fas fa-user"></i>
-                        <span class="sidebar-text">My Profile</span>
-                    </a>
-                    <a class="nav-link" href="#wishlist">
-                        <i class="fas fa-heart"></i>
-                        <span class="sidebar-text">Wishlist</span>
-                    </a>
-                    <a class="nav-link" href="#support">
-                        <i class="fas fa-headset"></i>
-                        <span class="sidebar-text">Support</span>
-                    </a>
-                    <a class="nav-link" href="#referral">
-                        <i class="fas fa-gift"></i>
-                        <span class="sidebar-text">Refer & Earn</span>
-                    </a>
-                    <div class="mt-4 pt-3 border-top border-white border-opacity-25">
-                        <a class="nav-link text-warning" href="#" id="logoutBtn">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span class="sidebar-text">Logout</span>
-                        </a>
+        <nav class="nav flex-column py-3">
+            <a class="nav-link active" href="#">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" href="product.html">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Shop Products</span>
+                <span class="notification-badge">3</span>
+            </a>
+            <a class="nav-link" href="#orders">
+                <i class="fas fa-history"></i>
+                <span>Order History</span>
+            </a>
+            <a class="nav-link" href="#profile">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+            </a>
+            <a class="nav-link" href="#wishlist">
+                <i class="fas fa-heart"></i>
+                <span>Wishlist</span>
+            </a>
+            <a class="nav-link" href="#support">
+                <i class="fas fa-headset"></i>
+                <span>Support</span>
+            </a>
+            <a class="nav-link" href="#referral">
+                <i class="fas fa-gift"></i>
+                <span>Refer & Earn</span>
+            </a>
+            <div class="mt-4 pt-3 border-top border-white border-opacity-25">
+                <a class="nav-link text-warning" href="#" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Desktop Sidebar -->
+    <div class="desktop-sidebar">
+        <div class="sidebar-toggle">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        
+        <div class="sidebar-header">
+            <div class="user-avatar mx-auto mb-3" id="desktopUserAvatar">
+                <!-- Avatar will be generated from initials -->
+            </div>
+            <h5 class="fw-bold sidebar-text" id="desktopUserName">Loading...</h5>
+            <p class="text-white-50 small mb-2 sidebar-text" id="desktopUserEmail">Loading...</p>
+            <span class="badge bg-success bg-opacity-25 text-success sidebar-text">Premium Member</span>
+            
+            <div class="mt-3 sidebar-text">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <small class="text-white-50">Profile Completion</small>
+                    <small class="text-white-50">75%</small>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav flex-column py-3">
+            <a class="nav-link active" href="#">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="sidebar-text">Dashboard</span>
+            </a>
+            <a class="nav-link" href="product.html">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="sidebar-text">Shop Products</span>
+                <span class="notification-badge">3</span>
+            </a>
+            <a class="nav-link" href="#orders">
+                <i class="fas fa-history"></i>
+                <span class="sidebar-text">Order History</span>
+            </a>
+            <a class="nav-link" href="#profile">
+                <i class="fas fa-user"></i>
+                <span class="sidebar-text">My Profile</span>
+            </a>
+            <a class="nav-link" href="#wishlist">
+                <i class="fas fa-heart"></i>
+                <span class="sidebar-text">Wishlist</span>
+            </a>
+            <a class="nav-link" href="#support">
+                <i class="fas fa-headset"></i>
+                <span class="sidebar-text">Support</span>
+            </a>
+            <a class="nav-link" href="#referral">
+                <i class="fas fa-gift"></i>
+                <span class="sidebar-text">Refer & Earn</span>
+            </a>
+            <div class="mt-4 pt-3 border-top border-white border-opacity-25">
+                <a class="nav-link text-warning" href="#" id="desktopLogoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="sidebar-text">Logout</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="sidebar-overlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4 dashboard-header">
+            <div>
+                <h3 class="fw-bold text-primary">Welcome Back, <span id="greetingName">User</span>! 👋</h3>
+                <p class="text-muted">Here's your account overview and recent activity</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="product.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-bolt me-2"></i>Shop Now
+                </a>
+                <a href="index.html" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-home me-2"></i>Home
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-6 mb-4">
+                <div class="card dashboard-card card-primary h-100 animate-slideIn">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="text-primary text-uppercase fw-bold small mb-2">
+                                    Total Orders
+                                </div>
+                                <div class="h4 fw-bold text-gray-800" id="totalOrders">0</div>
+                                <div class="small text-success">
+                                    <i class="fas fa-arrow-up me-1"></i>
+                                    <span id="orderGrowth">0%</span> growth
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-shopping-bag stats-icon"></i>
+                            </div>
+                        </div>
                     </div>
-                </nav>
+                </div>
             </div>
 
-            <!-- Main Content -->
-            <div class="col-md-9 col-lg-10 main-content">
-                <!-- Dashboard Header -->
-                <div class="d-flex justify-content-between align-items-center mb-4 dashboard-header">
-                    <div>
-                        <h3 class="fw-bold text-primary">Welcome Back, <span id="greetingName">User</span>! 👋</h3>
-                        <p class="text-muted">Here's your account overview and recent activity</p>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <a href="product.html" class="btn btn-primary btn-lg">
-                            <i class="fas fa-bolt me-2"></i>Shop Now
-                        </a>
-                        <a href="index.html" class="btn btn-outline-primary btn-lg">
-                            <i class="fas fa-home me-2"></i>Home
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Stats Cards -->
-                <div class="row mb-4">
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card dashboard-card card-primary h-100 animate-slideIn">
-                            <div class="card-body p-4">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="text-primary text-uppercase fw-bold small mb-2">
-                                            Total Orders
-                                        </div>
-                                        <div class="h2 fw-bold text-gray-800" id="totalOrders">0</div>
-                                        <div class="small text-success">
-                                            <i class="fas fa-arrow-up me-1"></i>
-                                            <span id="orderGrowth">0%</span> growth
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-shopping-bag stats-icon"></i>
-                                    </div>
+            <div class="col-6 mb-4">
+                <div class="card dashboard-card card-success h-100 animate-slideIn" style="animation-delay: 0.1s;">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="text-success text-uppercase fw-bold small mb-2">
+                                    Total Spent
                                 </div>
+                                <div class="h4 fw-bold text-gray-800" id="totalSpent">₹0</div>
+                                <div class="small text-muted">All time purchases</div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card dashboard-card card-success h-100 animate-slideIn" style="animation-delay: 0.1s;">
-                            <div class="card-body p-4">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="text-success text-uppercase fw-bold small mb-2">
-                                            Total Spent
-                                        </div>
-                                        <div class="h2 fw-bold text-gray-800" id="totalSpent">₹0</div>
-                                        <div class="small text-muted">All time purchases</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-rupee-sign stats-icon text-success"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card dashboard-card card-warning h-100 animate-slideIn" style="animation-delay: 0.2s;">
-                            <div class="card-body p-4">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="text-warning text-uppercase fw-bold small mb-2">
-                                            Active Products
-                                        </div>
-                                        <div class="h2 fw-bold text-gray-800" id="activeProducts">0</div>
-                                        <div class="small text-muted">Currently using</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-play-circle stats-icon text-warning"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card dashboard-card card-info h-100 animate-slideIn" style="animation-delay: 0.3s;">
-                            <div class="card-body p-4">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="text-info text-uppercase fw-bold small mb-2">
-                                            Member Since
-                                        </div>
-                                        <div class="h5 fw-bold text-gray-800" id="memberSince">-</div>
-                                        <div class="small text-muted">Loyal customer</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-award stats-icon text-info"></i>
-                                    </div>
-                                </div>
+                            <div class="col-auto">
+                                <i class="fas fa-rupee-sign stats-icon text-success"></i>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Recent Orders & Activity -->
-                <div class="row">
-                    <!-- Recent Orders -->
-                    <div class="col-lg-8 mb-4">
-                        <div class="card dashboard-card">
-                            <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
-                                <h5 class="m-0 fw-bold text-primary">
-                                    <i class="fas fa-clock me-2"></i>Recent Orders
-                                </h5>
-                                <a href="#orders" class="btn btn-sm btn-outline-primary">View All</a>
+            <div class="col-6 mb-4">
+                <div class="card dashboard-card card-warning h-100 animate-slideIn" style="animation-delay: 0.2s;">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="text-warning text-uppercase fw-bold small mb-2">
+                                    Active Products
+                                </div>
+                                <div class="h4 fw-bold text-gray-800" id="activeProducts">0</div>
+                                <div class="small text-muted">Currently using</div>
                             </div>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-hover mb-0" id="ordersTable">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th class="border-0">Order ID</th>
-                                                <th class="border-0">Product</th>
-                                                <th class="border-0">Amount</th>
-                                                <th class="border-0">Date</th>
-                                                <th class="border-0">Status</th>
-                                                <th class="border-0">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ordersTableBody">
-                                            <!-- Orders will be loaded here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-center py-5" id="noOrdersMessage" style="display: none;">
-                                    <i class="fas fa-shopping-bag fa-4x text-muted mb-3"></i>
-                                    <h4 class="text-muted">No Orders Yet</h4>
-                                    <p class="text-muted mb-4">Start your shopping journey with us</p>
-                                    <a href="product.html" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-shopping-bag me-2"></i>Browse Products
-                                    </a>
-                                </div>
+                            <div class="col-auto">
+                                <i class="fas fa-play-circle stats-icon text-warning"></i>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Quick Actions & Recent Activity -->
-                    <div class="col-lg-4">
-                        <!-- Quick Actions -->
-                        <div class="card dashboard-card mb-4">
-                            <div class="card-header bg-white border-0 py-3">
-                                <h5 class="m-0 fw-bold text-primary">
-                                    <i class="fas fa-bolt me-2"></i>Quick Actions
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <div class="quick-action-card">
-                                            <div class="quick-action-icon">
-                                                <i class="fas fa-shopping-bag"></i>
-                                            </div>
-                                            <h6>Shop Now</h6>
-                                            <a href="product.html" class="btn btn-sm btn-primary mt-2">Explore</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="quick-action-card">
-                                            <div class="quick-action-icon">
-                                                <i class="fas fa-download"></i>
-                                            </div>
-                                            <h6>Downloads</h6>
-                                            <button class="btn btn-sm btn-success mt-2" onclick="showDownloads()">View</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="quick-action-card">
-                                            <div class="quick-action-icon">
-                                                <i class="fas fa-headset"></i>
-                                            </div>
-                                            <h6>Support</h6>
-                                            <button class="btn btn-sm btn-warning mt-2" onclick="contactSupport()">Contact</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="quick-action-card">
-                                            <div class="quick-action-icon">
-                                                <i class="fas fa-share-alt"></i>
-                                            </div>
-                                            <h6>Refer & Earn</h6>
-                                            <button class="btn btn-sm btn-info mt-2" onclick="referFriend()">Share</button>
-                                        </div>
-                                    </div>
+            <div class="col-6 mb-4">
+                <div class="card dashboard-card card-info h-100 animate-slideIn" style="animation-delay: 0.3s;">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="text-info text-uppercase fw-bold small mb-2">
+                                    Member Since
                                 </div>
+                                <div class="h6 fw-bold text-gray-800" id="memberSince">-</div>
+                                <div class="small text-muted">Loyal customer</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-award stats-icon text-info"></i>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <!-- Recent Activity -->
-                        <div class="card dashboard-card">
-                            <div class="card-header bg-white border-0 py-3">
-                                <h5 class="m-0 fw-bold text-primary">
-                                    <i class="fas fa-bell me-2"></i>Recent Activity
-                                </h5>
+        <!-- Recent Orders & Activity -->
+        <div class="row">
+            <!-- Recent Orders -->
+            <div class="col-12 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="m-0 fw-bold text-primary">
+                            <i class="fas fa-clock me-2"></i>Recent Orders
+                        </h5>
+                        <a href="#orders" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="ordersTable">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="border-0">Order ID</th>
+                                        <th class="border-0">Product</th>
+                                        <th class="border-0">Amount</th>
+                                        <th class="border-0">Status</th>
+                                        <th class="border-0">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersTableBody">
+                                    <!-- Orders will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center py-5" id="noOrdersMessage" style="display: none;">
+                            <i class="fas fa-shopping-bag fa-4x text-muted mb-3"></i>
+                            <h4 class="text-muted">No Orders Yet</h4>
+                            <p class="text-muted mb-4">Start your shopping journey with us</p>
+                            <a href="product.html" class="btn btn-primary btn-lg">
+                                <i class="fas fa-shopping-bag me-2"></i>Browse Products
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Recent Activity -->
+            <div class="col-12">
+                <!-- Quick Actions -->
+                <div class="card dashboard-card mb-4">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h5 class="m-0 fw-bold text-primary">
+                            <i class="fas fa-bolt me-2"></i>Quick Actions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="quick-action-card">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </div>
+                                    <h6>Shop Now</h6>
+                                    <a href="product.html" class="btn btn-sm btn-primary mt-2">Explore</a>
+                                </div>
                             </div>
-                            <div class="card-body recent-activity">
-                                <div id="activityList">
-                                    <!-- Activity items will be loaded here -->
+                            <div class="col-6">
+                                <div class="quick-action-card">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-download"></i>
+                                    </div>
+                                    <h6>Downloads</h6>
+                                    <button class="btn btn-sm btn-success mt-2" onclick="showDownloads()">View</button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="quick-action-card">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <h6>Support</h6>
+                                    <button class="btn btn-sm btn-warning mt-2" onclick="contactSupport()">Contact</button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="quick-action-card">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-share-alt"></i>
+                                    </div>
+                                    <h6>Refer & Earn</h6>
+                                    <button class="btn btn-sm btn-info mt-2" onclick="referFriend()">Share</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Additional Features Section -->
-                <div class="row mt-4">
-                    <!-- Referral Program -->
-                    <div class="col-lg-6 mb-4">
-                        <div class="card dashboard-card">
-                            <div class="card-header bg-white border-0 py-3">
-                                <h5 class="m-0 fw-bold text-primary">
-                                    <i class="fas fa-gift me-2"></i>Referral Program
-                                </h5>
+
+                <!-- Recent Activity -->
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h5 class="m-0 fw-bold text-primary">
+                            <i class="fas fa-bell me-2"></i>Recent Activity
+                        </h5>
+                    </div>
+                    <div class="card-body recent-activity">
+                        <div id="activityList">
+                            <!-- Activity items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Features Section -->
+        <div class="row mt-4">
+            <!-- Referral Program -->
+            <div class="col-12 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h5 class="m-0 fw-bold text-primary">
+                            <i class="fas fa-gift me-2"></i>Referral Program
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
+                                <i class="fas fa-user-plus fa-2x text-primary"></i>
                             </div>
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
-                                        <i class="fas fa-user-plus fa-2x text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-1">Earn ₹100 Per Referral</h5>
-                                        <p class="text-muted mb-0">Share your code and earn rewards</p>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" value="RAJVEER2024" id="referralCode" readonly>
-                                    <button class="btn btn-primary" onclick="copyReferralCode()">
-                                        <i class="fas fa-copy"></i>
-                                    </button>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-center">
-                                        <h4 class="text-primary mb-0">5</h4>
-                                        <small class="text-muted">Total Referrals</small>
-                                    </div>
-                                    <div class="text-center">
-                                        <h4 class="text-success mb-0">₹500</h4>
-                                        <small class="text-muted">Earned</small>
-                                    </div>
-                                    <div class="text-center">
-                                        <h4 class="text-warning mb-0">₹200</h4>
-                                        <small class="text-muted">Pending</small>
-                                    </div>
-                                </div>
+                            <div>
+                                <h5 class="mb-1">Earn ₹100 Per Referral</h5>
+                                <p class="text-muted mb-0">Share your code and earn rewards</p>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" value="RAJVEER2024" id="referralCode" readonly>
+                            <button class="btn btn-primary" onclick="copyReferralCode()">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="text-center">
+                                <h4 class="text-primary mb-0">5</h4>
+                                <small class="text-muted">Total Referrals</small>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="text-success mb-0">₹500</h4>
+                                <small class="text-muted">Earned</small>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="text-warning mb-0">₹200</h4>
+                                <small class="text-muted">Pending</small>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Support Tickets -->
-                    <div class="col-lg-6 mb-4">
-                        <div class="card dashboard-card">
-                            <div class="card-header bg-white border-0 py-3">
-                                <h5 class="m-0 fw-bold text-primary">
-                                    <i class="fas fa-ticket-alt me-2"></i>Support Tickets
-                                </h5>
+                </div>
+            </div>
+            
+            <!-- Support Tickets -->
+            <div class="col-12 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h5 class="m-0 fw-bold text-primary">
+                            <i class="fas fa-ticket-alt me-2"></i>Support Tickets
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded">
+                            <div>
+                                <h6 class="mb-1">Netflix Account Issue</h6>
+                                <small class="text-muted">Submitted 2 days ago</small>
                             </div>
-                            <div class="card-body">
-                                <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded">
-                                    <div>
-                                        <h6 class="mb-1">Netflix Account Issue</h6>
-                                        <small class="text-muted">Submitted 2 days ago</small>
-                                    </div>
-                                    <span class="badge bg-warning">In Progress</span>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between p-3">
-                                    <div>
-                                        <h6 class="mb-1">Payment Refund Request</h6>
-                                        <small class="text-muted">Submitted 1 week ago</small>
-                                    </div>
-                                    <span class="badge bg-success">Resolved</span>
-                                </div>
-                                <button class="btn btn-outline-primary w-100 mt-3" onclick="contactSupport()">
-                                    <i class="fas fa-plus me-2"></i>Create New Ticket
-                                </button>
-                            </div>
+                            <span class="badge bg-warning">In Progress</span>
                         </div>
+                        <div class="d-flex align-items-center justify-content-between p-3">
+                            <div>
+                                <h6 class="mb-1">Payment Refund Request</h6>
+                                <small class="text-muted">Submitted 1 week ago</small>
+                            </div>
+                            <span class="badge bg-success">Resolved</span>
+                        </div>
+                        <button class="btn btn-outline-primary w-100 mt-3" onclick="contactSupport()">
+                            <i class="fas fa-plus me-2"></i>Create New Ticket
+                        </button>
                     </div>
                 </div>
             </div>
@@ -915,12 +952,17 @@
             // Display user info
             document.getElementById('userName').textContent = `${userData.firstName} ${userData.lastName}`;
             document.getElementById('userEmail').textContent = userData.email;
+            document.getElementById('desktopUserName').textContent = `${userData.firstName} ${userData.lastName}`;
+            document.getElementById('desktopUserEmail').textContent = userData.email;
+            document.getElementById('mobileUserName').textContent = userData.firstName;
             document.getElementById('greetingName').textContent = userData.firstName;
             document.getElementById('memberSince').textContent = userData.joinedDate || 'Recently';
 
             // Generate avatar from initials
             const initials = (userData.firstName.charAt(0) + userData.lastName.charAt(0)).toUpperCase();
             document.getElementById('userAvatar').textContent = initials;
+            document.getElementById('desktopUserAvatar').textContent = initials;
+            document.getElementById('mobileUserAvatar').textContent = initials;
 
             // Load user data
             loadUserStats();
@@ -964,7 +1006,6 @@
                             </div>
                         </td>
                         <td class="fw-bold">₹${order.price}</td>
-                        <td class="text-muted">${order.date}</td>
                         <td>
                             <span class="order-status status-${order.status.toLowerCase()}">
                                 ${order.status}
@@ -1116,9 +1157,25 @@
             alert('Referral code copied to clipboard!');
         }
 
-        // Sidebar Toggle Functionality
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            const sidebar = document.querySelector('.sidebar');
+        // Mobile Sidebar Toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.mobile-sidebar').classList.add('open');
+            document.querySelector('.sidebar-overlay').classList.add('active');
+        });
+
+        document.querySelector('.close-sidebar').addEventListener('click', function() {
+            document.querySelector('.mobile-sidebar').classList.remove('open');
+            document.querySelector('.sidebar-overlay').classList.remove('active');
+        });
+
+        document.querySelector('.sidebar-overlay').addEventListener('click', function() {
+            document.querySelector('.mobile-sidebar').classList.remove('open');
+            this.classList.remove('active');
+        });
+
+        // Desktop Sidebar Toggle
+        document.querySelector('.desktop-sidebar .sidebar-toggle').addEventListener('click', function() {
+            const sidebar = document.querySelector('.desktop-sidebar');
             const mainContent = document.querySelector('.main-content');
             const toggleIcon = this.querySelector('i');
             
@@ -1134,14 +1191,17 @@
             }
         });
 
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('mobile-open');
-        });
-
         // Logout Function
         document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('🚪 Are you sure you want to logout?')) {
+                localStorage.removeItem('rajveerUser');
+                alert('You have been logged out successfully!');
+                window.location.href = 'login.html';
+            }
+        });
+
+        document.getElementById('desktopLogoutBtn').addEventListener('click', function(e) {
             e.preventDefault();
             if (confirm('🚪 Are you sure you want to logout?')) {
                 localStorage.removeItem('rajveerUser');
