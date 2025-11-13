@@ -163,22 +163,6 @@
             font-size: 1.2rem;
         }
         
-        .notification-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-        
         .close-sidebar {
             position: absolute;
             top: 20px;
@@ -504,20 +488,12 @@
             display: block;
         }
         
-        /* Enhanced Menu Items */
-        .menu-category {
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 10px;
-        }
-        
-        .menu-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 10px 20px;
+        /* Menu Icons */
+        .menu-icon {
+            width: 24px;
+            margin-right: 15px;
+            text-align: center;
+            font-size: 1.2rem;
         }
     </style>
 </head>
@@ -526,10 +502,10 @@
     <div class="mobile-header">
         <div class="user-info">
             <div class="user-avatar" id="mobileUserAvatar">
-                <!-- Avatar will be generated from initials -->
+                VG
             </div>
             <div>
-                <h6 class="mb-0" id="mobileUserName">User</h6>
+                <h6 class="mb-0" id="mobileUserName">Vivaan</h6>
                 <small class="opacity-75">Premium Member</small>
             </div>
         </div>
@@ -546,69 +522,53 @@
         
         <div class="sidebar-header">
             <div class="user-avatar mx-auto mb-3" id="userAvatar">
-                <!-- Avatar will be generated from initials -->
+                VG
             </div>
-            <h5 class="fw-bold" id="userName">Loading...</h5>
-            <p class="text-white-50 small mb-2" id="userEmail">Loading...</p>
+            <h5 class="fw-bold" id="userName">Vivaan Gupta</h5>
+            <p class="text-white-50 small mb-2" id="userEmail">vivaan@example.com</p>
             <span class="badge bg-success bg-opacity-25 text-success">Premium Member</span>
-            
-            <div class="mt-3">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                    <small class="text-white-50">Profile Completion</small>
-                    <small class="text-white-50">75%</small>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar" style="width: 75%"></div>
-                </div>
-            </div>
         </div>
 
         <nav class="nav flex-column py-3">
-            <div class="menu-category">Main</div>
             <a class="nav-link active" href="#">
-                <i class="fas fa-tachometer-alt"></i>
+                <span class="menu-icon">📌</span>
                 <span>Dashboard</span>
             </a>
             <a class="nav-link" href="product.html">
-                <i class="fas fa-shopping-bag"></i>
+                <span class="menu-icon">📍</span>
                 <span>Shop Products</span>
-                <span class="notification-badge">3</span>
             </a>
-            
-            <div class="menu-category">Account</div>
             <a class="nav-link" href="#orders">
-                <i class="fas fa-history"></i>
+                <span class="menu-icon">👉</span>
                 <span>Order History</span>
             </a>
             <a class="nav-link" href="#profile">
-                <i class="fas fa-user"></i>
+                <span class="menu-icon">📋</span>
                 <span>My Profile</span>
             </a>
             <a class="nav-link" href="#wishlist">
-                <i class="fas fa-heart"></i>
+                <span class="menu-icon">💡</span>
                 <span>Wishlist</span>
             </a>
             <a class="nav-link" href="#downloads">
-                <i class="fas fa-download"></i>
+                <span class="menu-icon">📌</span>
                 <span>My Downloads</span>
             </a>
-            
-            <div class="menu-category">Support</div>
             <a class="nav-link" href="#help">
-                <i class="fas fa-question-circle"></i>
+                <span class="menu-icon">👉</span>
                 <span>Help Center</span>
             </a>
             <a class="nav-link" href="#contact">
-                <i class="fas fa-headset"></i>
+                <span class="menu-icon">📍</span>
                 <span>Contact Us</span>
             </a>
             
-            <div class="menu-divider"></div>
-            
-            <a class="nav-link text-warning" href="#" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </a>
+            <div class="mt-4 pt-3 border-top border-white border-opacity-25">
+                <a class="nav-link text-warning" href="#" id="logoutBtn">
+                    <span class="menu-icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
         </nav>
     </div>
 
@@ -620,69 +580,53 @@
         
         <div class="sidebar-header">
             <div class="user-avatar mx-auto mb-3" id="desktopUserAvatar">
-                <!-- Avatar will be generated from initials -->
+                VG
             </div>
-            <h5 class="fw-bold sidebar-text" id="desktopUserName">Loading...</h5>
-            <p class="text-white-50 small mb-2 sidebar-text" id="desktopUserEmail">Loading...</p>
+            <h5 class="fw-bold sidebar-text" id="desktopUserName">Vivaan Gupta</h5>
+            <p class="text-white-50 small mb-2 sidebar-text" id="desktopUserEmail">vivaan@example.com</p>
             <span class="badge bg-success bg-opacity-25 text-success sidebar-text">Premium Member</span>
-            
-            <div class="mt-3 sidebar-text">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                    <small class="text-white-50">Profile Completion</small>
-                    <small class="text-white-50">75%</small>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar" style="width: 75%"></div>
-                </div>
-            </div>
         </div>
 
         <nav class="nav flex-column py-3">
-            <div class="menu-category sidebar-text">Main</div>
             <a class="nav-link active" href="#">
-                <i class="fas fa-tachometer-alt"></i>
+                <span class="menu-icon">📌</span>
                 <span class="sidebar-text">Dashboard</span>
             </a>
             <a class="nav-link" href="product.html">
-                <i class="fas fa-shopping-bag"></i>
+                <span class="menu-icon">📍</span>
                 <span class="sidebar-text">Shop Products</span>
-                <span class="notification-badge">3</span>
             </a>
-            
-            <div class="menu-category sidebar-text">Account</div>
             <a class="nav-link" href="#orders">
-                <i class="fas fa-history"></i>
+                <span class="menu-icon">👉</span>
                 <span class="sidebar-text">Order History</span>
             </a>
             <a class="nav-link" href="#profile">
-                <i class="fas fa-user"></i>
+                <span class="menu-icon">📋</span>
                 <span class="sidebar-text">My Profile</span>
             </a>
             <a class="nav-link" href="#wishlist">
-                <i class="fas fa-heart"></i>
+                <span class="menu-icon">💡</span>
                 <span class="sidebar-text">Wishlist</span>
             </a>
             <a class="nav-link" href="#downloads">
-                <i class="fas fa-download"></i>
+                <span class="menu-icon">📌</span>
                 <span class="sidebar-text">My Downloads</span>
             </a>
-            
-            <div class="menu-category sidebar-text">Support</div>
             <a class="nav-link" href="#help">
-                <i class="fas fa-question-circle"></i>
+                <span class="menu-icon">👉</span>
                 <span class="sidebar-text">Help Center</span>
             </a>
             <a class="nav-link" href="#contact">
-                <i class="fas fa-headset"></i>
+                <span class="menu-icon">📍</span>
                 <span class="sidebar-text">Contact Us</span>
             </a>
             
-            <div class="menu-divider"></div>
-            
-            <a class="nav-link text-warning" href="#" id="desktopLogoutBtn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="sidebar-text">Logout</span>
-            </a>
+            <div class="mt-4 pt-3 border-top border-white border-opacity-25">
+                <a class="nav-link text-warning" href="#" id="desktopLogoutBtn">
+                    <span class="menu-icon">🚪</span>
+                    <span class="sidebar-text">Logout</span>
+                </a>
+            </div>
         </nav>
     </div>
 
@@ -694,7 +638,7 @@
         <!-- Dashboard Header -->
         <div class="d-flex justify-content-between align-items-center mb-4 dashboard-header">
             <div>
-                <h3 class="fw-bold text-primary">Welcome Back, <span id="greetingName">User</span>! 👋</h3>
+                <h3 class="fw-bold text-primary">Welcome Back, <span id="greetingName">Vivaan</span>! 👋</h3>
                 <p class="text-muted">Here's your account overview and recent activity</p>
             </div>
             <div class="d-flex gap-2">
@@ -717,10 +661,10 @@
                                 <div class="text-primary text-uppercase fw-bold small mb-2">
                                     Total Orders
                                 </div>
-                                <div class="h4 fw-bold text-gray-800" id="totalOrders">0</div>
+                                <div class="h4 fw-bold text-gray-800" id="totalOrders">12</div>
                                 <div class="small text-success">
                                     <i class="fas fa-arrow-up me-1"></i>
-                                    <span id="orderGrowth">0%</span> growth
+                                    <span id="orderGrowth">15%</span> growth
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -739,7 +683,7 @@
                                 <div class="text-success text-uppercase fw-bold small mb-2">
                                     Total Spent
                                 </div>
-                                <div class="h4 fw-bold text-gray-800" id="totalSpent">₹0</div>
+                                <div class="h4 fw-bold text-gray-800" id="totalSpent">₹8,450</div>
                                 <div class="small text-muted">All time purchases</div>
                             </div>
                             <div class="col-auto">
@@ -758,7 +702,7 @@
                                 <div class="text-warning text-uppercase fw-bold small mb-2">
                                     Active Products
                                 </div>
-                                <div class="h4 fw-bold text-gray-800" id="activeProducts">0</div>
+                                <div class="h4 fw-bold text-gray-800" id="activeProducts">7</div>
                                 <div class="small text-muted">Currently using</div>
                             </div>
                             <div class="col-auto">
@@ -777,7 +721,7 @@
                                 <div class="text-info text-uppercase fw-bold small mb-2">
                                     Member Since
                                 </div>
-                                <div class="h6 fw-bold text-gray-800" id="memberSince">-</div>
+                                <div class="h6 fw-bold text-gray-800" id="memberSince">Jan 2023</div>
                                 <div class="small text-muted">Loyal customer</div>
                             </div>
                             <div class="col-auto">
@@ -813,17 +757,80 @@
                                     </tr>
                                 </thead>
                                 <tbody id="ordersTableBody">
-                                    <!-- Orders will be loaded here -->
+                                    <tr>
+                                        <td class="fw-bold">#ORD-7845</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-tv text-primary me-2"></i>
+                                                <span>Netflix Premium</span>
+                                            </div>
+                                        </td>
+                                        <td class="fw-bold">₹299</td>
+                                        <td>
+                                            <span class="order-status status-completed">
+                                                Completed
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-outline-primary" onclick="viewOrderDetails('ORD-7845')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-success" onclick="downloadProduct('ORD-7845')">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">#ORD-7821</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-gamepad text-primary me-2"></i>
+                                                <span>GTA V Premium</span>
+                                            </div>
+                                        </td>
+                                        <td class="fw-bold">₹599</td>
+                                        <td>
+                                            <span class="order-status status-processing">
+                                                Processing
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-outline-primary" onclick="viewOrderDetails('ORD-7821')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">#ORD-7798</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-film text-primary me-2"></i>
+                                                <span>Disney+ Annual</span>
+                                            </div>
+                                        </td>
+                                        <td class="fw-bold">₹899</td>
+                                        <td>
+                                            <span class="order-status status-completed">
+                                                Completed
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-outline-primary" onclick="viewOrderDetails('ORD-7798')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-success" onclick="downloadProduct('ORD-7798')">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="text-center py-5" id="noOrdersMessage" style="display: none;">
-                            <i class="fas fa-shopping-bag fa-4x text-muted mb-3"></i>
-                            <h4 class="text-muted">No Orders Yet</h4>
-                            <p class="text-muted mb-4">Start your shopping journey with us</p>
-                            <a href="product.html" class="btn btn-primary btn-lg">
-                                <i class="fas fa-shopping-bag me-2"></i>Browse Products
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -889,7 +896,30 @@
                     </div>
                     <div class="card-body recent-activity">
                         <div id="activityList">
-                            <!-- Activity items will be loaded here -->
+                            <div class="activity-item">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-shopping-cart text-success me-2"></i>
+                                    <strong>Order Placed</strong>
+                                </div>
+                                <p class="mb-1 small">You ordered Netflix Premium</p>
+                                <small class="text-muted">2 hours ago</small>
+                            </div>
+                            <div class="activity-item">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-download text-primary me-2"></i>
+                                    <strong>Product Downloaded</strong>
+                                </div>
+                                <p class="mb-1 small">You downloaded Disney+ Annual</p>
+                                <small class="text-muted">1 day ago</small>
+                            </div>
+                            <div class="activity-item">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-user-check text-warning me-2"></i>
+                                    <strong>Profile Updated</strong>
+                                </div>
+                                <p class="mb-1 small">You updated your contact information</p>
+                                <small class="text-muted">3 days ago</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -901,189 +931,9 @@
     <script>
         // User Dashboard Functions
         
-        // Load User Data
-        function loadUserData() {
-            const userData = JSON.parse(localStorage.getItem('rajveerUser') || '{}');
-            
-            if (!userData.firstName) {
-                alert('Please login first!');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Display user info
-            document.getElementById('userName').textContent = `${userData.firstName} ${userData.lastName}`;
-            document.getElementById('userEmail').textContent = userData.email;
-            document.getElementById('desktopUserName').textContent = `${userData.firstName} ${userData.lastName}`;
-            document.getElementById('desktopUserEmail').textContent = userData.email;
-            document.getElementById('mobileUserName').textContent = userData.firstName;
-            document.getElementById('greetingName').textContent = userData.firstName;
-            document.getElementById('memberSince').textContent = userData.joinedDate || 'Recently';
-
-            // Generate avatar from initials
-            const initials = (userData.firstName.charAt(0) + userData.lastName.charAt(0)).toUpperCase();
-            document.getElementById('userAvatar').textContent = initials;
-            document.getElementById('desktopUserAvatar').textContent = initials;
-            document.getElementById('mobileUserAvatar').textContent = initials;
-
-            // Load user data
-            loadUserStats();
-        }
-
-        // Load User Stats and Orders
-        function loadUserStats() {
-            const allOrders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
-            const currentUser = JSON.parse(localStorage.getItem('rajveerUser') || '{}');
-            const ordersTableBody = document.getElementById('ordersTableBody');
-            const noOrdersMessage = document.getElementById('noOrdersMessage');
-
-            // Filter orders for current user
-            const userOrders = allOrders.filter(order => order.userEmail === currentUser.email);
-            
-            // Calculate stats
-            const totalOrders = userOrders.length;
-            const totalSpent = userOrders.reduce((sum, order) => sum + parseInt(order.price || 0), 0);
-            const activeProducts = userOrders.filter(order => order.status === 'Completed').length;
-
-            // Update stats
-            document.getElementById('totalOrders').textContent = totalOrders;
-            document.getElementById('totalSpent').textContent = `₹${totalSpent}`;
-            document.getElementById('activeProducts').textContent = activeProducts;
-            document.getElementById('orderGrowth').textContent = totalOrders > 0 ? '12.5%' : '0%';
-
-            // Display orders
-            if (userOrders.length === 0) {
-                ordersTableBody.style.display = 'none';
-                noOrdersMessage.style.display = 'block';
-            } else {
-                ordersTableBody.innerHTML = '';
-                userOrders.slice().reverse().forEach(order => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td class="fw-bold">#${order.id}</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-${getProductIcon(order.product)} text-primary me-2"></i>
-                                <span>${order.product}</span>
-                            </div>
-                        </td>
-                        <td class="fw-bold">₹${order.price}</td>
-                        <td>
-                            <span class="order-status status-${order.status.toLowerCase()}">
-                                ${order.status}
-                            </span>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-primary" onclick="viewOrderDetails('${order.id}')">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                ${order.status === 'Completed' ? `
-                                <button class="btn btn-sm btn-outline-success" onclick="downloadProduct('${order.id}')">
-                                    <i class="fas fa-download"></i>
-                                </button>
-                                ` : ''}
-                            </div>
-                        </td>
-                    `;
-                    ordersTableBody.appendChild(row);
-                });
-            }
-
-            // Load activity
-            loadRecentActivity(userOrders);
-        }
-
-        // Get Product Icon
-        function getProductIcon(productName) {
-            if (!productName) return 'box';
-            
-            const icons = {
-                'netflix': 'tv',
-                'Netflix': 'tv',
-                'amazon': 'amazon',
-                'Amazon': 'amazon',
-                'windows': 'microsoft',
-                'Windows': 'microsoft',
-                'gta': 'gamepad',
-                'GTA': 'gamepad',
-                'office': 'microsoft',
-                'disney': 'film',
-                'Disney': 'film',
-                'hotstar': 'film'
-            };
-            
-            for (const [key, icon] of Object.entries(icons)) {
-                if (productName.toLowerCase().includes(key)) return icon;
-            }
-            return 'box';
-        }
-
-        // Load Recent Activity
-        function loadRecentActivity(userOrders) {
-            const activityList = document.getElementById('activityList');
-            const currentUser = JSON.parse(localStorage.getItem('rajveerUser') || '{}');
-            
-            let activities = [];
-            
-            // Add order activities
-            userOrders.slice(0, 3).forEach(order => {
-                activities.push({
-                    icon: 'shopping-cart',
-                    color: 'success',
-                    title: 'Order Placed',
-                    description: `You ordered ${order.product}`,
-                    time: order.date
-                });
-            });
-            
-            // Add default activities if no orders
-            if (activities.length === 0) {
-                activities = [
-                    {
-                        icon: 'user-check',
-                        color: 'primary',
-                        title: 'Profile Updated',
-                        description: 'You updated your contact information',
-                        time: '1 day ago'
-                    },
-                    {
-                        icon: 'gift',
-                        color: 'warning',
-                        title: 'Special Offer',
-                        description: 'New deals available for you',
-                        time: '2 days ago'
-                    },
-                    {
-                        icon: 'shield-alt',
-                        color: 'success',
-                        title: 'Account Created',
-                        description: 'Welcome to Rajveer Shop!',
-                        time: currentUser.joinedDate || 'Recently'
-                    }
-                ];
-            }
-
-            activityList.innerHTML = activities.map(activity => `
-                <div class="activity-item">
-                    <div class="d-flex align-items-center mb-2">
-                        <i class="fas fa-${activity.icon} text-${activity.color} me-2"></i>
-                        <strong>${activity.title}</strong>
-                    </div>
-                    <p class="mb-1 small">${activity.description}</p>
-                    <small class="text-muted">${activity.time}</small>
-                </div>
-            `).join('');
-        }
-
         // View Order Details
         function viewOrderDetails(orderId) {
-            const allOrders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]');
-            const order = allOrders.find(o => o.id === orderId);
-            
-            if (order) {
-                alert(`📦 Order Details\n\nOrder ID: ${order.id}\nProduct: ${order.product}\nPrice: ₹${order.price}\nStatus: ${order.status}\nDate: ${order.date}\n\nContact support for any issues.`);
-            }
+            alert(`📦 Order Details\n\nOrder ID: ${orderId}\nProduct: Netflix Premium\nPrice: ₹299\nStatus: Completed\nDate: 15 Nov 2023\n\nContact support for any issues.`);
         }
 
         // Download Product
@@ -1093,14 +943,7 @@
 
         // Quick Action Functions
         function showDownloads() {
-            const userOrders = JSON.parse(localStorage.getItem('rajveerOrders') || '[]')
-                .filter(order => order.status === 'Completed');
-                
-            if (userOrders.length === 0) {
-                alert('📥 No downloads available\n\nComplete your first purchase to get downloads.');
-            } else {
-                alert('📥 Your Downloads\n\nAll your purchased products are available for download.');
-            }
+            alert('📥 Your Downloads\n\nAll your purchased products are available for download from the My Downloads section.');
         }
 
         function viewProfile() {
@@ -1149,7 +992,6 @@
         document.getElementById('logoutBtn').addEventListener('click', function(e) {
             e.preventDefault();
             if (confirm('🚪 Are you sure you want to logout?')) {
-                localStorage.removeItem('rajveerUser');
                 alert('You have been logged out successfully!');
                 window.location.href = 'login.html';
             }
@@ -1158,7 +1000,6 @@
         document.getElementById('desktopLogoutBtn').addEventListener('click', function(e) {
             e.preventDefault();
             if (confirm('🚪 Are you sure you want to logout?')) {
-                localStorage.removeItem('rajveerUser');
                 alert('You have been logged out successfully!');
                 window.location.href = 'login.html';
             }
@@ -1166,8 +1007,6 @@
 
         // Initialize Dashboard
         document.addEventListener('DOMContentLoaded', function() {
-            loadUserData();
-            
             // Add animation to cards on scroll
             const cards = document.querySelectorAll('.dashboard-card');
             const observer = new IntersectionObserver((entries) => {
